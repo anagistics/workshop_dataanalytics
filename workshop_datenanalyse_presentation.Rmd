@@ -17,6 +17,9 @@ class: inverse, center, middle
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+
+library(emo)
+library(kableExtra)
 ```
 
 # Datenanalyse in Versicherungsunternehmen?
@@ -155,6 +158,7 @@ class: inverse, center, middle
 ---
 # Schritt: Datenquellen lesen
 
+* Datenformat (Trennzeichen, Quoting...)
 * Encoding 
 * Grösse
 	
@@ -179,6 +183,10 @@ class: inverse, center, middle
 * Boxplots, violin plots
 * Histogramme
 * Scatterplots, Korrelation
+
+---
+ 
+
 
 ---
 # Visualisierung: Histogramm
@@ -210,11 +218,63 @@ class: inverse, center, middle
 * Visualisierung
 
 
+---
+# Modellierung (1)
+
+`r emo::ji("question")` Was ist ein *Modell*?
+> Ein Modell ist ein vereinfachtes Abbild der Wirklichkeit. ([Wikipedia](https://de.wikipedia.org/wiki/Modell))
+
+`r emo::ji("star")` Mit einem Modell versucht man in kompakter Form die Aussage der Daten in anwendbarer Form bereitzustellen.   
+
+* Abstraktion der Realität zu einem bestimmten Zweck. In der Datenanalyse zumeist um Sachverhalte
+    * zu verstehen (*deskriptive* Modelle) oder
+    * vorherzusagen (*prädiktive* Modelle)
+
+> All models are wrong [, some are useful] ([George Box, 1976](https://en.wikipedia.org/wiki/All_models_are_wrong))
+
+---
+# Modellerierung (2)
+
+Typische Modelle:
+* **Prognose**: Vorhersage zukünftiger Werte von Zeitreihen
+* **Segmentierung**: Einteilung von Beobachtungen in Gruppen (*Segmente*), bspw. 
+von Kunden in Zielgruppen für Marketingkampagnen
+* **Regression**:  
+
+---
+# Beispiel: Daten laden 
+
+[*Telco custumer churn data set* von IBM](https://developer.ibm.com/patterns/data-analysis-model-building-and-deploying-with-wml/)
+
+Der folgende Code lädt die Daten von der Webseite:
+
+```{r load_telco_data, message=FALSE}
+library(tidyverse)
 
 
+url <- "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
+
+telco_data <- read_csv(url)
+```
+
+Liste der Spalten:
+```{r}
+names(telco_data) %>% kable(., format = "html")
+```
 
 
+---
+# Beispiel: Übersicht über die Daten
 
+Zufällige Auswahl der ersten 5 Spalten von 10 Datensätzen.
+
+```{r show_telco_data}
+telco_data %>% select(one_of(names(.)[1:5])) %>% sample_n(10) %>% 
+  kable(., format = "html")
+```
+
+
+---
 background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
 
 ???
