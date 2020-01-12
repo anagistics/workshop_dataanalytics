@@ -233,13 +233,13 @@ class: inverse, center, middle
 > All models are wrong [, some are useful] ([George Box, 1976](https://en.wikipedia.org/wiki/All_models_are_wrong))
 
 ---
-# Modellerierung (2)
+# Modellierung (2)
 
 Typische Modelle:
 * **Prognose**: Vorhersage zukünftiger Werte von Zeitreihen
 * **Segmentierung**: Einteilung von Beobachtungen in Gruppen (*Segmente*), bspw. 
 von Kunden in Zielgruppen für Marketingkampagnen
-* **Regression**:  
+* **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse 
 
 ---
 # Beispiel: Daten laden 
