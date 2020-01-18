@@ -2,7 +2,8 @@
 title: "Workshop Datenanalyse"
 subtitle: "mit einem Schwerpunkt auf Versicherungsunternehmen"
 author: "Dr.-Ing. Andreas Cardeneo"
-institute: "Allianz Lebensversicherungs-AG"
+institute: "Data Scientist bei Allianz Lebensversicherungs-AG"
+email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
 date: "2020-01-13 (Version vom: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
@@ -20,6 +21,7 @@ options(htmltools.dir.version = FALSE)
 
 library(emo)
 library(kableExtra)
+library(ggalluvial)
 ```
 
 # Datenanalyse in Versicherungsunternehmen?
@@ -129,60 +131,195 @@ Versicherungen sind oftmals sehr langlebige Produkte:
   &rarr; Datenstrukturen (bspw. Tabellenschemata) verändern sich über die Zeit wg. wandelnder Anforderungen.
 
 
-
-
-
-
-
 ---
-class: inverse, center, middle
+# Datenanalyse per Code 
 
-# R Einführung 
+* In vielen Unternehmen wird für die Datenanalyse GUI-basierte Software wie bspw. *PowerBI*, *Tableau*, *Microstrategy*,...<sup>1</sup> verwendet.
+* Wird die Datenanalyse per *Code* ausgeführt, also programmmiert, gibt es folgende Vorteile:
+    * die *Reproduzierbarkeit* der Ergebnisse ist besser
+    * erleichterte *Kollaboration* mittels Versionsverwaltung 
+    * weit größere Möglichkeiten der Datentransformation durch *Programmierbarkeit*
+    * [Artikel zu Data Science und Programmierung](https://blog.dominodatalab.com/data-scientist-programmer-mutually-exclusive/)
 
-  
+
+`r emo::ji("backhand index pointing right")` [Crashkurs *Programmieren in R*](https://datentaeter.de/crashkurs-programmieren-in-r-fuer-journalismus-rstudio-coden-datenjournalismus-installation-tutorial/) 
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse in R  1](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag1.pdf)
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse in R  2](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag2.pdf)
+
 
     
+.footnote[
+[1] Einige dieser Anwendungen sind auch in gewissem Umfang programmierbar.
+]
 
+---
+# Nützliche Kenntnisse für die Datenanalyse per Code
 
-
+* SQL
+* XMLPath
+* reguläre Ausdrücke
+* Web Scraping
+* Visualisierung
 
 
 ---
-* Fingerprints
-* Versionsring
-* Code statt Clicks
-* Upload-Timestamp
-* technischer Schlüssel
+# Datenschutz
+	
+* *Datenschutzgrundverordnung* (DGSVO) seit 25. Mai 2018 wirksam
+* Schutz personenbezogener Daten in der Europäischen Union
+
+`r emo::ji("question")` Was sind *personenbezogene Daten*?
+
+Nach [Art. 4 (1) der DSGVO](https://dejure.org/gesetze/DSGVO/4.html)
+> personenbezogene Daten [sind] alle Informationen, die sich auf eine identifizierte oder identifizierbare 
+> natürliche Person (im Folgenden "betroffene Person") beziehen; als identifizierbar wird eine natürliche
+> Person angesehen, die direkt oder indirekt, insbesondere mittels Zuordnung zu einer Kennung wie einem
+> Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung oder zu einem oder mehreren
+> besonderen Merkmalen, die Ausdruck der physischen, physiologischen, genetischen, psychischen, 
+> wirtschaftlichen, kulturellen oder sozialen Identität dieser natürlichen Person sind, identifiziert werden
+> kann.
+
+---
+# Umgang mit personenbezogenen Daten
+
+`r emo::ji("question")` Enthalten die Datenquellen personenbezogene Daten?
+
+`r emo::ji("question")` Werden für die Datenanalyse wirklich personenbezogene Daten (*pbDaten*) benötigt?
+
+* Daten können *anonymisiert* oder *pseudonymisiert* werden:
+    * **Anonymisierung**: pbDaten werden unumkehrbar verändert, eine Zuordnung von Merkmalsausprägungen zu Personen ist nicht mehr herstellbar
+    * **Pseudonymisierung**: Erklärung nach [Art. 4 DSGVO](https://dsgvo-gesetz.de/art-4-dsgvo/):
+    > die Verarbeitung personenbezogener Daten in einer Weise, dass die personenbezogenen Daten ohne Hinzuziehung zusätzlicher Informationen nicht mehr einer spezifischen betroffenen Person zugeordnet werden können, sofern diese zusätzlichen Informationen gesondert aufbewahrt werden und technischen und organisatorischen Maßnahmen unterliegen, die gewährleisten, dass die personenbezogenen Daten nicht einer identifizierten oder identifizierbaren natürlichen Person zugewiesen werden;
+
+---
+# Typische Transformationen personenbezogener Daten
+
+* Entfernen von Namen (für Analysezwecke werden diese typischerweise nicht benötigt)
+* Geburtsdatum durch Alter ersetzen
+* Telefonnummern verkürzen (Vorwahl ausreichend?)
+* IBAN: Auf Bankleitzahl verkürzen
+* IP-Adresse: Ohnehin nicht aussagekräftig -- Geolokation stattdessen?
+* Adresse verkürzen, bspw. auf Postleitzahl
+* Analysen mit regionalem Bezug nicht auf kleine Regionen anwenden
+ 
+---
+# Qualitätssicherung in der Datenanalyse (1)
+
+* Versionierung
+
+---
+# Qualitätssicherung in der Datenanalyse (2)
+
 * data lineage
+
+---
+# Qualitätssicherung in der Datenanalyse (3)
+
+* Upload-Timestamp
+* Fingerprints
+
+
+---
+# Qualitätssicherung in der Datenanalyse (4)
+
+* technischer Schlüssel
+
 
 ---
 # Schritt: Datenquellen lesen
 
 * Datenformat (Trennzeichen, Quoting...)
 * Encoding 
-* Grösse
-	
----
-# Datenschutz
-	
-* pb Daten 
+
 
 ---
-# Daten verstehen 
+# Umgang mit sehr großen Datenmengen
 
+* Datenumfang manchmal größer als verfügbare Rechneressourcen (Speicher)
+* Einlesen von Teilmengen
+    * Deterministisches Einlesen 
+    * Zufälliges Einlesen
+```{r}
+# Beispiel in R
+```
+    * 
+* Verteilte Verarbeitung
+    * Erfordert geeignete technische Infrastruktur
+        * Cluster von Rechnern
+        * Software für die verteilte Speicherung und Verarbeitung
+            * Hadoop (HDFS Dateisystem)
+            * Spark, Pig, ...
+
+
+---
+# Schritt: Daten verstehen 
+
+* Variablen und Beobachtungen
 * Validieren
 * Datentypen
 * Plotten 
-* QS: Ausreißer
 * QS: Magic Numbers
-* QS: Fehlende Werte
+
+---
+# Die allgemeine Struktur von Daten
+
+In den Daten einer Datenanalyse können wir immer wieder die gleiche Struktur erkennen:
+
+* Die Daten bestehen aus einer Menge von gleichartigen *Datensätzen*, auch *Instanzen* oder *Objekte* genannt,
+* wobei die einzelnen Datensätze durch bestimmte *Eigenschaften* oder *Merkmale* oder *Variablen* beschrieben werden 
+* und diese Merkmale pro Instanz bestimmte *Ausprägungen* haben, die auch *Beobachtungen* genannt werden<sup>1</sup>.
+
+`r emo::ji("backhand index pointing right")` Unternehmensdaten können meistens in Tabellenform extrahiert werden. Die Zeilen entsprechen dann meistens den Instanzen und die Spalten(namen) den Variablen. Die Werte in den Tabellenzellen entsprechen den Beobachtungen. 
+
+.footnote[
+[1] Manchmal wird auch die Gesamtheit der Ausprägungen zu einer Instanz Beobachtung genannt. Man spricht dann auch von einem *Datenpunkt* in einem (mehrdimensionalem) Raum.
+]
+
+
+---
+# Typen von Variablen
+
+* Man unterscheidet zwischen verschiedenen Typen von Variablen
+  * *kategoriell*
+  * *quantitativ*
+    * Skalenniveau
+    * 
+
+
+
+---
+# Unstrukturierte Daten
+
+Unter *unstrukturierte Daten* versteht man oft Texte, Bilder, Videos oder Audiodaten. 
+  * In technischer Hinsicht sind die Daten strukturiert, weil sie in einem definierten Format vorliegen.
+  * Für die Analyse ist man aber eher *Inhalt* der Daten interessiert. 
+  * 
+
+---
+# Ausreißeranalyse
+
+
+
+---
+# Fehlende Werte
+
+
+
+---
+# Besondere Werte
+
 
 ---
 # Datenanalyse
 
 * Boxplots, violin plots
 * Histogramme
-* Scatterplots, Korrelation
+* Scatterplots, 
+* Korrelation
+* Tests auf statistische Unabhängigkeit
+* 
 
 ---
  
@@ -202,21 +339,22 @@ class: inverse, center, middle
 ---
 # Visualisierung: Alluvial-Diagramme
 
-* ähnlich zu *Parallelkoordinaten* für kategorielle Variablen
-* `R`-Pakete: `alluvial` oder 
-* [Beispiel anhand des *Titanic*-Datensatzes}(https://cran.r-project.org/web/packages/alluvial/vignettes/alluvial.html)
+* ähnlich zu *Parallelkoordinaten* aber für kategorielle Variablen
+* `R`-Paket: `ggalluvial`
 
-![Titanic Alluvial](./img/titanic_alluvial.png)
+```{r echo = FALSE}
+ggplot(as.data.frame(Titanic),
+       aes(y = Freq,
+           axis1 = Sex, axis2 = Class, axis3 = Survived)) +
+  geom_alluvium(aes(fill = Class),
+                width = 0, knot.pos = 0, reverse = FALSE) +
+  guides(fill = FALSE) +
+  geom_stratum(width = 1/8, reverse = FALSE) +
+  geom_text(stat = "stratum", infer.label = TRUE, reverse = FALSE) +
+  scale_x_continuous(breaks = 1:3, labels = c("Sex", "Class", "Survived")) +
+  ggtitle("Titanic survival by class and sex")
 
----
-# Kenntnisse
-
-* SQL
-* XMLPath
-* reguläre Ausdrücke
-* Web Scraping
-* Visualisierung
-
+```
 
 ---
 # Modellierung (1)
