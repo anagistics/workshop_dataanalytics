@@ -206,24 +206,57 @@ Nach [Art. 4 (1) der DSGVO](https://dejure.org/gesetze/DSGVO/4.html)
 * Analysen mit regionalem Bezug nicht auf kleine Regionen anwenden
  
 ---
-# Qualitätssicherung in der Datenanalyse (1)
-
-* Versionierung
 
 ---
-# Qualitätssicherung in der Datenanalyse (2)
+# Reproduzierbarkeit der Datenanalyse - Versionierung (1)
+
+Das hier passiert sehr oft in Unternehmen<sup>1</sup>:
+
+.center[![:scale 40%](./img/phd_comics_vc.gif)]
+
+.footnote[
+[1] Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)
+]
+
+---
+# Reproduzierbarkeit der Datenanalyse - Versionierung (2)
+
+Versionsverwaltungssysteme<sup>1</sup> helfen bei der sicheren Verwaltung von Änderungen: * Nachverfolgen der Änderungen (was und durch wen) und 
+* Verhinderung bzw. Behebung von Konflikten bei Zusammenführungen
+
+.center[![:scale 60%](./img/lego-steps-commit-messages.png)]
+
+.footnote[
+[1] Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)
+]
+
+---
+# Reproduzierbarkeit der Datenanalyse - Versionierung (3)
+
+Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein vereinfachter Arbeitsfluss mit *git* sieht so aus<sup>1</sup>:
+
+.center[![:scale 35%](./img/main-branches.png)]
+
+.footnote[
+[1] Bildquelle: [Git Workflow blog post](https://nvie.com/posts/a-successful-git-branching-model/)
+]
+
+
+
+---
+# Reproduzierbarkeit der Datenanalyse (2)
 
 * data lineage
 
 ---
-# Qualitätssicherung in der Datenanalyse (3)
+# Reproduzierbarkeit der Datenanalyse (3)
 
 * Upload-Timestamp
 * Fingerprints
 
 
 ---
-# Qualitätssicherung in der Datenanalyse (4)
+# Reproduzierbarkeit der Datenanalyse (4)
 
 * technischer Schlüssel
 
@@ -304,6 +337,7 @@ Man unterscheidet zwischen verschiedenen Typen von Variablen:
 
 ---
 # Unstrukturierte Daten
+# 
 
 Unter *unstrukturierte Daten* versteht man oft Texte, Bilder, Videos oder Audiodaten. 
   * In technischer Hinsicht sind die Daten strukturiert, weil sie in einem definierten Format vorliegen.
@@ -317,17 +351,41 @@ Unter *unstrukturierte Daten* versteht man oft Texte, Bilder, Videos oder Audiod
 ]
 
 ---
-# Ausreißeranalyse
+# Qualitätssicherung: Ausreißeranalyse
 
 
 
 ---
-# Fehlende Werte
+# Qualitätssicherung:  Fehlende Werte
+
+Sehr häufig sind Felder in Tabellen nicht befüllt. 
+
+`r emo::ji("question")` Wie sollen diese fehlenden Werte in der Datenanalyse behandelt werden?
+
+* Handelt es sich dabei um einen Fehler? 
+    * Ist der Fehler beim Einlesen passiert oder ist er in den Ausgangsdaten zu finden?
+* Haben fehlende Werte eine Bedeutung?
+    * Sehr oft bedeutet ein fehlender Wert, dass das jeweilige Merkmal für die Instanz nicht vorhanden oder nicht relevant ist.
+       **Beispiel**: Feld *letzter Operationstermin* in einem Antrag auf Berufsunfähigkeitsversicherung
+* Es gibt verschiedene Strategien, um mit fehlenden Werten umzugehen:
+    * Ignorieren
+    * Ersetzen
+    * Löschen
 
 
 
 ---
-# Besondere Werte
+# Qualitätssicherung:  Besondere Werte
+
+Gerade in älteren IT-Systeme (*Legacy*-Systemen) wurden in der Vergangenheit gerne spezielle Werte (Ausprägungen) verwendet, um qualitative Aussagen zu treffen:
+* Grund ist oft, dass die Applikation die Eingabe von Werten in der UI verlangt (*Pflichtfelder*).
+* Die verwendeten Werte sind für Menschen einfach und offensichtlich als falsch erkennbar und werden korrekt als Dummy-Werte interpretiert.
+* Für eine maschinellen Analyse muss diese Interpretation explizit in die Auswertung eingebracht werden.
+
+Man findet häufig:
+* 9, 99, 999, ...: Wird oft als Kennzeichen für *irrelevant* oder *fehlt* verwendet, z.B. bei Altersangaben, Telefonnummern usw. 
+* "␣" (Leerzeichen) als Kennzeichen für *fehlende* Werte.
+* "" (leere Zeichenkette) als Kennzeichen für *fehlende* Werte.
 
 
 ---
