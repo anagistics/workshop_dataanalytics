@@ -4,7 +4,7 @@ subtitle: "mit einem Schwerpunkt auf Versicherungsunternehmen"
 author: "Dr.-Ing. Andreas Cardeneo"
 institute: "Data Scientist bei Allianz Lebensversicherungs-AG"
 email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
-date: "2020-01-13 (Version vom: `r Sys.Date()`)"
+date: "2020-01-29 (commit ID `r substr(system('git rev-parse HEAD', intern = TRUE), 1, 7)`)"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -23,6 +23,8 @@ options(htmltools.dir.version = FALSE)
 library(emo)
 library(kableExtra)
 library(ggalluvial)
+library(tidyverse)
+library(easyalluvial)
 ```
 
 # Datenanalyse in Versicherungsunternehmen?
@@ -46,10 +48,9 @@ Auf den folgenden Seiten werden die einzelnen Schritte etwas genauer erklärt.
 
 
 ---
-# Import
+# Daten extrahieren
 
-* Dieser Schritt heißt oft auch *Extrakt*, weil es um die Extraktion von Daten aus Quellen geht.
-* 
+* *Datenextrakt*: Beziehen der Daten aus den verschiedenen Datenquellen.
 
 `r emo::ji("question")` Woher beziehen wir eigentlich Daten?
 
@@ -156,16 +157,6 @@ Versicherungen sind oftmals sehr langlebige Produkte:
 ]
 
 ---
-# Nützliche Kenntnisse für die Datenanalyse per Code
-
-* SQL
-* XMLPath
-* reguläre Ausdrücke
-* Web Scraping
-* Visualisierung
-
-
----
 # Datenschutz
 	
 * *Datenschutzgrundverordnung* (DGSVO) seit 25. Mai 2018 wirksam
@@ -204,56 +195,68 @@ Nach [Art. 4 (1) der DSGVO](https://dejure.org/gesetze/DSGVO/4.html)
 * IP-Adresse: Ohnehin nicht aussagekräftig -- Geolokation stattdessen?
 * Adresse verkürzen, bspw. auf Postleitzahl
 * Analysen mit regionalem Bezug nicht auf kleine Regionen anwenden
- 
----
 
 ---
 # Reproduzierbarkeit der Datenanalyse - Versionierung (1)
 
-Das hier passiert sehr oft in Unternehmen<sup>1</sup>:
+Das hier passiert sehr oft in Unternehmen (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)):
 
 .center[![:scale 40%](./img/phd_comics_vc.gif)]
-
-.footnote[
-[1] Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)
-]
 
 ---
 # Reproduzierbarkeit der Datenanalyse - Versionierung (2)
 
-Versionsverwaltungssysteme<sup>1</sup> helfen bei der sicheren Verwaltung von Änderungen: * Nachverfolgen der Änderungen (was und durch wen) und 
+Versionsverwaltungssysteme  (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)) helfen bei der sicheren Verwaltung von Änderungen: * Nachverfolgen der Änderungen (was und durch wen) und 
 * Verhinderung bzw. Behebung von Konflikten bei Zusammenführungen
 
-.center[![:scale 60%](./img/lego-steps-commit-messages.png)]
-
-.footnote[
-[1] Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)
-]
+.center[![:scale 40%](./img/lego-steps-commit-messages.png)]
 
 ---
 # Reproduzierbarkeit der Datenanalyse - Versionierung (3)
 
-Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein vereinfachter Arbeitsfluss mit *git* sieht so aus<sup>1</sup>:
+Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein vereinfachter Arbeitsfluss mit *git* sieht so aus (Bildquelle: [Git Workflow blog post](https://nvie.com/posts/a-successful-git-branching-model/)):
 
 .center[![:scale 35%](./img/main-branches.png)]
 
-.footnote[
-[1] Bildquelle: [Git Workflow blog post](https://nvie.com/posts/a-successful-git-branching-model/)
-]
 
+---
+# Reproduzierbarkeit der Datenanalyse - Data lineage
+
+Unter *data lineage* oder *data provenance* versteht man die Fähigkeit, jederzeit den Ursprung, die (fachliche) Bedeutung und die Transformationskette von Daten nachvollziehen zu können.
+
+&rarr; In Verbindung mit *Versionierung* kann man mittels *data lineage* insbesondere Änderungen in der Datenverarbeitungskette und der Datenursprünge über die Zeit verfolgen.
+
+&rarr; *Data lineage* stützt sich idealerweise auf ein System zum *Metadatenmanagement*, d.h. einem Katalog von Daten über Daten, u.a. zu Dateneignern, Feldbedeutungen und Datenfeldverwendungsverweisen.
 
 
 ---
-# Reproduzierbarkeit der Datenanalyse (2)
+# Reproduzierbarkeit der Datenanalyse - Datenintegrität (1)
 
-* data lineage
+Datenquellen werden oftmals an einem Ort zusammengeführt und dabei passieren auch Fehler. Es ist hilfreich im Nachhinein einzelne Datensätze den Ladevorgängen zuordnen zu können. Damit kann man u.a. doppelte Ladevorgänge identifizieren.
 
+&rarr; Beim Extrakt ein zusätzliches Feld mit Quellennamen und Zeitstempel hinzufügen.
+```
+select FELD1, ..., FELDn, 
+'QUELLE' || TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') as SOURCE_TS  
+into ZIELTAB 
+from QUELLTAB 
+where KRIT
+```
 ---
-# Reproduzierbarkeit der Datenanalyse (3)
+# Reproduzierbarkeit der Datenanalyse - Datenintegrität (2)
 
-* Upload-Timestamp
-* Fingerprints
+Manchmal möchte man erkennen,
+* dass sich Dateien verändert haben oder
+* dass sich Dateien  *nicht* verändert haben.
 
+In beiden Fällen kann man einen *Fingerabdruck* der Datei bestimmen: Ein Hashwert der Datei:
+```{r}
+digest::digest("./telco_dataset.csv", algo = "xxhash32", file = TRUE)
+```
+
+Indem man den Hashwert zusammen mit dem Dateinamen speichert, kann man die beiden Fälle oben prüfen und bspw. sicherstellen:
+* dass ein Importvorgang *nicht* wiederholt wird oder
+* dass eine Analyse auf unveränderten Daten arbeitet.
 
 ---
 # Reproduzierbarkeit der Datenanalyse (4)
@@ -273,12 +276,11 @@ Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm
 
 * Datenumfang manchmal größer als verfügbare Rechneressourcen (Speicher)
 * Einlesen von Teilmengen
-    * Deterministisches Einlesen 
-    * Zufälliges Einlesen
-```{r}
-# Beispiel in R
+    * Deterministisches Einlesen eines Teils der Daten
+```{r, warnings = FALSE, message = FALSE}
+somerows <- readr::read_csv("./telco_dataset.csv", n_max = 1000)
 ```
-    * 
+    * Zufälliges Einlesen
 * Verteilte Verarbeitung
     * Erfordert geeignete technische Infrastruktur
         * Cluster von Rechnern
@@ -468,19 +470,11 @@ von Kunden in Zielgruppen für Marketingkampagnen
 
 [*Telco custumer churn data set* von IBM](https://developer.ibm.com/patterns/data-analysis-model-building-and-deploying-with-wml/)
 
-Der folgende Code lädt die Daten von der Webseite:
+Der folgende Code lädt die Daten von der Webseite und listet die Spaltennamen:
 
 ```{r load_telco_data, message=FALSE}
-library(tidyverse)
-
-
 url <- "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
-
-telco_data <- read_csv(url)
-```
-
-Liste der Spalten:
-```{r}
+telco_data <- readr::read_csv(url)
 names(telco_data) %>% kable(., format = "html")
 ```
 
@@ -494,4 +488,64 @@ Zufällige Auswahl der ersten 5 Spalten von 10 Datensätzen.
 telco_data %>% select(one_of(names(.)[1:5])) %>% sample_n(10) %>% 
   kable(., format = "html")
 ```
+
+
+# Praktische Datenanalyse
+
+Aufbauend auf dem o.g. Telco-Datensatz führen Sie bitte eine Analyse durch:
+* Lesen Sie die Daten ein und prüfen Sie Datenformate und Datentypen
+* Wieviele Datensätze sind vollständig: Fehlende Werte?
+* Wieviele Datensätze erscheinen sachlich richtig: Ausreisser? Andere Auffälligkeiten?
+* Wie sind die Merkmalsausprägungen verteilt: Histogramme, Boxplots?
+* 
+
+
+---
+# Qualifikationen für Datenanalyse
+
+Betriebliche Entscheidungen werden zunehmend datenbasiert getroffen
+* weil die einfacheren Entscheidungswege ausgereizt sind und
+* weil die Verfügbarkeit von Daten und Auswertungsmöglichkeiten es ermöglichen.
+
+`r emo::ji("question")` Was sollte man als Datenanalyst können?
+
+&rarr; Datenbankkenntnisse (spez. relationale DB): *SQL*
+
+&rarr; Besonders in Banken und VU: XML-Daten analysieren: *XMLPath*
+
+&rarr; Muster in Texten verarbeiten: *Reguläre Ausdrücke*
+
+&rarr; Inhalte aus Webseiten extrahieren: *Web scraping*
+
+&rarr; Solide Programmierkenntnisse in *R, Python, VBA, bash, ...*
+
+&rarr; Visualisierungskenntnisse: *Klar, verständlich, richtig*
+
+&rarr; Soft skills: Kritisch sein (auch gg. eigenen Ergebnissen)
+
+
+---
+# Backup
+
+* CAS-Dataset
+```{r, eval = FALSE, message = FALSE}
+install.packages(c("xts", "sp"))
+install.packages("CASdatasets", repos = "http://cas.uqam.ca/pub/R/", type="source")
+library(CASdatasets)
+data("freMTPL2freq")
+
+```
+
+* Presidential data
+```{r, eval = FALSE, message = FALSE}
+install.packages("dataMaid")
+library(dataMaid)
+data("presidentData")
+
+```
+
+
+
+
+
 
