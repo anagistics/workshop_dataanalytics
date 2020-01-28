@@ -25,6 +25,10 @@ library(kableExtra)
 library(ggalluvial)
 library(tidyverse)
 library(easyalluvial)
+library(dataMaid)
+
+telco_data <- readr::read_csv("./telco_dataset.csv")
+data("")
 ```
 
 # Datenanalyse in Versicherungsunternehmen?
@@ -261,7 +265,16 @@ Indem man den Hashwert zusammen mit dem Dateinamen speichert, kann man die beide
 ---
 # Reproduzierbarkeit der Datenanalyse (4)
 
-* technischer Schlüssel
+Datenbanktabellen haben oft einen *Primärsschlüssel*, d.h. ein Feld oder eine Feldkombination, die einen Datensatz eindeutig identifiziert. Dieser Schlüssel, bspw. eine Vertragsnummer, wird oftmals in vielen Tabellen als Primätschlüssel verwendet. 
+
+&rarr; Um auch nach der Verbindung mehrerer Tabellen (*join*) noch den Ursprung von Datensätzen leicht bestimmen zu können, bietet es sich an, den Tabellen nach (oder bei) dem Lesen noch einen *technischen Datensatzschlüssel* zu geben:
+
+```{r}
+telco_data %>% mutate(TKEY = paste0("TC_", row_number())) %>% 
+  select(TKEY, customerID, tenure, InternetService, PaymentMethod) %>% head(5)
+```
+
+
 
 
 ---
@@ -355,10 +368,23 @@ Unter *unstrukturierte Daten* versteht man oft Texte, Bilder, Videos oder Audiod
 ---
 # Qualitätssicherung: Ausreißeranalyse
 
+Numerische Merkmale sollten auf *Ausreißer* geprüft werden. Dabei handelt es sich um Werte, die sich *auffällig* von der Masse der Ausprägungen unterscheiden.
 
+.pull-left[
+&rarr; Eine gute Möglichkeit, diese Ausprägungen zu identifizieren sind *Boxplots*:
+```{r, echo = FALSE, fig.height=7}
+boxplot(as.integer(dataMaid::presidentData$ageAtInauguration))
+```
+]
+
+.pull-right[
+Zwei Strategien zum Umgang mit Ausreißern:
+* **Trimmen**: Hierbei werden vor einer Auswertung (z.B. Durchschnittsberechnung) die x% kleinsten und/oder größten Ausprägungen *entfernt*
+* **Winsorisieren**: Hierbei werden vor einer Auswertung (z.B. Durchschnittsberechnung) die x% kleinsten und/oder größten Ausprägungen durch das x%-Quantil bzw. das (100-x)%-Quantil ersetzt.
+]
 
 ---
-# Qualitätssicherung:  Fehlende Werte
+# Qualitätssicherung:  Fehlende Werte (1)
 
 Sehr häufig sind Felder in Tabellen nicht befüllt. 
 
@@ -368,13 +394,38 @@ Sehr häufig sind Felder in Tabellen nicht befüllt.
     * Ist der Fehler beim Einlesen passiert oder ist er in den Ausgangsdaten zu finden?
 * Haben fehlende Werte eine Bedeutung?
     * Sehr oft bedeutet ein fehlender Wert, dass das jeweilige Merkmal für die Instanz nicht vorhanden oder nicht relevant ist.
+    
        **Beispiel**: Feld *letzter Operationstermin* in einem Antrag auf Berufsunfähigkeitsversicherung
 * Es gibt verschiedene Strategien, um mit fehlenden Werten umzugehen:
     * Ignorieren
     * Ersetzen
     * Löschen
 
+---
+# Qualitätssicherung:  Fehlende Werte (2)
 
+Die verschiedenen Strategien haben verschiedene Auswirkungen:
+* **Ignorieren**: Wie quantifizieren? Wie gehen fehlende Werte z.B. in eine Mittelwertberechnung ein?
+* **Ersetzen**: Durch was? 
+```{r}
+data <- c(10, 20, NA, 5, 3, 12, NA, 20)
+(mean(data))
+m <- mean(data, na.rm = TRUE)
+data2 <- c(10, 20, m, 5, 3, 12, m, 20)
+(mean(data2))
+```
+&rarr; Bei der Mittelwertberechnung kann man die fehlenden Werte durch den Mittelwert der vorhandenen Werte ersetzen.
+
+---
+# Qualitätssicherung:  Fehlende Werte (3)
+
+* **Löschen**: 
+  * Die Variable oder alle Instanzen mit fehlenden Werten? 
+  * Wenn man die Instanzen löscht: 
+      * Bleiben genügend Instanzen für die Analyse übrig?
+      * Begeht man einen Fehler, weil man systematisch bestimmte Instanzen entfernt?
+      
+`r emo::ji("point_right")` In der Literatur unterscheidet man verschiedene Szenarios für fehlende Werte: *Not missing at random*, *missing at random* und *missing completely at random*. Mehr dazu im Buch zu [data cleaning](http://www.data-cleaning.org/).
 
 ---
 # Qualitätssicherung:  Besondere Werte
@@ -470,12 +521,16 @@ von Kunden in Zielgruppen für Marketingkampagnen
 
 [*Telco custumer churn data set* von IBM](https://developer.ibm.com/patterns/data-analysis-model-building-and-deploying-with-wml/)
 
-Der folgende Code lädt die Daten von der Webseite und listet die Spaltennamen:
+Der folgende Code lädt die Daten von der Webseite:
 
-```{r load_telco_data, message=FALSE}
+```{r load_telco_data, eval = FALSE, message=FALSE}
 url <- "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
 telco_data <- readr::read_csv(url)
-names(telco_data) %>% kable(., format = "html")
+```
+
+Spaltennamen:
+```{r}
+names(telco_data)
 ```
 
 
