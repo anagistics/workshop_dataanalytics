@@ -14,8 +14,34 @@ output:
       countIncrementalSlides: false
       beforeInit: "macros.js"
 
---- 
+---
+# So sieht der Plan aus
+
+`r emo::ji("vulcan_salute")` Tag 1
+
+* Was ist Datenanalyse und was hat das mit Versicherungen zu tun?
+* Der Prozess der Datenanalyse `r emo::ji("microscope")`
+* Datenquellen (in Versicherungsunternehmen)
+* Datenanalyse per Code
+* Einführung in `R`:
+    * Softwareinstallation
+    * Tutorial
+    
+`r emo::ji("metal")` Tag 2
+
+* Datenschutz
+* Reproduzierbarkeit der Datenanalyse
+* Datenquellen lesen
+* Daten verstehen
+    * Struktur von Daten
+    * Validierung: Ausreißer, fehlende Werte, besondere Werte
+* Visualisierung
+* Übung: Datenanalyse am Beispiel Kfz-Haftpflicht
+
+---
 class: inverse, center, middle
+
+# Tag 1
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -30,6 +56,10 @@ library(dataMaid)
 telco_data <- readr::read_csv("./telco_dataset.csv")
 data("")
 ```
+
+
+---
+class: inverse, center, middle
 
 # Datenanalyse in Versicherungsunternehmen?
 
@@ -64,7 +94,7 @@ Auf den folgenden Seiten werden die einzelnen Schritte etwas genauer erklärt.
 
 * Datenbanken - strukturierte Daten
   * OLTP<sup>1</sup>-Systeme z.B. für die Vertragsverwaltung, Zahlvorgänge, Finanzbuchungen
-  * OLAP<sup>2</sup>-Systeme für Reporting (Berichtswesen): Nilden die technische Grundlage für  BI<sup>3</sup>-Systeme
+  * OLAP<sup>2</sup>-Systeme für Reporting (Berichtswesen): Bilden die technische Grundlage für  BI<sup>3</sup>-Systeme
   
 Meistens werden *relationale Datenbanken* verwendet, auf die mittels `SQL` zugegriffen wird.
 
@@ -109,7 +139,7 @@ Diese Verwaltungssysteme lassen sich üblicherweise nicht in vergleichsweise sta
 
 * APIs<sup>1</sup>
   
-  Modernere IT-Architekturen (heute vielfach [Microservice-Architekturen](https://www.ionos.de/digitalguide/websites/web-entwicklung/microservice-architecture-so-funktionieren-microservices/) definieren technische Schnittstellen, damit die anbietenden Systeme auf relative einfache Weise von außen angesteuert werden können. APIs ermöglichen insbesondere die Abfrage von Zuständen und Daten. Beispiele sind Finanzdaten, Wetterdaten. 
+  Modernere IT-Architekturen (heute vielfach [Microservice-Architekturen](https://www.ionos.de/digitalguide/websites/web-entwicklung/microservice-architecture-so-funktionieren-microservices/)) definieren technische Schnittstellen, damit die anbietenden Systeme auf relative einfache Weise von außen angesteuert werden können. APIs ermöglichen insbesondere die Abfrage von Zuständen und Daten. Beispiele sind Finanzdaten, Wetterdaten. 
 
 **Beispiel:** Anbieter *Quandl* liefert u.a. Finanzdaten: [https://www.quandl.com/api/v3/datasets/FSE/ALV_X.json?api_key=XXXXXX](https://www.quandl.com/api/v3/datasets/FSE/ALV_X.json)
 
@@ -161,6 +191,12 @@ Versicherungen sind oftmals sehr langlebige Produkte:
 ]
 
 ---
+class: inverse, center, middle
+
+# Tag 2
+
+
+---
 # Datenschutz
 	
 * *Datenschutzgrundverordnung* (DGSVO) seit 25. Mai 2018 wirksam
@@ -210,10 +246,11 @@ Das hier passiert sehr oft in Unternehmen (Bildquelle: [datascience.box](https:/
 ---
 # Reproduzierbarkeit der Datenanalyse - Versionierung (2)
 
-Versionsverwaltungssysteme  (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)) helfen bei der sicheren Verwaltung von Änderungen: * Nachverfolgen der Änderungen (was und durch wen) und 
+Versionsverwaltungssysteme  (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)) helfen bei der sicheren Verwaltung von Änderungen: 
+* Nachverfolgen der Änderungen (was und durch wen) und 
 * Verhinderung bzw. Behebung von Konflikten bei Zusammenführungen
 
-.center[![:scale 40%](./img/lego-steps-commit-messages.png)]
+.center[![:scale 50%](./img/lego-steps-commit-messages.png)]
 
 ---
 # Reproduzierbarkeit der Datenanalyse - Versionierung (3)
@@ -278,7 +315,9 @@ telco_data %>% mutate(TKEY = paste0("TC_", row_number())) %>%
 
 
 ---
-# Schritt: Datenquellen lesen
+# Schritt 1: Datenquellen lesen
+
+`r emo::ji("sad")`
 
 * Datenformat (Trennzeichen, Quoting...)
 * Encoding 
@@ -287,7 +326,7 @@ telco_data %>% mutate(TKEY = paste0("TC_", row_number())) %>%
 ---
 # Umgang mit sehr großen Datenmengen
 
-* Datenumfang manchmal größer als verfügbare Rechneressourcen (Speicher)
+* Datenumfang manchmal größer als verfügbare Rechnerressourcen (Speicher)
 * Einlesen von Teilmengen
     * Deterministisches Einlesen eines Teils der Daten
 ```{r, warnings = FALSE, message = FALSE}
@@ -303,13 +342,13 @@ somerows <- readr::read_csv("./telco_dataset.csv", n_max = 1000)
 
 
 ---
-# Schritt: Daten verstehen 
+# Schritt 2: Daten verstehen 
 
-* Variablen und Beobachtungen
+* Struktur von Daten
+    * Variablen und Beobachtungen
+    * Unstrukturierte Daten
 * Validieren
-* Datentypen
-* Plotten 
-* QS: Magic Numbers
+* Visualisieren 
 
 ---
 # Die allgemeine Struktur von Daten
@@ -333,7 +372,7 @@ In den Daten einer Datenanalyse können wir immer wieder die gleiche Struktur er
 Man unterscheidet zwischen verschiedenen Typen von Variablen:
 
 .pull-left[
-  * *Kategoriell*: Die Ausprägungen der Variablen beschreiben *Kategorien*
+  * **Kategoriell**: Die Ausprägungen der Variablen beschreiben *Kategorien*
   * liegen typischerweise als Text vor, bspw. J/N oder M/W 
   * können aber auch Zahlenwerte sein wie 0/1 und als Wahrheitswerte dienen. 
   * Meistens wenig verschiedene Ausprägungen pro Variable.
@@ -342,9 +381,9 @@ Man unterscheidet zwischen verschiedenen Typen von Variablen:
 ]
 
 .pull-right[
-  * *Quantitativ*: Die Ausprägungen sind numerische Werte.
-  * *Ordinalen* Ausprägungen kann man sinnvoll sortieren aber sie eignen sich nicht zum Rechnen. **Beispiel**: Rangziffern
-  * Mit *kardinalen* Ausprägungen kann man rechnen und bspw. Differenzen bilden ([Intervallskala](https://de.wikipedia.org/wiki/Skalenniveau)) oder Verhältnisse ausrechnen ([Verhältnisskala](https://de.wikipedia.org/wiki/Skalenniveau)).
+  * **Quantitativ**: Die Ausprägungen sind numerische Werte.
+  * **Ordinalen** Ausprägungen kann man sinnvoll sortieren aber sie eignen sich nicht zum Rechnen. **Beispiel**: Rangziffern
+  * Mit **kardinalen** Ausprägungen kann man rechnen und bspw. Differenzen bilden ([Intervallskala](https://de.wikipedia.org/wiki/Skalenniveau)) oder Verhältnisse ausrechnen ([Verhältnisskala](https://de.wikipedia.org/wiki/Skalenniveau)).
   * Als quantitative Ausprägungen können auch Zeit- und Datumswerte angesehen werden. 
 ]
 
@@ -352,9 +391,8 @@ Man unterscheidet zwischen verschiedenen Typen von Variablen:
 
 ---
 # Unstrukturierte Daten
-# 
 
-Unter *unstrukturierte Daten* versteht man oft Texte, Bilder, Videos oder Audiodaten. 
+Unter **unstrukturierte Daten** versteht man oft Texte, Bilder, Videos oder Audiodaten. 
   * In technischer Hinsicht sind die Daten strukturiert, weil sie in einem definierten Format vorliegen.
   * Für die Analyse ist man aber eher am *Inhalt* der Daten interessiert. 
       * Dann benötigt man Techniken des NLP<sup>1</sup> oder der [Objekterkennung in Bildern](https://medium.com/alegion/deep-learning-for-object-detection-and-localization-using-r-cnn-e88f85ea7c16)):
@@ -366,9 +404,9 @@ Unter *unstrukturierte Daten* versteht man oft Texte, Bilder, Videos oder Audiod
 ]
 
 ---
-# Qualitätssicherung: Ausreißeranalyse
+# Validierung: Ausreißeranalyse
 
-Numerische Merkmale sollten auf *Ausreißer* geprüft werden. Dabei handelt es sich um Werte, die sich *auffällig* von der Masse der Ausprägungen unterscheiden.
+Numerische Merkmale sollten auf **Ausreißer** geprüft werden. Dabei handelt es sich um Werte, die sich *auffällig* von der Masse der Ausprägungen unterscheiden.
 
 .pull-left[
 &rarr; Eine gute Möglichkeit, diese Ausprägungen zu identifizieren sind *Boxplots*:
@@ -384,7 +422,7 @@ Zwei Strategien zum Umgang mit Ausreißern:
 ]
 
 ---
-# Qualitätssicherung:  Fehlende Werte (1)
+# Validierung:  Fehlende Werte (1)
 
 Sehr häufig sind Felder in Tabellen nicht befüllt. 
 
@@ -402,7 +440,7 @@ Sehr häufig sind Felder in Tabellen nicht befüllt.
     * Löschen
 
 ---
-# Qualitätssicherung:  Fehlende Werte (2)
+# Validierung:  Fehlende Werte (2)
 
 Die verschiedenen Strategien haben verschiedene Auswirkungen:
 * **Ignorieren**: Wie quantifizieren? Wie gehen fehlende Werte z.B. in eine Mittelwertberechnung ein?
@@ -417,7 +455,7 @@ data2 <- c(10, 20, m, 5, 3, 12, m, 20)
 &rarr; Bei der Mittelwertberechnung kann man die fehlenden Werte durch den Mittelwert der vorhandenen Werte ersetzen.
 
 ---
-# Qualitätssicherung:  Fehlende Werte (3)
+# Validierung:  Fehlende Werte (3)
 
 * **Löschen**: 
   * Die Variable oder alle Instanzen mit fehlenden Werten? 
@@ -428,7 +466,7 @@ data2 <- c(10, 20, m, 5, 3, 12, m, 20)
 `r emo::ji("point_right")` In der Literatur unterscheidet man verschiedene Szenarios für fehlende Werte: *Not missing at random*, *missing at random* und *missing completely at random*. Mehr dazu im Buch zu [data cleaning](http://www.data-cleaning.org/).
 
 ---
-# Qualitätssicherung:  Besondere Werte
+# Validierung:  Besondere Werte
 
 Gerade in älteren IT-Systeme (*Legacy*-Systemen) wurden in der Vergangenheit gerne spezielle Werte (Ausprägungen) verwendet, um qualitative Aussagen zu treffen:
 * Grund ist oft, dass die Applikation die Eingabe von Werten in der UI verlangt (*Pflichtfelder*).
@@ -437,31 +475,15 @@ Gerade in älteren IT-Systeme (*Legacy*-Systemen) wurden in der Vergangenheit ge
 
 Man findet häufig:
 * 9, 99, 999, ...: Wird oft als Kennzeichen für *irrelevant* oder *fehlt* verwendet, z.B. bei Altersangaben, Telefonnummern usw. 
-* "␣" (Leerzeichen) als Kennzeichen für *fehlende* Werte.
-* "" (leere Zeichenkette) als Kennzeichen für *fehlende* Werte.
-
-
----
-# Datenanalyse
-
-* Boxplots, violin plots
-* Histogramme
-* Scatterplots, 
-* Korrelation
-* Tests auf statistische Unabhängigkeit
-* 
-
----
- 
-
+* "␣" (Leerzeichen), "" (leere Zeichenkette), "-" (Minus) als Kennzeichen für *fehlende* Werte.
 
 ---
 # Visualisierung: Histogramm
 
-Ein *Histogramm* ist ein Häufigkeitsdiagramm. Es dient dazu, die Häufigkeit von Merkmalsausprägungen im Vergleich zu veranschaulichen.
+Ein **Histogramm** ist ein Häufigkeitsdiagramm. Es dient dazu, die Häufigkeit von Merkmalsausprägungen im Vergleich zu veranschaulichen.
 
 **Beispiel** anhand des `diamonds`-Datensatzes aus `R`:
-```{r}
+```{r, fig.height=6}
 diamonds %>% ggplot() + geom_bar(aes(x = cut))
 ```
 
@@ -471,7 +493,8 @@ diamonds %>% ggplot() + geom_bar(aes(x = cut))
 
 
 ---
-# 
+# Visualisierung: Scatterplot
+
 
 ---
 # Visualisierung: Alluvial-Diagramme
@@ -479,7 +502,7 @@ diamonds %>% ggplot() + geom_bar(aes(x = cut))
 * ähnlich zu *Parallelkoordinaten* aber für kategorielle Variablen
 * `R`-Paket: `ggalluvial`
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.height=6}
 ggplot(as.data.frame(Titanic),
        aes(y = Freq,
            axis1 = Sex, axis2 = Class, axis3 = Survived)) +
@@ -493,28 +516,12 @@ ggplot(as.data.frame(Titanic),
 
 ```
 
----
-# Modellierung (1)
-
-`r emo::ji("question")` Was ist ein *Modell*?
-> Ein Modell ist ein vereinfachtes Abbild der Wirklichkeit. ([Wikipedia](https://de.wikipedia.org/wiki/Modell))
-
-`r emo::ji("star")` Mit einem Modell versucht man in kompakter Form die Aussage der Daten in anwendbarer Form bereitzustellen.   
-
-* Abstraktion der Realität zu einem bestimmten Zweck. In der Datenanalyse zumeist um Sachverhalte
-    * zu verstehen (*deskriptive* Modelle) oder
-    * vorherzusagen (*prädiktive* Modelle)
-
-> All models are wrong [, some are useful] ([George Box, 1976](https://en.wikipedia.org/wiki/All_models_are_wrong))
 
 ---
-# Modellierung (2)
+class: inverse, center, middle
 
-Typische Modelle:
-* **Prognose**: Vorhersage zukünftiger Werte von Zeitreihen
-* **Segmentierung**: Einteilung von Beobachtungen in Gruppen (*Segmente*), bspw. 
-von Kunden in Zielgruppen für Marketingkampagnen
-* **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse 
+# Übung
+
 
 ---
 # Beispiel: Daten laden 
@@ -523,13 +530,13 @@ von Kunden in Zielgruppen für Marketingkampagnen
 
 Der folgende Code lädt die Daten von der Webseite:
 
-```{r load_telco_data, eval = FALSE, message=FALSE}
+```{r load_telco_data, echo=TRUE, message=FALSE, warning=FALSE}
 url <- "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
 telco_data <- readr::read_csv(url)
 ```
 
 Spaltennamen:
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 names(telco_data)
 ```
 
@@ -539,12 +546,12 @@ names(telco_data)
 
 Zufällige Auswahl der ersten 5 Spalten von 10 Datensätzen.
 
-```{r show_telco_data}
+```{r show_telco_data, message=FALSE, warning=FALSE}
 telco_data %>% select(one_of(names(.)[1:5])) %>% sample_n(10) %>% 
   kable(., format = "html")
 ```
 
-
+---
 # Praktische Datenanalyse
 
 Aufbauend auf dem o.g. Telco-Datensatz führen Sie bitte eine Analyse durch:
@@ -554,6 +561,11 @@ Aufbauend auf dem o.g. Telco-Datensatz führen Sie bitte eine Analyse durch:
 * Wie sind die Merkmalsausprägungen verteilt: Histogramme, Boxplots?
 * 
 
+
+---
+class: inverse, center, middle
+
+# Backup
 
 ---
 # Qualifikationen für Datenanalyse
@@ -579,8 +591,32 @@ Betriebliche Entscheidungen werden zunehmend datenbasiert getroffen
 &rarr; Soft skills: Kritisch sein (auch gg. eigenen Ergebnissen)
 
 
+
 ---
-# Backup
+# Modellierung (1)
+
+`r emo::ji("question")` Was ist ein *Modell*?
+> Ein Modell ist ein vereinfachtes Abbild der Wirklichkeit. ([Wikipedia](https://de.wikipedia.org/wiki/Modell))
+
+`r emo::ji("star")` Mit einem Modell versucht man in kompakter Form die Aussage der Daten in anwendbarer Form bereitzustellen.   
+
+* Abstraktion der Realität zu einem bestimmten Zweck. In der Datenanalyse zumeist um Sachverhalte
+    * zu verstehen (*deskriptive* Modelle) oder
+    * vorherzusagen (*prädiktive* Modelle)
+
+> All models are wrong [, some are useful] ([George Box, 1976](https://en.wikipedia.org/wiki/All_models_are_wrong))
+
+---
+# Modellierung (2)
+
+Typische Modelle:
+* **Prognose**: Vorhersage zukünftiger Werte von Zeitreihen
+* **Segmentierung**: Einteilung von Beobachtungen in Gruppen (*Segmente*), bspw. 
+von Kunden in Zielgruppen für Marketingkampagnen
+* **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse 
+
+---
+# Datasets
 
 * CAS-Dataset
 ```{r, eval = FALSE, message = FALSE}
