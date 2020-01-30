@@ -5,6 +5,7 @@ author: "Dr.-Ing. Andreas Cardeneo"
 institute: "Data Scientist bei Allianz Lebensversicherungs-AG"
 email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
 date: "2020-01-29 (commit ID `r substr(system('git rev-parse HEAD', intern = TRUE), 1, 7)`)"
+
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -483,7 +484,7 @@ Man findet häufig:
 Ein **Histogramm** ist ein Häufigkeitsdiagramm. Es dient dazu, die Häufigkeit von Merkmalsausprägungen im Vergleich zu veranschaulichen.
 
 **Beispiel** anhand des `diamonds`-Datensatzes aus `R`:
-```{r, fig.height=6}
+```{r fig.height=4}
 diamonds %>% ggplot() + geom_bar(aes(x = cut))
 ```
 
@@ -521,6 +522,11 @@ ggplot(as.data.frame(Titanic),
 class: inverse, center, middle
 
 # Übung
+
+---
+# Übungsblatt
+
+Das Übungsblatt finden Sie unter [https://github.com/anagistics/workshop_dataanalytics/blob/master/uebungsblatt.pdf](https://github.com/anagistics/workshop_dataanalytics/blob/master/uebungsblatt.pdf)
 
 
 ---
