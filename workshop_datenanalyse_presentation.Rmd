@@ -526,47 +526,24 @@ class: inverse, center, middle
 ---
 # Übungsblatt
 
-Das Übungsblatt finden Sie unter [https://github.com/anagistics/workshop_dataanalytics/blob/master/uebungsblatt.pdf](https://github.com/anagistics/workshop_dataanalytics/blob/master/uebungsblatt.pdf)
+Das Übungsblatt finden Sie unter http://bit.ly/312YJc5
 
+`r emo::ji("point_right")`  Oder in Moodle.
 
----
-# Beispiel: Daten laden 
+* Empfehlung für die Bearbeitung
+    * Bilden Sie Gruppen mit 3-4 TeilnehmerInnen
+    * Nehmen Sie sich ca. 45-60 Minuten für das Tutorial (*R für Journalisten*, http://bit.ly/2u97w98)
+    * Wechseln Sie dann zum Übungsblatt
+        * Bearbeiten Sie die Aufgaben zum ersten Datensatz in ca. 45-60 Minuten
+            * *Melden Sie sich, wenn Sie Auffälligkeiten im Datensatz entdeckt haben -- ich sammle die vorne*
+        * Nutzen Sie die restliche Zeit für den zweiten Datensatz
+        * Ich hätte gerne 3 Gruppen, die um 15:45 ihre Ergebnisse zeigen präsentieren
+            * Auswahlmethode: 1. Freiwillig, 2. Zufällig
+* Wenn Sie schneller fertig sind, hätte ich noch eine Idee...
+        
+`r emo::ji("point_right")` Melden Sie sich bei Fragen - ich sammle Fragen & Antworten vorne
 
-[*Telco custumer churn data set* von IBM](https://developer.ibm.com/patterns/data-analysis-model-building-and-deploying-with-wml/)
-
-Der folgende Code lädt die Daten von der Webseite:
-
-```{r load_telco_data, echo=TRUE, message=FALSE, warning=FALSE}
-url <- "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
-telco_data <- readr::read_csv(url)
-```
-
-Spaltennamen:
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-names(telco_data)
-```
-
-
----
-# Beispiel: Übersicht über die Daten
-
-Zufällige Auswahl der ersten 5 Spalten von 10 Datensätzen.
-
-```{r show_telco_data, message=FALSE, warning=FALSE}
-telco_data %>% select(one_of(names(.)[1:5])) %>% sample_n(10) %>% 
-  kable(., format = "html")
-```
-
----
-# Praktische Datenanalyse
-
-Aufbauend auf dem o.g. Telco-Datensatz führen Sie bitte eine Analyse durch:
-* Lesen Sie die Daten ein und prüfen Sie Datenformate und Datentypen
-* Wieviele Datensätze sind vollständig: Fehlende Werte?
-* Wieviele Datensätze erscheinen sachlich richtig: Ausreisser? Andere Auffälligkeiten?
-* Wie sind die Merkmalsausprägungen verteilt: Histogramme, Boxplots?
-* 
-
+ 
 
 ---
 class: inverse, center, middle
