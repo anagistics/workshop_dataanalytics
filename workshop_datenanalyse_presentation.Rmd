@@ -9,6 +9,7 @@ date: "2020-01-29 (commit ID `r substr(system('git rev-parse HEAD', intern = TRU
 output:
   xaringan::moon_reader:
     lib_dir: libs
+#    self_contained: true
     nature:
       highlightStyle: github
       highlightLines: true
@@ -16,6 +17,7 @@ output:
       beforeInit: "macros.js"
 
 ---
+
 # So sieht der Plan aus
 
 `r emo::ji("vulcan_salute")` Tag 1
@@ -53,6 +55,8 @@ library(ggalluvial)
 library(tidyverse)
 library(easyalluvial)
 library(dataMaid)
+
+# Daten kommen von: https://www.kaggle.com/blastchar/telco-customer-churn
 
 telco_data <- readr::read_csv("./telco_dataset.csv")
 data("")
@@ -488,13 +492,13 @@ Ein **Histogramm** ist ein Häufigkeitsdiagramm. Es dient dazu, die Häufigkeit 
 diamonds %>% ggplot() + geom_bar(aes(x = cut))
 ```
 
-
----
-# Visualisierung: Boxplot
-
-
 ---
 # Visualisierung: Scatterplot
+
+```{r fig.height=4}
+diamonds %>% ggplot() + geom_point(aes(x = carat, y = price))
+
+```
 
 
 ---
