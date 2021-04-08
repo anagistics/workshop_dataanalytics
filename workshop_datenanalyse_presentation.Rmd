@@ -4,7 +4,7 @@ subtitle: "mit einem Schwerpunkt auf Versicherungsunternehmen"
 author: "Dr.-Ing. Andreas Cardeneo"
 institute: "Data Scientist bei Allianz Lebensversicherungs-AG"
 email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
-date: "2020-01-29 (commit ID `r substr(system('git rev-parse HEAD', intern = TRUE), 1, 7)`)"
+date: "`r as.Date(fs::file_info(knitr::current_input())$change_time)` (commit ID `r substr(system('git rev-parse HEAD', intern = TRUE), 1, 7)`)"
 
 output:
   xaringan::moon_reader:
