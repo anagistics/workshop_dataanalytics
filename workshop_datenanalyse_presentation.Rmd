@@ -20,26 +20,28 @@ output:
 
 # So sieht der Plan aus
 
-`r emo::ji("vulcan_salute")` Tag 1
+`r emo::ji("vulcan_salute")` Tag 1 - Theorie (überwiegend)
 
 * Was ist Datenanalyse und was hat das mit Versicherungen zu tun?
 * Der Prozess der Datenanalyse `r emo::ji("microscope")`
 * Datenquellen (in Versicherungsunternehmen)
 * Datenanalyse per Code
-* Einführung in `R`:
-    * Softwareinstallation
-    * Tutorial
-    
-`r emo::ji("metal")` Tag 2
-
 * Datenschutz
-* Reproduzierbarkeit der Datenanalyse
 * Datenquellen lesen
 * Daten verstehen
     * Struktur von Daten
     * Validierung: Ausreißer, fehlende Werte, besondere Werte
 * Visualisierung
-* Übung: Datenanalyse am Beispiel Kfz-Haftpflicht
+* Herangehensweise: Hypothesenbildung
+* Modellierung
+* Reproduzierbarkeit der Datenanalyse
+
+`r emo::ji("metal")` Tag 2 - Praxis
+
+* Technisches Setup
+    * Einführung in `R`:
+* Gruppenarbeiten Datenanalyse
+* Vorstellung Gruppenergebnisse
 
 ---
 class: inverse, center, middle
@@ -196,12 +198,6 @@ Versicherungen sind oftmals sehr langlebige Produkte:
 ]
 
 ---
-class: inverse, center, middle
-
-# Tag 2
-
-
----
 # Datenschutz
 	
 * *Datenschutzgrundverordnung* (DGSVO) seit 25. Mai 2018 wirksam
@@ -240,84 +236,6 @@ Nach [Art. 4 (1) der DSGVO](https://dejure.org/gesetze/DSGVO/4.html)
 * IP-Adresse: Ohnehin nicht aussagekräftig -- Geolokation stattdessen?
 * Adresse verkürzen, bspw. auf Postleitzahl
 * Analysen mit regionalem Bezug nicht auf kleine Regionen anwenden
-
----
-# Reproduzierbarkeit der Datenanalyse - Versionierung (1)
-
-Das hier passiert sehr oft in Unternehmen (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)):
-
-.center[![:scale 40%](./img/phd_comics_vc.gif)]
-
----
-# Reproduzierbarkeit der Datenanalyse - Versionierung (2)
-
-Versionsverwaltungssysteme  (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)) helfen bei der sicheren Verwaltung von Änderungen: 
-* Nachverfolgen der Änderungen (was und durch wen) und 
-* Verhinderung bzw. Behebung von Konflikten bei Zusammenführungen
-
-.center[![:scale 50%](./img/lego-steps-commit-messages.png)]
-
----
-# Reproduzierbarkeit der Datenanalyse - Versionierung (3)
-
-Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein vereinfachter Arbeitsfluss mit *git* sieht so aus (Bildquelle: [Git Workflow blog post](https://nvie.com/posts/a-successful-git-branching-model/)):
-
-.center[![:scale 35%](./img/main-branches.png)]
-
-
----
-# Reproduzierbarkeit der Datenanalyse - Data lineage
-
-Unter *data lineage* oder *data provenance* versteht man die Fähigkeit, jederzeit den Ursprung, die (fachliche) Bedeutung und die Transformationskette von Daten nachvollziehen zu können.
-
-&rarr; In Verbindung mit *Versionierung* kann man mittels *data lineage* insbesondere Änderungen in der Datenverarbeitungskette und der Datenursprünge über die Zeit verfolgen.
-
-&rarr; *Data lineage* stützt sich idealerweise auf ein System zum *Metadatenmanagement*, d.h. einem Katalog von Daten über Daten, u.a. zu Dateneignern, Feldbedeutungen und Datenfeldverwendungsverweisen.
-
-
----
-# Reproduzierbarkeit der Datenanalyse - Datenintegrität (1)
-
-Datenquellen werden oftmals an einem Ort zusammengeführt und dabei passieren auch Fehler. Es ist hilfreich im Nachhinein einzelne Datensätze den Ladevorgängen zuordnen zu können. Damit kann man u.a. doppelte Ladevorgänge identifizieren.
-
-&rarr; Beim Extrakt ein zusätzliches Feld mit Quellennamen und Zeitstempel hinzufügen.
-```
-select FELD1, ..., FELDn, 
-'QUELLE' || TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') as SOURCE_TS  
-into ZIELTAB 
-from QUELLTAB 
-where KRIT
-```
----
-# Reproduzierbarkeit der Datenanalyse - Datenintegrität (2)
-
-Manchmal möchte man erkennen,
-* dass sich Dateien verändert haben oder
-* dass sich Dateien  *nicht* verändert haben.
-
-In beiden Fällen kann man einen *Fingerabdruck* der Datei bestimmen: Ein Hashwert der Datei:
-```{r}
-digest::digest("./telco_dataset.csv", algo = "xxhash32", file = TRUE)
-```
-
-Indem man den Hashwert zusammen mit dem Dateinamen speichert, kann man die beiden Fälle oben prüfen und bspw. sicherstellen:
-* dass ein Importvorgang *nicht* wiederholt wird oder
-* dass eine Analyse auf unveränderten Daten arbeitet.
-
----
-# Reproduzierbarkeit der Datenanalyse (4)
-
-Datenbanktabellen haben oft einen *Primärsschlüssel*, d.h. ein Feld oder eine Feldkombination, die einen Datensatz eindeutig identifiziert. Dieser Schlüssel, bspw. eine Vertragsnummer, wird oftmals in vielen Tabellen als Primätschlüssel verwendet. 
-
-&rarr; Um auch nach der Verbindung mehrerer Tabellen (*join*) noch den Ursprung von Datensätzen leicht bestimmen zu können, bietet es sich an, den Tabellen nach (oder bei) dem Lesen noch einen *technischen Datensatzschlüssel* zu geben:
-
-```{r}
-telco_data %>% mutate(TKEY = paste0("TC_", row_number())) %>% 
-  select(TKEY, customerID, tenure, InternetService, PaymentMethod) %>% head(5)
-```
-
-
-
 
 ---
 # Schritt 1: Datenquellen lesen
@@ -520,6 +438,124 @@ ggplot(as.data.frame(Titanic),
   ggtitle("Titanic survival by class and sex")
 
 ```
+
+---
+# Herangehensweise: Hypothesenbildung
+
+`r emo::ji("question")` Wie geht man nun an die Datenanalyse heran?
+
+`r emo::ji("woman_office_worker")` *Schauen Sie sich die Daten an und gucken Sie, ob Sie was finden.*
+
+&rarr; Zufällige Suche: Kann funktionieren, ist aber ineffizient.
+
+&rarr; Stattdessen Formulierung von *Hypothesen*: Vermutungen über fachliche relevante Sachverhalte:
+  * *Verkäufe steigen im 4. Quartal jeden Jahres um mindestens 5%*
+  * *Der Finanzierungsbedarf steigt mit jedem Kind um €50.000*
+  * *Junge Akademiker unter 35 Jahren kaufen kapitalmarktnahe Lebensversicherungsprodukte*
+
+&rarr; Hypothese mit Fachbereich abstimmen und positiv formulieren
+
+&rarr; Aber in der Datenanalyse vom Gegenteil ausgehen (analog Hypothesentests in der Statistik)
+
+&rarr; Ergebnisformulierung in der Form *Die Daten sprechen nicht dagegen, dass....*
+
+
+---
+# Modellierung
+
+> All models are wrong, but some are useful (George Box)
+
+* Dieses Zitat findet sich wohl in jedem Lehrbuch zum Thema: Weil es stimmt.
+* 
+* Baseline
+
+
+
+
+---
+# Reproduzierbarkeit der Datenanalyse - Versionierung (1)
+
+Das hier passiert sehr oft in Unternehmen (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)):
+
+.center[![:scale 40%](./img/phd_comics_vc.gif)]
+
+---
+# Reproduzierbarkeit der Datenanalyse - Versionierung (2)
+
+Versionsverwaltungssysteme  (Bildquelle: [datascience.box](https://github.com/rstudio-education/datascience-box)) helfen bei der sicheren Verwaltung von Änderungen: 
+* Nachverfolgen der Änderungen (was und durch wen) und 
+* Verhinderung bzw. Behebung von Konflikten bei Zusammenführungen
+
+.center[![:scale 50%](./img/lego-steps-commit-messages.png)]
+
+---
+# Reproduzierbarkeit der Datenanalyse - Versionierung (3)
+
+Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein vereinfachter Arbeitsfluss mit *git* sieht so aus (Bildquelle: [Git Workflow blog post](https://nvie.com/posts/a-successful-git-branching-model/)):
+
+.center[![:scale 35%](./img/main-branches.png)]
+
+
+---
+# Reproduzierbarkeit der Datenanalyse - Data lineage
+
+Unter *data lineage* oder *data provenance* versteht man die Fähigkeit, jederzeit den Ursprung, die (fachliche) Bedeutung und die Transformationskette von Daten nachvollziehen zu können.
+
+&rarr; In Verbindung mit *Versionierung* kann man mittels *data lineage* insbesondere Änderungen in der Datenverarbeitungskette und der Datenursprünge über die Zeit verfolgen.
+
+&rarr; *Data lineage* stützt sich idealerweise auf ein System zum *Metadatenmanagement*, d.h. einem Katalog von Daten über Daten, u.a. zu Dateneignern, Feldbedeutungen und Datenfeldverwendungsverweisen.
+
+
+---
+# Reproduzierbarkeit der Datenanalyse - Datenintegrität (1)
+
+Datenquellen werden oftmals an einem Ort zusammengeführt und dabei passieren auch Fehler. Es ist hilfreich im Nachhinein einzelne Datensätze den Ladevorgängen zuordnen zu können. Damit kann man u.a. doppelte Ladevorgänge identifizieren.
+
+&rarr; Beim Extrakt ein zusätzliches Feld mit Quellennamen und Zeitstempel hinzufügen.
+```
+select FELD1, ..., FELDn, 
+'QUELLE' || TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') as SOURCE_TS  
+into ZIELTAB 
+from QUELLTAB 
+where KRIT
+```
+---
+# Reproduzierbarkeit der Datenanalyse - Datenintegrität (2)
+
+Manchmal möchte man erkennen,
+* dass sich Dateien verändert haben oder
+* dass sich Dateien  *nicht* verändert haben.
+
+In beiden Fällen kann man einen *Fingerabdruck* der Datei bestimmen: Ein Hashwert der Datei:
+```{r}
+digest::digest("./telco_dataset.csv", algo = "xxhash32", file = TRUE)
+```
+
+Indem man den Hashwert zusammen mit dem Dateinamen speichert, kann man die beiden Fälle oben prüfen und bspw. sicherstellen:
+* dass ein Importvorgang *nicht* wiederholt wird oder
+* dass eine Analyse auf unveränderten Daten arbeitet.
+
+---
+# Reproduzierbarkeit der Datenanalyse (4)
+
+Datenbanktabellen haben oft einen *Primärsschlüssel*, d.h. ein Feld oder eine Feldkombination, die einen Datensatz eindeutig identifiziert. Dieser Schlüssel, bspw. eine Vertragsnummer, wird oftmals in vielen Tabellen als Primätschlüssel verwendet. 
+
+&rarr; Um auch nach der Verbindung mehrerer Tabellen (*join*) noch den Ursprung von Datensätzen leicht bestimmen zu können, bietet es sich an, den Tabellen nach (oder bei) dem Lesen noch einen *technischen Datensatzschlüssel* zu geben:
+
+```{r}
+telco_data %>% mutate(TKEY = paste0("TC_", row_number())) %>% 
+  select(TKEY, customerID, tenure, InternetService, PaymentMethod) %>% head(5)
+```
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Tag 2
+
 
 
 ---
