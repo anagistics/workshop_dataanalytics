@@ -1,0 +1,13 @@
+---
+title: "Lösungshinweise zum Übungsblatt"
+date: "20.+21. Mai 2021"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+# Gestaltprinzipien
+
+* [https://www.educational-animation.com/de/gestaltprinzip/](https://www.educational-animation.com/de/gestaltprinzip/)
+

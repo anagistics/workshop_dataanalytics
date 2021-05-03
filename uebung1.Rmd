@@ -1,0 +1,57 @@
+---
+title: "Übungen für den Workshop Datenanalyse"
+date: "20.+21. Mai 2021"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+Dieses Arbeitsblatt enthält eine Aufgabensammlung für den *Workshop Datenenalyse in VU* und die Vorlesung *Data Science*. 
+
+
+# Aufgabe: Datenexploration
+
+Für diese Aufgabe wird das Tool [$\rightarrow$ `OpenRefine`](https://openrefine.org) verwendet. Dieses Tool ist eine Anwendung, die Sie auf Ihrem Rechner installieren (Hinweise unter https://openrefine.org/download.html). Nach dem Start öffnet sich ein Browserfenster, in dem Sie dann das Laden von Daten und die explorative Analyse durchführen. Für eine Einführung in das Tool können Sie sich auch die Videos auf der Hauptseite von `OpenRefine` angucken.
+
+Für diese Übung verwenden Sie einen Datensatz über US-Präsidenten (Quelle: `R`-Paket `dataMaid`). Laden Sie die Datei `president_data.csv`, die Sie in Moodle finden, in das Tool. Zuerst erscheint eine Voransicht der Daten, anhand der Sie prüfen können, ob die Datenformate richtig erkannt wurden. Über den Knopf *Create Project* rechts oben starten Sie dann die eigentliche Exploration.
+
+* Zu Beginn sind alle Spalten Textspalten. Transformieren Sie die betroffenen Spalten in einen geeigneteren Datentyp anhand einer der Operationen, die Sie unter `Edit Cells | Common Transforms` finden.
+* Welche Anzahl von Datensätzen würden Sie erwarten? Führen Sie eine kurze Plausibilitätsprüfung durch: Sind alle Einträge enthalten, die Sie erwarten? 
+* Die Einträge im Menü `Facet | Customized Facets` können dabei helfen leere oder ungewöhnlich befüllte Datenfelder zu finden. Das Ergebnis der Operation wird links in einem Diagramm angezeigt, das zugleich als Filter dient. Finden Sie Datensätze, die offensichtlich falsch befüllt sind, wenn Sie diese Funktionen auf die Namensspalten anwenden?
+* Erstellen Sie in Histogramm des Alters bei Amtsantritt über die Funktion `Facet | Numeric Facet`. Was fällt Ihnen auf?
+* Aus welchen Bundesstaaten stammen die Präsidenten? Erstellen Sie für die Beantwortung dieser Frage erneut ein Histogramm über die Funktion `Facet | Text Facet`. Auch hier könnte Ihnen etwas auffallen: Sind alle Einträge korrekt?
+
+
+# Aufgabe (**Gruppe**): Gestaltprinzipien für die Datenvisualisierung
+
+Die folgende Aufgabe ist als Gruppenübung angelegt. Jede Gruppe/jeder Breakout-Raum, hat zur Aufgabe, ein *Gestaltprinzip* zu erklären: Die sog. *Gestaltprinzipien* sind ein Satz von grundlegenden Prinzipien für gute Visualisierungen. 
+
+  * Erklären Sie bitte die einzelnen Prinzipien anhand einer erklärenden Graphik,
+  * finden Sie ein positives Beispiel für die Anwendung des Prinzips (z.B. auf [$\rightarrow$ https://ourworldindata.org/](https://ourworldindata.org/) oder [$\rightarrow$ https://flowingdata.com/](https://flowingdata.com/)),
+  * finden Sie ein Beispiel für eine Anwendung, die dieses Prinzip verletzt (z.B. auf [$\rightarrow$  https://viz.wtf/](https://viz.wtf/) )
+
+Im einzelnen sollen die folgenden Prinzipien erklärt werden:
+
+1. Räumliche Nähe
+1. Ähnlichkeit
+1. Gemeinsamer Bereich
+1. Gute Fortsetzung
+1. Geschlossenheit
+1. Verbundenheit
+  
+
+# Aufgabe (**Gruppe**): Hypothesenbildung
+
+
+# Aufgabe (**Gruppe**): Praktische Hinweise für die Durchführung von Datenanalysen
+
+Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforderungen an die Vorgehensweise her nicht sehr von der eines Wissenschaftlers, der im Labor (oder am Rechner) Versuchsreihen durchführt, analysiert und die Ergebnisse publiziert. In ihrem Artikel [$\rightarrow$ *Good enough practices in scientific computing*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510) (erschienen 2017 in *PLOS Computational Biology*) haben die Autorinnen und Autoren eine Sammlung von Empfehlungen formuliert. Erarbeiten Sie in einer Gruppe jeweils eine ca. 5minütige Präsentation zu jeweils einem der folgenden Themen:
+
+1. Kollaboration: Wie fördern Sie die Zusammenarbeit im Team auch bei wechselnder Zusammensetzung?
+1. Datenmanagement: Wie erreichen Sie Nachvollziehbarkeit und Korrektheit bei der Datenverarbeitung?
+1. Software: Was hat Software mit Datenanalyse zu tun und wie gewährleisten Sie gute Softwarequalität?
+1. Nachhaltigkeit: Wie erreichen Sie es, dass Ihre Analysen auch nächstes Jahr noch reproduzierbar (technisch und gedanklich) sind?
+1. Dokumentation und Präsentation: Welche Empfehlungen aus der Wissenschaft erscheinen im Unternehmensumfeld sinnvoll?
+
+

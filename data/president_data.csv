@@ -1,0 +1,47 @@
+lastName;firstName;orderOfPresidency;birthday;stateOfBirth;assassinationAttempt;sex;ethnicity;presidencyYears;ageAtInauguration;favoriteNumber
+Washington;George;1;1732-02-22;Virginia;0;Male;Caucasian;  7;57;3+0i
+Adams;John;2;1735-10-30;Massachusetts;0;Male;Caucasian;  3;61;4+0i
+Jefferson;Thomas;3;1743-04-13;Virginia;0;Male;Caucasian;  8;57;0+1.4142135623731i
+Madison;James;4;1751-03-16;Virginia;0;Male;Caucasian;  8;57;10+0i
+Monroe;James;5;1758-04-28;Virginia;0;Male;Caucasian;  8;58;3+0i
+Adams;John;6;1767-07-11;Massachusetts;0;Male;Caucasian;  4;57;9+0i
+Jackson;Andrew;7;1767-03-15;Tennessee;1;Male;Caucasian;  8;61;10+0i
+Van Buren;Martin;8;1782-12-05;New York;0;Male;Caucasian;  4;54;7+0i
+Harrison;William;9;1773-02-09;Ohio;0;Male;Caucasian;  0;68;7+0i
+Tyler;John;10;1790-03-29;Virginia;0;Male;Caucasian;  3;51;1+0i
+Polk;James;11;1795-11-02;North Carolina;0;Male;Caucasian;  4;49;3+0i
+Taylor;Zachary;12;1784-11-24;Virginia;0;Male;Caucasian;  1;64;2+0i
+Fillmore;Millard;13;1800-01-07;New York;0;Male;Caucasian;  2;50;7+0i
+Pierce;Franklin;14;1804-11-03;New Hampshire;0;Male;Caucasian;  4;48;4+0i
+Buchanan;James;15;1791-04-23;Pennsylvania;0;Male;Caucasian;  4;65;8+0i
+Lincoln;Abraham;16;1809-02-12;Kentucky;1;Male;Caucasian;  4;52;5+0i
+Johnson;Andrew;17;1808-12-29;North Carolina;0;Male;Caucasian;  3;56;8+0i
+Grant;Ulysses;18;1822-04-27;Ohio;0;Male;Caucasian;  8;46;10+0i
+Hayes;Rutherford;19;1822-10-04;Ohio;0;Male;Caucasian;  4;54;4+0i
+Garfield;James;20;1831-11-19;Ohio;1;Male;Caucasian;  0;49;8+0i
+Arthur;Chester;21;1830-10-05;Vermont;0;Male;Caucasian;  3;50;10+0i
+Cleveland;Grover;22;1837-03-18;New Jersey;0;Male;Caucasian;  4;47;3+0i
+Harrison;Benjamin;23;1833-08-20;Ohio;0;Male;Caucasian;  4;55;7+0i
+Cleveland;Grover;24;1837-03-18;New Jersey;0;Male;Caucasian;  4;55;2+0i
+McKinley;William;25;1843-01-29;Ohio;1;Male;Caucasian;  4;54;3+0i
+Roosevelt;Theodore;26;1858-10-27;New York;1;Male;Caucasian;  7;42;4+0i
+Taft;William;27;1857-09-15;Ohio;0;Male;Caucasian;  4;51;1+0i
+Wilson;Woodrow;28;1856-12-28;Virginia;0;Male;Caucasian;  8;56;4+0i
+Harding;Warren;29;1865-11-02;Ohio;0;Male;Caucasian;  2;55;9+0i
+Coolidge;Calvin;30;1872-07-04;Vermont;0;Male;Caucasian;  5;51;4+0i
+Hoover;Herbert;31;1874-08-10;Iowa;0;Male;Caucasian;  4;54;5+0i
+Roosevelt;Franklin;32;1882-01-30;New York;1;Male;Caucasian; 12;51;6+0i
+ Truman;Harry;33;1884-05-08;Missouri;1;Male;Caucasian;  7;60;5+0i
+Eisenhower;Dwight;34;1890-10-14;Texas;0;Male;Caucasian;  8;62;2+0i
+Kennedy;John;35;1917-05-29;Massachusetts;1;Male;Caucasian;  2;43;9+0i
+Johnson;Lyndon;36;1908-08-27;Texas;0;Male;Caucasian;  5;55;7+0i
+Nixon;Richard;37;1913-01-09;California;0;Male;Caucasian;  5;56;8+0i
+Ford;Gerald;38;1913-07-14;Nebraska;1;Male;Caucasian;  2;61;2+0i
+Carter;Jimmy;39;1924-10-01;Georgia;0;Male;Caucasian;  4;52;8+0i
+Reagan;Ronald;40;1911-02-06;Illinois;1;Male;Caucasian;  8;69;5+0i
+Bush;George;41;1924-06-12;Massachusetts;0;Male;Caucasian;  4;64;9+0i
+Clinton;William;42;1946-08-19;Arkansas;0;Male;Caucasian;  8;46;7+0i
+Bush;George;43;1946-07-06;Connecticut;0;Male;Caucasian;  8;54;8+0i
+Obama;Barack;44;1961-08-04;Hawaii;0;Male;African American;Inf;47;6+0i
+Trump;.;45;1946-06-14;New york;0;Male;Caucasian;NA;70;6+0i
+Arathornson;Aragorn;0;1300-03-01;Gondor;1;Male;Caucasian;NA;87;8+0i

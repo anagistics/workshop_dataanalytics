@@ -31,10 +31,13 @@ output:
 * Daten verstehen
     * Struktur von Daten
     * Validierung: Ausreißer, fehlende Werte, besondere Werte
+    * Übung zur Datenvalidierung
 * Visualisierung
+    * Gruppenarbeit + Ergebnisvorstellung
 * Herangehensweise: Hypothesenbildung
 * Modellierung
 * Reproduzierbarkeit der Datenanalyse
+    * Gruppenarbeit + Ergebnisvorstellung
 
 `r emo::ji("metal")` Tag 2 - Praxis
 
@@ -57,6 +60,7 @@ library(ggalluvial)
 library(tidyverse)
 library(easyalluvial)
 library(dataMaid)
+library(here)
 
 # Daten kommen von: https://www.kaggle.com/blastchar/telco-customer-churn
 
@@ -466,10 +470,42 @@ ggplot(as.data.frame(Titanic),
 > All models are wrong, but some are useful (George Box)
 
 * Dieses Zitat findet sich wohl in jedem Lehrbuch zum Thema: Weil es stimmt.
-* 
-* Baseline
+
+`r emo::ji("question")` Wozu Modellierung?
+
+> *Modeling [...] is the process of encapsulating information into a tool which can forecast and make predictions. (Skiena: *The Data Science Design Manual*)
 
 
+* Wesentliche Modelltypen:
+  * **Regressionsmodell**: Quantitative abhängige Variable
+  * **Klassifikationsmodell**: Qualitative abhängige Variable
+
+---
+# Verschiedene Modelltypen: Lineare Regression
+* Regressionsmodell
+* **Lineares Modell**: Es wird ein linearer Zusammenhang zwischen den unabhängigen und der abhängigen Variable unterstellt
+
+```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): Introduction to Statistical Learning"}
+
+knitr::include_graphics("./img/lineare_regression.png")
+#  here("img", "lineare_regression.png"))
+```
+
+---
+# Verschiedene Modelltypen: Entscheidungsbäume
+* Klassifikationsmodell (häufigste Anwendung, auch Regression möglich)
+
+---
+# Verschiedene Modelltypen: Logistische Regression
+* Klassifikationsmodell
+
+---
+# Verschiedene Modelltypen: Clusterung
+* Unüberwachtes Lernen
+
+---
+# Vorgehen bei der Modellierung
+* Baseline-Modell
 
 
 ---
