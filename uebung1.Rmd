@@ -43,6 +43,14 @@ Im einzelnen sollen die folgenden Prinzipien erklärt werden:
 
 # Aufgabe (**Gruppe**): Hypothesenbildung
 
+Ziel dieser Übung ist die Formulierung von Hypothesen. Dafür werden mehrere Szenarios vorgestellt. Versetzen Sie sich jeweils in die  im Szenario beschriebene Rolle und entwickeln Sie *drei* Hypothesen, die es Ihnen in dieser Rolle erlauben würden, den Markt besser zu verstehen. Beachten Sie, dass Hypothesen den erwarteten Zusammenhang zwischen Variablen erfassen, sowie testbar und falsifizierbar sein sollen.
+
+  * Szenario 1: Bike-Sharing-Dienst. Sie finden unter [$\rightarrow$ https://www.kaggle.com/marklvl/bike-sharing-dataset](https://www.kaggle.com/marklvl/bike-sharing-dataset) eine Einführung und eine Übersicht über die Daten. Versetzen Sie sich in die Rolle des Dienstbetreibers.
+  
+  * Szenario 2: Süßigkeitenhersteller. Sie finden unter [$\rightarrow$ https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking](https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking) eine Beschreibung von Daten über am Markt angebotene Süßigkeiten, die in einer Umfrage bewertet wurden. Nehmen Sie an, Sie wären der Süßigkeitenhersteller und wollen eine neue Süßigkeit auf den Markt bringen.
+  
+  * Szenario 3: Immobilienpreise. Unter [$\rightarrow$ https://www.kaggle.com/arslanali4343/real-estate-dataset](https://www.kaggle.com/arslanali4343/real-estate-dataset) finden Sie eine Beschreibung von Daten zu Immobilien in Boston. Nehmen Sie an, Sie wären Immobilienmakler.
+
 
 # Aufgabe (**Gruppe**): Praktische Hinweise für die Durchführung von Datenanalysen
 
@@ -54,4 +62,81 @@ Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforde
 1. Nachhaltigkeit: Wie erreichen Sie es, dass Ihre Analysen auch nächstes Jahr noch reproduzierbar (technisch und gedanklich) sind?
 1. Dokumentation und Präsentation: Welche Empfehlungen aus der Wissenschaft erscheinen im Unternehmensumfeld sinnvoll?
 
+# Aufgabe (**Gruppe**): Historische Datenanalyse
 
+1. Florence Nightingale
+1. Snow's Cholera Karte
+1. Minard's Karte von Napoleons Russlandfeldzug
+
+# Aufgabe (**Gruppe**); Praktische Datenanalyse
+## Filmdaten
+
+Filmdaten von https://www.data-manual.com/data importieren wir wie eine normale Datei:
+
+```{r movies_download}
+movie_url <- "https://www.data-manual.com/datafiles/movies.csv"
+movies <- readr::read_csv(movie_url)
+```
+
+Prüfen der eingelesenen Daten anhand der Dimensionen des Datensatzes:
+```{r}
+dim(movies)
+```
+## Süßigkeiten
+
+Die Daten hier beschreiben verschiedene Süßigkeiten hinsichtlich verschiedener Eigenschaften. Die Daten werden eingelesen und die Dimensionen des Datensatzes werden ausgegeben.
+
+Informationen zum Datensatz unter https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
+
+```{r sweets_download}
+sweets_url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/candy-power-ranking/candy-data.csv"
+sweets <- readr::read_csv(sweets_url)
+
+dim(sweets)
+
+```
+
+## Fussballmannschaften
+
+Die Daten stammen von der Seite https://github.com/fivethirtyeight/data/tree/master/soccer-spi und werden unter https://projects.fivethirtyeight.com/soccer-predictions/ genauer erklärt. Im wesentlichen werden Vereinsmannschaften durch Kennzahlen bewertet und man kann diese Daten hinsichtlich Vereins- und Ligastärken vergleichen.
+
+```{r real_football_download}
+teams_url <- "https://projects.fivethirtyeight.com/soccer-api/club/spi_global_rankings.csv"
+teams <- readr::read_csv(teams_url)
+
+dim(teams)
+
+```
+## Geburtenzahlen
+
+Geburtenzahlen in den USA aus zwei Quellen (s. https://github.com/fivethirtyeight/data/tree/master/births).
+Die Daten sind relativ einfach strukturiert und geben für einen Zeitraum einfach nur die Geburtenzahlen pro Kalendertag an. Hier werden die Daten von 2000 bis 2014 verwendet:
+
+```{r birth_download}
+birth_url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/births/US_births_2000-2014_SSA.csv"
+births <- readr::read_csv(birth_url)
+
+dim(births)
+
+```
+## CO2-Emissionen von Nahrungsmitteln
+
+Auf der Seite https://ourworldindata.org/food-choice-vs-eating-local findet sich eine Untersuchung zu CO2-Emissionen verschiedener Lebensmittel entlang der Wertschöpfungskette.
+
+```{r food_download}
+co2_url <- "https://ourworldindata.org/uploads/2020/02/GHG-emissions-by-life-cycle-stage-OurWorldinData-upload.csv"
+co2 <- readr::read_csv(co2_url)
+
+dim(co2)
+
+```
+## Steam Spiele
+Nutzung von Spielen auf Steam. Erklärung der Daten unter https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-03-16/readme.md.
+
+```{r steam_download}
+steam_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-16/games.csv"
+steam <- readr::read_csv(steam_url)
+
+dim(steam)
+
+```

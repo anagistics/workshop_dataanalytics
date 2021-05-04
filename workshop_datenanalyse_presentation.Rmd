@@ -452,14 +452,11 @@ ggplot(as.data.frame(Titanic),
 
 &rarr; Zufällige Suche: Kann funktionieren, ist aber ineffizient.
 
-&rarr; Stattdessen Formulierung von *Hypothesen*: Vermutungen über fachliche relevante Sachverhalte:
-  * *Verkäufe steigen im 4. Quartal jeden Jahres um mindestens 5%*
-  * *Der Finanzierungsbedarf steigt mit jedem Kind um €50.000*
-  * *Junge Akademiker unter 35 Jahren kaufen kapitalmarktnahe Lebensversicherungsprodukte*
+&rarr; Stattdessen Formulierung von *Hypothesen*: Spezifische Vermutungen über den erwarteten Zusammenhang zwischen unabhängigen und abhängigen Variablen
 
-&rarr; Hypothese mit Fachbereich abstimmen und positiv formulieren
+&rarr; Eine Hypothese muss nicht zutreffend sein, aber *testbar*
 
-&rarr; Aber in der Datenanalyse vom Gegenteil ausgehen (analog Hypothesentests in der Statistik)
+&rarr; Studie/Analyse versucht Hypothese zu *falsifizieren*
 
 &rarr; Ergebnisformulierung in der Form *Die Daten sprechen nicht dagegen, dass....*
 
