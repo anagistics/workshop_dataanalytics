@@ -1,8 +1,7 @@
 ---
 title: "Workshop Datenanalyse"
-subtitle: "mit einem Schwerpunkt auf Versicherungsunternehmen"
+subtitle: <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 author: "Dr.-Ing. Andreas Cardeneo"
-institute: "Data Scientist bei Allianz Lebensversicherungs-AG"
 email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
 date: "`r as.Date(fs::file_info(knitr::current_input())$change_time)` (commit ID `r substr(system('git rev-parse HEAD', intern = TRUE), 1, 7)`)"
 
@@ -17,6 +16,20 @@ output:
       beforeInit: "macros.js"
 
 ---
+
+```{css, echo = FALSE}
+.exercise {
+  background-color: #0048BA;
+  color: #d6d6d6;
+  text-shadow: 0 0 20px #333;
+}
+
+.exercise h1, .exercise h2, .exercise h3 {
+  color: #f3f3f3;
+}
+
+```
+
 
 # So sieht der Plan aus
 
@@ -46,10 +59,6 @@ output:
 * Gruppenarbeiten Datenanalyse
 * Vorstellung Gruppenergebnisse
 
----
-class: inverse, center, middle
-
-# Tag 1
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -393,6 +402,15 @@ data2 <- c(10, 20, m, 5, 3, 12, m, 20)
 `r emo::ji("point_right")` In der Literatur unterscheidet man verschiedene Szenarios für fehlende Werte: *Not missing at random*, *missing at random* und *missing completely at random*. Mehr dazu im Buch zu [data cleaning](http://www.data-cleaning.org/).
 
 ---
+class: exercise, center, middle
+
+# Übung: Daten einlesen und validieren
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/B70J_H_zAWM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+`r emo::ji("point_right")` Übungssammlung, Aufgabe *Datenexploration*
+
+---
 # Validierung:  Besondere Werte
 
 Gerade in älteren IT-Systeme (*Legacy*-Systemen) wurden in der Vergangenheit gerne spezielle Werte (Ausprägungen) verwendet, um qualitative Aussagen zu treffen:
@@ -460,22 +478,37 @@ ggplot(as.data.frame(Titanic),
 
 &rarr; Ergebnisformulierung in der Form *Die Daten sprechen nicht dagegen, dass....*
 
+---
+class: exercise, center, middle
+
+# Übung: Hypothesenbildung
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vqaHV-bYjSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+`r emo::ji("point_right")` Übungssammlung, Gruppen-Aufgabe *Hypothesenbildung*
+
 
 ---
 # Modellierung
 
-> All models are wrong, but some are useful (George Box)
+`r emo::ji("question")` Was ist ein *Modell*?
+> Ein Modell ist ein vereinfachtes Abbild der Wirklichkeit. ([Wikipedia](https://de.wikipedia.org/wiki/Modell))
 
-* Dieses Zitat findet sich wohl in jedem Lehrbuch zum Thema: Weil es stimmt.
+`r emo::ji("star")` Mit einem Modell versucht man in kompakter Form die Aussage der Daten in anwendbarer Form bereitzustellen.   
 
-`r emo::ji("question")` Wozu Modellierung?
+* Abstraktion der Realität zu einem bestimmten Zweck. In der Datenanalyse zumeist um Sachverhalte
+    * zu verstehen (*deskriptive* Modelle) oder
+    * vorherzusagen (*prädiktive* Modelle)
 
-> *Modeling [...] is the process of encapsulating information into a tool which can forecast and make predictions. (Skiena: *The Data Science Design Manual*)
+> All models are wrong [, some are useful] ([George Box, 1976](https://en.wikipedia.org/wiki/All_models_are_wrong))
 
+---
+# Modellarten
 
-* Wesentliche Modelltypen:
-  * **Regressionsmodell**: Quantitative abhängige Variable
-  * **Klassifikationsmodell**: Qualitative abhängige Variable
+Typische Modelle:
+* **Prognose**: Vorhersage zukünftiger Werte von Zeitreihen
+* **Klassifikation**: Einteilung von Beobachtungen in Gruppen (*Klassen*), bspw. von Kunden in Zielgruppen für Marketingkampagnen; Qualitative abhängige Variable
+* **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse; Quantitative abhängige Variable
 
 ---
 # Verschiedene Modelltypen: Lineare Regression
@@ -580,41 +613,12 @@ telco_data %>% mutate(TKEY = paste0("TC_", row_number())) %>%
   select(TKEY, customerID, tenure, InternetService, PaymentMethod) %>% head(5)
 ```
 
-
-
-
-
 ---
 class: inverse, center, middle
 
-# Tag 2
+# Lizenz
 
-
-
----
-class: inverse, center, middle
-
-# Übung
-
----
-# Übungsblatt
-
-Das Übungsblatt finden Sie unter http://bit.ly/312YJc5
-
-`r emo::ji("point_right")`  Oder in Moodle.
-
-* Empfehlung für die Bearbeitung
-    * Bilden Sie Gruppen mit 3-4 TeilnehmerInnen
-    * Nehmen Sie sich ca. 45-60 Minuten für das Tutorial (*R für Journalisten*, http://bit.ly/2u97w98)
-    * Wechseln Sie dann zum Übungsblatt
-        * Bearbeiten Sie die Aufgaben zum ersten Datensatz in ca. 45-60 Minuten
-            * *Melden Sie sich, wenn Sie Auffälligkeiten im Datensatz entdeckt haben -- ich sammle die vorne*
-        * Nutzen Sie die restliche Zeit für den zweiten Datensatz
-        * Ich hätte gerne 3 Gruppen, die um 15:45 ihre Ergebnisse zeigen präsentieren
-            * Auswahlmethode: 1. Freiwillig, 2. Zufällig
-* Wenn Sie schneller fertig sind, hätte ich noch eine Idee...
-        
-`r emo::ji("point_right")` Melden Sie sich bei Fragen - ich sammle Fragen & Antworten vorne
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.
 
  
 
@@ -646,32 +650,8 @@ Betriebliche Entscheidungen werden zunehmend datenbasiert getroffen
 
 &rarr; Soft skills: Kritisch sein (auch gg. eigenen Ergebnissen)
 
-
-
 ---
-# Modellierung (1)
 
-`r emo::ji("question")` Was ist ein *Modell*?
-> Ein Modell ist ein vereinfachtes Abbild der Wirklichkeit. ([Wikipedia](https://de.wikipedia.org/wiki/Modell))
-
-`r emo::ji("star")` Mit einem Modell versucht man in kompakter Form die Aussage der Daten in anwendbarer Form bereitzustellen.   
-
-* Abstraktion der Realität zu einem bestimmten Zweck. In der Datenanalyse zumeist um Sachverhalte
-    * zu verstehen (*deskriptive* Modelle) oder
-    * vorherzusagen (*prädiktive* Modelle)
-
-> All models are wrong [, some are useful] ([George Box, 1976](https://en.wikipedia.org/wiki/All_models_are_wrong))
-
----
-# Modellierung (2)
-
-Typische Modelle:
-* **Prognose**: Vorhersage zukünftiger Werte von Zeitreihen
-* **Segmentierung**: Einteilung von Beobachtungen in Gruppen (*Segmente*), bspw. 
-von Kunden in Zielgruppen für Marketingkampagnen
-* **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse 
-
----
 # Datasets
 
 * CAS-Dataset
