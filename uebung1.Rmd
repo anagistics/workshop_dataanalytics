@@ -68,6 +68,37 @@ Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforde
 1. Snow's Cholera Karte
 1. Minard's Karte von Napoleons Russlandfeldzug
 
+# Aufgabe (**Gruppe**): Praktische Datenanalyse: Süßigkeiten
+
+Die Daten hier beschreiben verschiedene Süßigkeiten hinsichtlich verschiedener Eigenschaften und zudem wird für jede Süßigkeit ein Punktwert angegeben, der die Konsumentenpräferenz quantifiziert.
+
+Informationen zum Datensatz unter https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
+
+Die Daten werden mit dem folgenden Statement eingelesen:
+
+```{r sweets_download, eval = FALSE}
+sweets_url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/candy-power-ranking/candy-data.csv"
+sweets <- readr::read_csv(sweets_url)
+
+```
+
+Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen Daten durch eine Marktbefragung gewonnen hat. Sie stehen vor der Aufgabe, eine neue am Markt erfolgreiche Süßigkeit zu entwickelt. Aber welche Eigenschaften soll das neue Produkt haben: Mit oder ohne Nüsse? Fruchtig? Als Riegel? Sie sind als Berater engagiert worden, der auf Basis einer Datenanalyse einen Vorschlag machen soll. Es wird erwartet, dass Sie Ihre Ergebnisse in einer 10minütigen Präsentation vorstellen. Es wird zudem erwartet, dass Sie Ihre Analyse dem Head of Business Analytics nachvollziehbar erklären können.
+
+1. Entwickeln Sie drei Hypothesen, die zum Ziel Ihres Auftraggebers passen. Einige Mitarbeiter Ihres Auftraggebers sind bspw. der Meinung, dass teure Produkte auch erfolgreicher sind.
+1. Verwenden Sie `R` und `RStudio` für die Validierung der Daten. Halten Sie das Ergebnis in Ihrer Präsentation fest.
+1. Verwenden Sie das Paket `tidyerse` für die explorative Analyse der Daten und stellen Sie die Ergebnisse Ihrer Analyse graphisch dar. Halten Sie auch diese Ergebnisse in Ihrer Präsentation fest und denken Sie an die Prinzipien für gute Visualisierung. Interessante Fragen könnten z.B. sein:
+  * Welche Zutaten finden sich in den beliebten Produkten?
+  * Welche Zutaten finden sich in den preiswerten Produkten?
+  * Gibt es Zutaten, die oft bzw. nie gemeinsamen verwendet werden? 
+  * Ihre Hypothesen sollten Sie ebenfalls explorativ und visuell überprüfen.
+1. Die Leiterin der Produktentwicklung hat Ihnen eine Frage mit auf den Weg gegeben: *Was macht erfolgreiche Produkte aus?*
+   * Variante 1: Wie können Sie diese Frage mit einem *Klassifikationsmodell* beantworten?
+   * Variante 2: Wie können Sie diese Frage mit einem *Regressionsmodell* beantworten?
+   * Variante 3: Wie können Sie diese Frage mit einem *Clustermodell* beantworten?
+
+  * Für eine Hilfestellung bei der Anwendung von Modellen mit `R` können Sie die *Lab*-Kapitel im Buch [$\rightarrow$ *Introduction to Statistical Learning*](https://www.statlearning.com/) verwenden oder Beratung anfordern.
+
+
 # Aufgabe (**Gruppe**); Praktische Datenanalyse
 ## Filmdaten
 
@@ -81,19 +112,6 @@ movies <- readr::read_csv(movie_url)
 Prüfen der eingelesenen Daten anhand der Dimensionen des Datensatzes:
 ```{r}
 dim(movies)
-```
-## Süßigkeiten
-
-Die Daten hier beschreiben verschiedene Süßigkeiten hinsichtlich verschiedener Eigenschaften. Die Daten werden eingelesen und die Dimensionen des Datensatzes werden ausgegeben.
-
-Informationen zum Datensatz unter https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
-
-```{r sweets_download}
-sweets_url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/candy-power-ranking/candy-data.csv"
-sweets <- readr::read_csv(sweets_url)
-
-dim(sweets)
-
 ```
 
 ## Fussballmannschaften
