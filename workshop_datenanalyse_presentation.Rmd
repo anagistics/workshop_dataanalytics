@@ -423,6 +423,22 @@ Man findet häufig:
 * "␣" (Leerzeichen), "" (leere Zeichenkette), "-" (Minus) als Kennzeichen für *fehlende* Werte.
 
 ---
+# Visualisierung: Säulendiagramm
+
+Einfach, gut erfassbar, unabhängige Werte
+
+---
+# Visualisierung: Balkendiagramm
+
+Ähnlich wie Säulen, passt manchmal besser auf breite Monitore, Labels besser lesbar
+
+
+---
+# Visualisierung: Liniendiagramm
+
+Geeignet für Zeitreihen zusammenhängender Werte, z.B. Temperaturen, Börsenkurse
+
+---
 # Visualisierung: Histogramm
 
 Ein **Histogramm** ist ein Häufigkeitsdiagramm. Es dient dazu, die Häufigkeit von Merkmalsausprägungen im Vergleich zu veranschaulichen.
@@ -440,6 +456,11 @@ diamonds %>% ggplot() + geom_point(aes(x = carat, y = price))
 
 ```
 
+
+---
+# Visualisierung: Parallelkoordinaten
+
+todo
 
 ---
 # Visualisierung: Alluvial-Diagramme
