@@ -70,17 +70,11 @@ Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforde
 
 # Aufgabe (**Gruppe**): Praktische Datenanalyse: Süßigkeiten
 
-Die Daten hier beschreiben verschiedene Süßigkeiten hinsichtlich verschiedener Eigenschaften und zudem wird für jede Süßigkeit ein Punktwert angegeben, der die Konsumentenpräferenz quantifiziert.
+Die Daten für diese Aufgabe beschreiben verschiedene Süßigkeiten hinsichtlich mehrerer Eigenschaften und zudem wird für jede Süßigkeit ein Punktwert angegeben, der die Konsumentenpräferenz quantifiziert.
 
-Informationen zum Datensatz unter https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking
+Informationen zum Datensatz finden Sie unter https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking.
 
-Die Daten werden mit dem folgenden Statement eingelesen:
-
-```{r sweets_download, eval = FALSE}
-sweets_url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/candy-power-ranking/candy-data.csv"
-sweets <- readr::read_csv(sweets_url)
-
-```
+Die Daten sind unter `data/sweets.csv` im Projektordner verfügbar.
 
 Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen Daten durch eine Marktbefragung gewonnen hat. Sie stehen vor der Aufgabe, eine neue am Markt erfolgreiche Süßigkeit zu entwickelt. Aber welche Eigenschaften soll das neue Produkt haben: Mit oder ohne Nüsse? Fruchtig? Als Riegel? Sie sind als Berater engagiert worden, der auf Basis einer Datenanalyse einen Vorschlag machen soll. Es wird erwartet, dass Sie Ihre Ergebnisse in einer 10minütigen Präsentation vorstellen. Es wird zudem erwartet, dass Sie Ihre Analyse dem Head of Business Analytics nachvollziehbar erklären können.
 
@@ -97,6 +91,28 @@ Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen D
    * Variante 3: Wie können Sie diese Frage mit einem *Clustermodell* beantworten?
 
   * Für eine Hilfestellung bei der Anwendung von Modellen mit `R` können Sie die *Lab*-Kapitel im Buch [$\rightarrow$ *Introduction to Statistical Learning*](https://www.statlearning.com/) verwenden oder Beratung anfordern.
+
+
+# Aufgabe (**Gruppe**); Praktische Datenanalyse: Kundenabwanderung
+
+Ein Telekommunikationsanbieter hat für Sie als Datenanalyst eine für Serviceanbieter recht typische Aufgabenstellung: Es geht um die Feststellung der Ursachen für Kundenabwanderungen. Interessant sind Fragestellungen, ob die beobachteten Abwanderungen sich räumlich, zeitlich oder bezüglich einzelner Serviceleistungen konzentrieren. 
+
+Die Daten liegen in Form mehrerer `XLSX`-Dateien, die mit dem Präfix `telco` beginnen, im `data`-Ordner des Projektverzeichnisses. 
+Eine Dokumentation der Daten finden Sie unter [$\rightarrow https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113).
+
+
+
+Technische Hinweise:
+
+* `XLSX`-Dateien lassen sich mit `readxl::read_xlsx` lesen. 
+* FÜr die Bearbeitung der Aufgabenstellung ist es möglicherweise nötig, Datensätze aus mehreren Tabellen per `dplyr::inner_join` zu verbinden.
+
+
+
+
+
+
+
 
 
 # Aufgabe (**Gruppe**); Praktische Datenanalyse
