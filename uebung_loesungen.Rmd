@@ -11,3 +11,20 @@ output:
 
 * [https://www.educational-animation.com/de/gestaltprinzip/](https://www.educational-animation.com/de/gestaltprinzip/)
 
+# Übung Telekom-Churn
+
+Sinnvoll ist eine Normalisierung der Spaltennamen. Die Frage, ob DSL schlechter ist, könnte über eine einfache Tabelle beantwortet werden:
+```{r}
+library(readxl)
+
+d1 <- read_excel("data/Telco_customer_churn.xlsx")
+d2 <- read_excel("data/Telco_customer_churn_services.xlsx")
+
+tcs <- d1 %>% inner_join(d2, by = c("CustomerID" = "Customer ID"))
+nn <- vctrs::vec_as_names(names(d1), repair = "universal")
+names(d1) <- nn
+
+d1 %>% group_by(Internet.Service) %>% summarise(N = n(), M = mean(Churn.Value))
+
+```
+

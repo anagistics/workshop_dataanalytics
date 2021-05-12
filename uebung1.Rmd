@@ -95,10 +95,17 @@ Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen D
 
 # Aufgabe (**Gruppe**); Praktische Datenanalyse: Kundenabwanderung
 
-Ein Telekommunikationsanbieter hat für Sie als Datenanalyst eine für Serviceanbieter recht typische Aufgabenstellung: Es geht um die Feststellung der Ursachen für Kundenabwanderungen. Interessant sind Fragestellungen, ob die beobachteten Abwanderungen sich räumlich, zeitlich oder bezüglich einzelner Serviceleistungen konzentrieren. 
+Ein Telekommunikationsanbieter hat für Sie als Datenanalyst eine für Serviceanbieter recht typische Aufgabenstellung: Es geht um die Feststellung der Ursachen für Kundenabwanderungen. Interessant sind Fragestellungen, ob die beobachteten Abwanderungen sich räumlich, zeitlich oder bezüglich einzelner Serviceleistungen konzentrieren. Als Datenanalyst sollen Sie dabei unterstützen, Ursachen für die Abwanderung zu identifizieren. Aus den Vorgesprächen haben Sie schon folgendes erfahren:
+
+* Die Leiterin der DSL-Sparte sieht sich Vorwürfen ausgesetzt, die besagen, dass  Kunden wg. Unzufriedenheit mit dem DSL-Service abwandern.
+* Manche Experten glauben, dass die Kunden tendenziell nach 24 Monaten abwandern.
+* Marketing geht davon aus, dass es in einzelnen Regionen starke Wettbewerber gibt, die Kunden verstärkt abwerben. Wenn das stimmt, müsste man für diese Regionen relativ zu ihrer Kundenzahl einen höheren Anteil an Kunden sehen, die wg. des Wettbewerbers abwandern. 
+
 
 Die Daten liegen in Form mehrerer `XLSX`-Dateien, die mit dem Präfix `telco` beginnen, im `data`-Ordner des Projektverzeichnisses. 
 Eine Dokumentation der Daten finden Sie unter [$\rightarrow https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113).
+
+
 
 
 
