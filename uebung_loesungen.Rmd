@@ -21,10 +21,48 @@ d1 <- read_excel("data/Telco_customer_churn.xlsx")
 d2 <- read_excel("data/Telco_customer_churn_services.xlsx")
 
 tcs <- d1 %>% inner_join(d2, by = c("CustomerID" = "Customer ID"))
+```
+
+Man kann Spaltennamen so reparieren:
+```{r}
 nn <- vctrs::vec_as_names(names(d1), repair = "universal")
 names(d1) <- nn
 
 d1 %>% group_by(Internet.Service) %>% summarise(N = n(), M = mean(Churn.Value))
 
 ```
+
+Für die Betrachtung auf regionaler Ebene, können wir (zumindest aus didaktischen Gründen) Zip-Code-Bereiche zusammenfassen, bspw. mit 
+```{r}
+tcs <- tcs %>% mutate(ZC = cut_interval(as.numeric(`Zip Code`), 10))
+```
+
+Die 10 häufigsten Faktoren behalten und andere zu *other* zusammenfassen:
+```{r}
+tcs <- tcs %>% mutate(REASON = fct_lump_n(`Churn Reason`, 10))
+```
+
+Ohne eine Normierung auf die Zahl der Kunden in der Region durchzuführen, könnte man die Verteilung der Abwanderungsgründe auf Regionen so darstellen (wobei man hier bei der Palette nur 7 Kategorien unterscheiden kann)
+```{r}
+tcs <- tcs %>% mutate(REASON = fct_lump_n(`Churn Reason`, 7))
+
+tcs %>% filter(`Churn Value` == 1) %>% group_by(REASON, ZC) %>% summarise(N = n()) %>% ggplot(aes(x = ZC, y = N, fill = REASON)) + geom_col() + coord_flip() + scale_fill_brewer(palette = "Accent")
+```
+Die obigen Zahlen berücksichtigen nicht die Verteilung der (abwandernden) Kunden über die Regionen. Wenn die Vermutung stimmt, müsste man für diese Regionen relativ zur Anzahl abwandernder Kunden einen höheren Anteil an Kunden sehen, die wg. des Wettbewerbers abwandern. 
+
+Bestimmen der Kundenzahl pro Region:
+```{r}
+regc <- tcs %>% filter(`Churn Value` == 1) %>%  group_by(ZC) %>% summarise(NREG = n())
+
+```
+Jetzt können wir die Abwanderungszahlen in Relation zur Regionengröße bzw. Kunden pro Region einschätzen:
+```{r}
+tcs %>% filter(`Churn Value` == 1) %>% group_by(REASON, ZC) %>% summarise(NCHURN = n()) %>%
+  left_join(regc, by = "ZC") %>% mutate(CPROP = NCHURN / NREG) %>% 
+  ggplot(aes(x = ZC, y = CPROP, fill = REASON)) + geom_col() + coord_flip() + 
+  scale_y_continuous(labels = scales::percent_format()) +  scale_fill_brewer(palette = "Accent")
+```
+
+
+
 
