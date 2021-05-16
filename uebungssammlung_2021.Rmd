@@ -1,0 +1,114 @@
+---
+title: "Übungen für Kurse Datenanalyse und Data Science"
+date: "Mai - Juni 2021"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+Dieses Arbeitsblatt enthält eine Aufgabensammlung für den *Workshop Datenenalyse in VU* und die Vorlesung *Data Science*. 
+
+
+# Aufgabe: Datenexploration
+
+Für diese Aufgabe wird das Tool [$\rightarrow$ `OpenRefine`](https://openrefine.org) verwendet. Dieses Tool ist eine Anwendung, die Sie auf Ihrem Rechner installieren (Hinweise unter https://openrefine.org/download.html). Nach dem Start öffnet sich ein Browserfenster, in dem Sie dann das Laden von Daten und die explorative Analyse durchführen. Für eine Einführung in das Tool können Sie sich auch die Videos auf der Hauptseite von `OpenRefine` angucken.
+
+Für diese Übung verwenden Sie einen Datensatz über US-Präsidenten (Quelle: `R`-Paket `dataMaid`). Laden Sie die Datei `president_data.csv`, die Sie in Moodle finden, in das Tool. Zuerst erscheint eine Voransicht der Daten, anhand der Sie prüfen können, ob die Datenformate richtig erkannt wurden. Über den Knopf *Create Project* rechts oben starten Sie dann die eigentliche Exploration.
+
+* Zu Beginn sind alle Spalten Textspalten. Transformieren Sie die betroffenen Spalten in einen geeigneteren Datentyp anhand einer der Operationen, die Sie unter `Edit Cells | Common Transforms` finden.
+* Welche Anzahl von Datensätzen würden Sie erwarten? Führen Sie eine kurze Plausibilitätsprüfung durch: Sind alle Einträge enthalten, die Sie erwarten? 
+* Die Einträge im Menü `Facet | Customized Facets` können dabei helfen leere oder ungewöhnlich befüllte Datenfelder zu finden. Das Ergebnis der Operation wird links in einem Diagramm angezeigt, das zugleich als Filter dient. Finden Sie Datensätze, die offensichtlich falsch befüllt sind, wenn Sie diese Funktionen auf die Namensspalten anwenden?
+* Erstellen Sie in Histogramm des Alters bei Amtsantritt über die Funktion `Facet | Numeric Facet`. Was fällt Ihnen auf?
+* Aus welchen Bundesstaaten stammen die Präsidenten? Erstellen Sie für die Beantwortung dieser Frage erneut ein Histogramm über die Funktion `Facet | Text Facet`. Auch hier könnte Ihnen etwas auffallen: Sind alle Einträge korrekt?
+
+# Aufgabe (**Gruppe**): Hypothesenbildung
+
+Ziel dieser Übung ist die Formulierung von Hypothesen. Dafür werden mehrere Szenarios vorgestellt. Versetzen Sie sich jeweils in die  im Szenario beschriebene Rolle und entwickeln Sie *drei* Hypothesen, die es Ihnen in dieser Rolle erlauben würden, den Markt besser zu verstehen. Beachten Sie, dass Hypothesen den erwarteten Zusammenhang zwischen Variablen erfassen, sowie testbar und falsifizierbar sein sollen.
+
+  * Szenario 1: Bike-Sharing-Dienst. Sie finden unter [$\rightarrow$ https://www.kaggle.com/marklvl/bike-sharing-dataset](https://www.kaggle.com/marklvl/bike-sharing-dataset) eine Einführung und eine Übersicht über die Daten. Versetzen Sie sich in die Rolle des Dienstbetreibers.
+  
+  * Szenario 2: Süßigkeitenhersteller. Sie finden unter [$\rightarrow$ https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking](https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking) eine Beschreibung von Daten über am Markt angebotene Süßigkeiten, die in einer Umfrage bewertet wurden. Nehmen Sie an, Sie wären der Süßigkeitenhersteller und wollen eine neue Süßigkeit auf den Markt bringen.
+  
+  * Szenario 3: Immobilienpreise. Unter [$\rightarrow$ https://www.kaggle.com/arslanali4343/real-estate-dataset](https://www.kaggle.com/arslanali4343/real-estate-dataset) finden Sie eine Beschreibung von Daten zu Immobilien in Boston. Nehmen Sie an, Sie wären Immobilienmakler.
+
+
+# Aufgabe (**Gruppe**): Gestaltprinzipien für die Datenvisualisierung
+
+Die folgende Aufgabe ist als Gruppenübung angelegt. Jede Gruppe/jeder Breakout-Raum, hat zur Aufgabe, ein *Gestaltprinzip* zu erklären: Die sog. *Gestaltprinzipien* sind ein Satz von grundlegenden Prinzipien für gute Visualisierungen. 
+
+  * Erklären Sie bitte die einzelnen Prinzipien anhand einer erklärenden Graphik,
+  * finden Sie ein positives Beispiel für die Anwendung des Prinzips (z.B. auf [$\rightarrow$ https://ourworldindata.org/](https://ourworldindata.org/) oder [$\rightarrow$ https://flowingdata.com/](https://flowingdata.com/)),
+  * finden Sie ein Beispiel für eine Anwendung, die dieses Prinzip verletzt (z.B. auf [$\rightarrow$  https://viz.wtf/](https://viz.wtf/) )
+
+Im einzelnen sollen die folgenden Prinzipien erklärt werden:
+
+1. Räumliche Nähe
+1. Ähnlichkeit
+1. Gemeinsamer Bereich
+1. Gute Fortsetzung
+1. Geschlossenheit
+1. Verbundenheit
+  
+
+
+
+# Aufgabe (**Gruppe**): Praktische Hinweise für die Durchführung von Datenanalysen
+
+Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforderungen an die Vorgehensweise her nicht sehr von der eines Wissenschaftlers, der im Labor (oder am Rechner) Versuchsreihen durchführt, analysiert und die Ergebnisse publiziert. In ihrem Artikel [$\rightarrow$ *Good enough practices in scientific computing*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510) (erschienen 2017 in *PLOS Computational Biology*) haben die Autorinnen und Autoren eine Sammlung von Empfehlungen formuliert. Erarbeiten Sie in einer Gruppe jeweils eine ca. 5minütige Präsentation zu jeweils einem der folgenden Themen:
+
+1. Kollaboration: Wie fördern Sie die Zusammenarbeit im Team auch bei wechselnder Zusammensetzung?
+1. Datenmanagement: Wie erreichen Sie Nachvollziehbarkeit und Korrektheit bei der Datenverarbeitung?
+1. Software: Was hat Software mit Datenanalyse zu tun und wie gewährleisten Sie gute Softwarequalität?
+1. Nachhaltigkeit: Wie erreichen Sie es, dass Ihre Analysen auch nächstes Jahr noch reproduzierbar (technisch und gedanklich) sind?
+1. Dokumentation und Präsentation: Welche Empfehlungen aus der Wissenschaft erscheinen im Unternehmensumfeld sinnvoll?
+
+# Aufgabe (**Gruppe**): Praktische Datenanalyse: Süßigkeiten
+
+Die Daten für diese Aufgabe beschreiben verschiedene Süßigkeiten hinsichtlich mehrerer Eigenschaften und zudem wird für jede Süßigkeit ein Punktwert angegeben, der die Konsumentenpräferenz quantifiziert.
+
+Informationen zum Datensatz finden Sie unter https://github.com/fivethirtyeight/data/tree/master/candy-power-ranking.
+
+Die Daten sind unter `data/sweets.csv` im Projektordner verfügbar.
+
+Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen Daten durch eine Marktbefragung gewonnen hat. Sie stehen vor der Aufgabe, eine neue am Markt erfolgreiche Süßigkeit zu entwickelt. Aber welche Eigenschaften soll das neue Produkt haben: Mit oder ohne Nüsse? Fruchtig? Als Riegel? Sie sind als Berater engagiert worden, der auf Basis einer Datenanalyse einen Vorschlag machen soll. Es wird erwartet, dass Sie Ihre Ergebnisse in einer 10minütigen Präsentation vorstellen. Es wird zudem erwartet, dass Sie Ihre Analyse dem Head of Business Analytics nachvollziehbar erklären können.
+
+1. Entwickeln Sie drei Hypothesen, die zum Ziel Ihres Auftraggebers passen. Einige Mitarbeiter Ihres Auftraggebers sind bspw. der Meinung, dass teure Produkte auch erfolgreicher sind.
+1. Verwenden Sie `R` und `RStudio` für die Validierung der Daten. Halten Sie das Ergebnis in Ihrer Präsentation fest.
+1. Verwenden Sie das Paket `tidyerse` für die explorative Analyse der Daten und stellen Sie die Ergebnisse Ihrer Analyse graphisch dar. Halten Sie auch diese Ergebnisse in Ihrer Präsentation fest und denken Sie an die Prinzipien für gute Visualisierung. Interessante Fragen könnten z.B. sein:
+  * Welche Zutaten finden sich in den beliebten Produkten?
+  * Welche Zutaten finden sich in den preiswerten Produkten?
+  * Gibt es Zutaten, die oft bzw. nie gemeinsamen verwendet werden? 
+  * Ihre Hypothesen sollten Sie ebenfalls explorativ und visuell überprüfen.
+1. Die Leiterin der Produktentwicklung hat Ihnen eine Frage mit auf den Weg gegeben: *Was macht erfolgreiche Produkte aus?*
+   * Variante 1: Wie können Sie diese Frage mit einem *Klassifikationsmodell* beantworten?
+   * Variante 2: Wie können Sie diese Frage mit einem *Regressionsmodell* beantworten?
+   * Variante 3: Wie können Sie diese Frage mit einem *Clustermodell* beantworten?
+
+  * Für eine Hilfestellung bei der Anwendung von Modellen mit `R` können Sie die *Lab*-Kapitel im Buch [$\rightarrow$ *Introduction to Statistical Learning*](https://www.statlearning.com/) verwenden oder Beratung anfordern.
+
+
+# Aufgabe (**Gruppe**); Praktische Datenanalyse: Kundenabwanderung
+
+Ein Telekommunikationsanbieter hat für Sie als Datenanalyst eine für Serviceanbieter recht typische Aufgabenstellung: Es geht um die Feststellung der Ursachen für Kundenabwanderungen. Interessant sind Fragestellungen, ob die beobachteten Abwanderungen sich räumlich, zeitlich oder bezüglich einzelner Serviceleistungen konzentrieren. Als Datenanalyst sollen Sie dabei unterstützen, Ursachen für die Abwanderung zu identifizieren. Aus den Vorgesprächen haben Sie schon folgendes erfahren:
+
+* Die Leiterin der DSL-Sparte sieht sich Vorwürfen ausgesetzt, die besagen, dass  Kunden wg. Unzufriedenheit mit dem DSL-Service abwandern.
+* Manche Experten glauben, dass die Kunden tendenziell nach 24 Monaten abwandern.
+* Marketing geht davon aus, dass es in einzelnen Regionen starke Wettbewerber gibt, die Kunden verstärkt abwerben.
+
+Ihre Aufgabe ist es, zunächst diesen drei Vermutungen nachzugehen. Formulieren Sie dazu zunächst Hypothesen, die Sie anschließend anhand einer Datenanalyse untersuchen.
+
+**Hinweise:**
+
+* Die Daten liegen in Form mehrerer `XLSX`-Dateien, die mit dem Präfix `telco` beginnen, im `data`-Ordner des Projektverzeichnisses. 
+* Eine Dokumentation der Daten finden Sie unter [$\rightarrow https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113).
+* `XLSX`-Dateien lassen sich mit `readxl::read_xlsx` lesen. 
+* FÜr die Bearbeitung der Aufgabenstellung ist es möglicherweise nötig, Datensätze aus mehreren Tabellen per `dplyr::inner_join` zu verbinden.
+* Die `dplyr`-Funktionen `group_by`, `summarise` und `filter` sind sicherlich hilfreich. Ebenso die Funktionen `forcats::fct_lump_n` und `ggplot2::cut_interval`.
+* Weil `R` für Sie wahrscheinlich neu ist, können Sie zunächst versuchen, Ihre Auswertung in einem Pseudocode oder in SQL zu formulieren und dann bei Bedarf auch Beratung anfordern.
+
+
+
+
+
+
