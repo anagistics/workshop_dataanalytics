@@ -51,9 +51,7 @@ Im einzelnen sollen die folgenden Prinzipien erklärt werden:
 1. Verbundenheit
   
 
-
-
-# Aufgabe (**Gruppe**): Praktische Hinweise für die Durchführung von Datenanalysen
+# Aufgabe (**Gruppe**): Praktische Durchführung von Datenanalysen
 
 Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforderungen an die Vorgehensweise her nicht sehr von der eines Wissenschaftlers, der im Labor (oder am Rechner) Versuchsreihen durchführt, analysiert und die Ergebnisse publiziert. In ihrem Artikel [$\rightarrow$ *Good enough practices in scientific computing*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510) (erschienen 2017 in *PLOS Computational Biology*) haben die Autorinnen und Autoren eine Sammlung von Empfehlungen formuliert. Erarbeiten Sie in einer Gruppe jeweils eine ca. 5minütige Präsentation zu jeweils einem der folgenden Themen:
 
@@ -88,7 +86,7 @@ Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen D
   * Für eine Hilfestellung bei der Anwendung von Modellen mit `R` können Sie die *Lab*-Kapitel im Buch [$\rightarrow$ *Introduction to Statistical Learning*](https://www.statlearning.com/) verwenden oder Beratung anfordern.
 
 
-# Aufgabe (**Gruppe**); Praktische Datenanalyse: Kundenabwanderung
+# Aufgabe (**Gruppe**): Praktische Datenanalyse: Kundenabwanderung
 
 Ein Telekommunikationsanbieter hat für Sie als Datenanalyst eine für Serviceanbieter recht typische Aufgabenstellung: Es geht um die Feststellung der Ursachen für Kundenabwanderungen. Interessant sind Fragestellungen, ob die beobachteten Abwanderungen sich räumlich, zeitlich oder bezüglich einzelner Serviceleistungen konzentrieren. Als Datenanalyst sollen Sie dabei unterstützen, Ursachen für die Abwanderung zu identifizieren. Aus den Vorgesprächen haben Sie schon folgendes erfahren:
 
