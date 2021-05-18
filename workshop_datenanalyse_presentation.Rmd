@@ -575,7 +575,7 @@ ggplot(as.data.frame(Titanic),
 ---
 # Entscheidungsbaum für Visualisierungen
 
-.center[![:scale 40%](./img/dtreecharts.png)]
+.center[![:scale 90%](./img/dtreecharts.png)]
 .center[[Choosing the right chart](https://extremepresentation.com/wp-content/uploads/choosing-a-good-chart-09-1.pdf)]
 
 ---
@@ -600,14 +600,6 @@ Bearbeitungszeit: 30 Minuten
     * [Artikel zu Data Science und Programmierung](https://blog.dominodatalab.com/data-scientist-programmer-mutually-exclusive/)
 
 
-`r emo::ji("backhand index pointing right")` [Crashkurs *Programmieren in R*](https://datentaeter.de/crashkurs-programmieren-in-r-fuer-journalismus-rstudio-coden-datenjournalismus-installation-tutorial/) 
-
-`r emo::ji("backhand index pointing right")` [Datenanalyse in R  1](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag1.pdf)
-
-`r emo::ji("backhand index pointing right")` [Datenanalyse in R  2](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag2.pdf)
-
-
-    
 .footnote[
 [1] Einige dieser Anwendungen sind auch in gewissem Umfang programmierbar.
 ]
@@ -661,12 +653,13 @@ into ZIELTAB
 from QUELLTAB 
 where KRIT
 ```
+
 ---
 # Reproduzierbarkeit der Datenanalyse - Datenintegrität (2)
 
 Manchmal möchte man erkennen,
-* dass sich Dateien verändert haben oder
-* dass sich Dateien  *nicht* verändert haben.
+* ob sich Dateien inhaltlich verändert haben oder
+* sicherstellen, dass sich Dateien  *nicht* verändert haben.
 
 In beiden Fällen kann man einen *Fingerabdruck* der Datei bestimmen: Ein Hashwert der Datei:
 ```{r}
@@ -700,7 +693,6 @@ class: exercise, center, middle
 Bearbeitungszeit: 40 Minuten
 ]
 
-
 ---
 # Modellierung
 
@@ -724,26 +716,83 @@ Typische Modelle:
 * **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse; Quantitative abhängige Variable
 
 ---
-# Verschiedene Modelltypen: Lineare Regression
-* Regressionsmodell
-* **Lineares Modell**: Es wird ein linearer Zusammenhang zwischen den unabhängigen und der abhängigen Variable unterstellt
+# Modelltypen: Lineare Regression (1)
 
-```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): Introduction to Statistical Learning"}
+* Regressionsmodell
+* **Lineares Modell**: Es wird ein linearer Zusammenhang zwischen den unabhängigen und der abhängigen Variable unterstellt:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pfAnVIHYE4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+# Modelltypen: Lineare Regression (2)
+
+.center[
+  $\min_{\beta_0, \beta_1,\ldots,\beta_n} \|y-\hat{y}\|_2 \text{ mit } \hat{y}=\beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$
+]
+
+```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
 
 knitr::include_graphics("./img/lineare_regression.png")
 #  here("img", "lineare_regression.png"))
 ```
 
 ---
-# Verschiedene Modelltypen: Entscheidungsbäume
+# Modelltypen: Entscheidungsbäume
+
 * Klassifikationsmodell (häufigste Anwendung, auch Regression möglich)
 
----
-# Verschiedene Modelltypen: Logistische Regression
-* Klassifikationsmodell
+.pull-left[
+* Algorithmus ermittelt eine Baumstruktur von Fallunterscheidungen auf der Basis von Merkmalsausprägungen mit dem Ziel, möglichst homogene *Blätter* zu erhalten.
+  * Homogen bezieht sich hierbei auf die Verteilung der Ausprägungen der abhängigen Variable in allen Datensätzen, die zum Blatt gehören.
+]
+
+.pull-right[
+```{r img-dtree, echo=FALSE, fig.align = 'center', out.width = "100%", fig.cap = "aus: Sebastian Sauer: Moderne Datenanalyse mit R"}
+knitr::include_graphics("./img/dtree_example.png")
+```  
+]
 
 ---
-# Verschiedene Modelltypen: Clusterung
+# Vergleich lineare Modelle und Entscheidungsbaum
+
+* Beide Verfahrensfamilien haben ihre spezifischen Stärken und Grenzen
+
+```{r img-comp-lm-dtree, echo=FALSE, fig.align = 'center', out.width = "90%", fig.cap = "aus: Sebastian Sauer: Moderne Datenanalyse mit R"}
+knitr::include_graphics("./img/comp-linear-dtree.png")
+```  
+
+
+---
+# Modelltypen: Logistische Regression (1)
+
+* Trotz des Namens: Klassifikationsmodell
+* Abhängige Variable $y\in{0,1}$ (2 Klassen)
+  * Zunächst Transformation der unabhängigen Variablen mit der *logistischen Funktion* $p(x)$: 
+.center[
+$p(x) = \frac{e^{\beta_0+\beta_1\cdot x_1+\ldots+\beta_n\cdot x_n}}{1 + e^{\beta_0+\beta_1\cdot x_1+\ldots+\beta_n\cdot x_n}}$
+] 
+  * Dann bildet man die *log odds* und erhält ein lineares Modell: 
+.center[
+$\log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$.
+]
+
+---
+# Modelltypen: Logistische Regression (2)
+
+```{r img-log-reg, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+
+knitr::include_graphics("./img/logistic_regression.png")
+```
+
+* Wertebereich der logistischen Regression zwischen 0 und 1
+* Entscheidung über Klasse: $p(x) > \theta \Rightarrow \text{Klasse 1}$
+  * Erst durch diesen Vergleich mit einem (wählbaren) Schwellenwert wird aus der Regression eine Klassfikation.
+
+
+
+
+---
+# Modelltypen: Clusterung
 * Unüberwachtes Lernen
 
 ---
@@ -821,6 +870,19 @@ data("presidentData")
 ```
 
 
+---
+# R Lernen
+
+
+`r emo::ji("backhand index pointing right")` [Crashkurs *Programmieren in R*](https://datentaeter.de/crashkurs-programmieren-in-r-fuer-journalismus-rstudio-coden-datenjournalismus-installation-tutorial/) 
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse in R  1](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag1.pdf)
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse in R  2](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag2.pdf)
+
+[Video zu (multipler) linearer Regression](https://youtu.be/ef0efKL1Els)
+
+[Voraussetzungen für lineare Regression](https://youtu.be/MrAPaLLbZQE)
 
 
 
