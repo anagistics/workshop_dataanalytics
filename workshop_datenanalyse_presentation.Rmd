@@ -252,7 +252,8 @@ Encodings ausprobieren z.B. unter [http://string-functions.com/encodedecode.aspx
 ```{r, warnings = FALSE, message = FALSE}
 somerows <- readr::read_csv("./telco_dataset.csv", n_max = 1000)
 ```
-    * Zufälliges Einlesen
+  * Zufälliges Einlesen
+
 * Verteilte Verarbeitung
     * Erfordert geeignete technische Infrastruktur
         * Cluster von Rechnern
@@ -363,15 +364,18 @@ Sehr häufig sind Felder in Tabellen nicht befüllt.
 # Validierung:  Fehlende Werte (2)
 
 Die verschiedenen Strategien haben verschiedene Auswirkungen:
-* **Ignorieren**: Wie quantifizieren? Wie gehen fehlende Werte z.B. in eine Mittelwertberechnung ein?
+* **Ignorieren**: Wie gehen fehlende Werte z.B. in eine Mittelwertberechnung ein?
 * **Ersetzen**: Durch was? 
+.small[
 ```{r}
 data <- c(10, 20, NA, 5, 3, 12, NA, 20)
 (mean(data))
-m <- mean(data, na.rm = TRUE)
+(m <- mean(data, na.rm = TRUE))
 data2 <- c(10, 20, m, 5, 3, 12, m, 20)
 (mean(data2))
 ```
+]
+
 &rarr; Bei der Mittelwertberechnung kann man die fehlenden Werte durch den Mittelwert der vorhandenen Werte ersetzen.
 
 ---
@@ -525,31 +529,8 @@ diamonds %>% filter(carat < 0.7) %>%
 
 * Gleichzeitige Darstellung mehrerer Dimensionen, Korrelationen erkennbar, Reihenfolge der vertikalen Achsen wichtig. 
 
-.pull-left[ 
-.footnote[
-```{r eval = FALSE}
-library(plotly)
-
-iris %>% plot_ly(type = 'parcoords',
-      line = list(color = ~Species,
-                  colorscale = list(c(0,'red'),c(0.5,'green'),c(1,'blue'))),
-      dimensions = list(
-        list(range = c(2,4.5),
-             label = 'Sepal Width', values = ~Sepal.Width),
-        list(range = c(4,8),
-             label = 'Sepal Length', values = ~Sepal.Length),
-        list(range = c(0,2.5),
-             label = 'Petal Width', values = ~Petal.Width),
-        list(range = c(1,7),
-             label = 'Petal Length', values = ~Petal.Length)
-        )
-      )
-
-```
-]]
-
-.pull-right[
-![:scale 110%](./img/parcoord.png)
+.center[
+![:scale 90%](./img/parcoord.png)
 ]
 
 
@@ -559,13 +540,13 @@ iris %>% plot_ly(type = 'parcoords',
 * ähnlich zu *Parallelkoordinaten* aber für kategorielle Variablen
 
 .center[
-```{r echo = FALSE, fig.height=4, message=FALSE}
+```{r echo = FALSE, fig.height=6, message=FALSE}
 ggplot(as.data.frame(Titanic),
        aes(y = Freq, axis1 = Sex, axis2 = Class, axis3 = Survived)) +
   geom_alluvium(aes(fill = Class), width = 0, knot.pos = 0, reverse = FALSE) +
   guides(fill = FALSE) +
   geom_stratum(width = 1/8, reverse = FALSE) +
-  geom_text(stat = "stratum", infer.label = TRUE, reverse = FALSE) +
+  geom_text(aes(label = after_stat(stratum)), stat = "stratum", reverse = FALSE) +
   scale_x_continuous(breaks = 1:3, labels = c("Sex", "Class", "Survived")) +
   ggtitle("Titanic survival by class and sex")
 
@@ -800,7 +781,7 @@ knitr::include_graphics("./img/logistic_regression.png")
   * Räumlich benachbarte Punkte entsprechen ähnlichen Instanzen
   * Es werden Gruppen (Cluster) von ähnlichen Instanzen gebildet
 
-```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
 
 knitr::include_graphics("./img/cluster.png")
 ```
@@ -820,7 +801,7 @@ knitr::include_graphics("./img/cluster-algo.png")
 ---
 # Modelltypen: Clusterung - Beispiel
 
-```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "50%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
 
 knitr::include_graphics("./img/cluster-iter.png")
 ```
@@ -829,11 +810,11 @@ knitr::include_graphics("./img/cluster-iter.png")
 * Die optimale Clusteranzahl ist unklar und nicht einfach bestimmbar
 * Das Ergebnis des Verfahrens sind die Cluster, ohne Charakterisierung
 
-
 ---
 # Vorgehen bei der Modellierung: Baseline-Modell
 
 * Um den praktischen Nutzen eines neuen Modells einzuschätzen, überlegt man sich ein simples pragmatisches Konkurrenzmodell
+
 `r emo::ji("chef")` Dieses Baseline-Modell ist von der Praxis geleitet:
   * *Das Wetter von morgen ist so wie das heutige*
   * *Die monatliche Umsatzentwicklung entspricht der des Vorjahres*

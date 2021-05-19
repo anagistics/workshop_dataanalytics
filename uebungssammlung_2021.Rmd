@@ -22,6 +22,8 @@ Für diese Übung verwenden Sie einen Datensatz über US-Präsidenten (Quelle: `
 * Erstellen Sie in Histogramm des Alters bei Amtsantritt über die Funktion `Facet | Numeric Facet`. Was fällt Ihnen auf?
 * Aus welchen Bundesstaaten stammen die Präsidenten? Erstellen Sie für die Beantwortung dieser Frage erneut ein Histogramm über die Funktion `Facet | Text Facet`. Auch hier könnte Ihnen etwas auffallen: Sind alle Einträge korrekt?
 
+***
+
 # Aufgabe (**Gruppe**): Hypothesenbildung
 
 Ziel dieser Übung ist die Formulierung von Hypothesen. Dafür werden mehrere Szenarios vorgestellt. Versetzen Sie sich jeweils in die  im Szenario beschriebene Rolle und entwickeln Sie *drei* Hypothesen, die es Ihnen in dieser Rolle erlauben würden, den Markt besser zu verstehen. Beachten Sie, dass Hypothesen den erwarteten Zusammenhang zwischen Variablen erfassen, sowie testbar und falsifizierbar sein sollen.
@@ -32,6 +34,7 @@ Ziel dieser Übung ist die Formulierung von Hypothesen. Dafür werden mehrere Sz
   
   * Szenario 3: Immobilienpreise. Unter [$\rightarrow$ https://www.kaggle.com/arslanali4343/real-estate-dataset](https://www.kaggle.com/arslanali4343/real-estate-dataset) finden Sie eine Beschreibung von Daten zu Immobilien in Boston. Nehmen Sie an, Sie wären Immobilienmakler.
 
+***
 
 # Aufgabe (**Gruppe**): Gestaltprinzipien für die Datenvisualisierung
 
@@ -50,6 +53,7 @@ Im einzelnen sollen die folgenden Prinzipien erklärt werden:
 1. Geschlossenheit
 1. Verbundenheit
   
+***
 
 # Aufgabe (**Gruppe**): Praktische Durchführung von Datenanalysen
 
@@ -60,6 +64,8 @@ Die Aufgabe des Datenanalysten im Unternehmen unterscheidet sich von den Anforde
 1. Software: Was hat Software mit Datenanalyse zu tun und wie gewährleisten Sie gute Softwarequalität?
 1. Nachhaltigkeit: Wie erreichen Sie es, dass Ihre Analysen auch nächstes Jahr noch reproduzierbar (technisch und gedanklich) sind?
 1. Dokumentation und Präsentation: Welche Empfehlungen aus der Wissenschaft erscheinen im Unternehmensumfeld sinnvoll?
+
+***
 
 # Aufgabe (**Gruppe**): Praktische Datenanalyse: Süßigkeiten
 
@@ -85,6 +91,7 @@ Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen D
 
   * Für eine Hilfestellung bei der Anwendung von Modellen mit `R` können Sie die *Lab*-Kapitel im Buch [$\rightarrow$ *Introduction to Statistical Learning*](https://www.statlearning.com/) verwenden oder Beratung anfordern.
 
+***
 
 # Aufgabe (**Gruppe**): Praktische Datenanalyse: Kundenabwanderung
 
@@ -99,7 +106,7 @@ Ihre Aufgabe ist es, zunächst diesen drei Vermutungen nachzugehen. Formulieren 
 **Hinweise:**
 
 * Die Daten liegen in Form mehrerer `XLSX`-Dateien, die mit dem Präfix `telco` beginnen, im `data`-Ordner des Projektverzeichnisses. 
-* Eine Dokumentation der Daten finden Sie unter [$\rightarrow https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113).
+* Eine Dokumentation der Daten finden Sie unter [$\rightarrow$  https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113).
 * `XLSX`-Dateien lassen sich mit `readxl::read_xlsx` lesen. 
 * FÜr die Bearbeitung der Aufgabenstellung ist es möglicherweise nötig, Datensätze aus mehreren Tabellen per `dplyr::inner_join` zu verbinden.
 * Die `dplyr`-Funktionen `group_by`, `summarise` und `filter` sind sicherlich hilfreich. Ebenso die Funktionen `forcats::fct_lump_n` und `ggplot2::cut_interval`.
