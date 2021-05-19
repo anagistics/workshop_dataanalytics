@@ -65,11 +65,11 @@ telco_data <- readr::read_csv("./telco_dataset.csv")
 
 .pull-right[
 * Daten verstehen: Struktur, Validierung + `r emo::ji("worker")` 
-* Visualisierung + `r emo::ji("worker")` `r emo::ji("worker")`
 * Herangehensweise: Hypothesenbildung + `r emo::ji("worker")` `r emo::ji("worker")`
-* Modellierung
+* Visualisierung + `r emo::ji("worker")` `r emo::ji("worker")`
 * Datenanalyse per Code
 * Reproduzierbarkeit der Datenanalyse + `r emo::ji("worker")` `r emo::ji("worker")`
+* Modellierung
 ]
 
 ---
@@ -716,15 +716,17 @@ Typische Modelle:
 * **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse; Quantitative abhängige Variable
 
 ---
-# Modelltypen: Lineare Regression (1)
+# Modelltypen: Lineare Regression - Grundlagen
 
 * Regressionsmodell
 * **Lineares Modell**: Es wird ein linearer Zusammenhang zwischen den unabhängigen und der abhängigen Variable unterstellt:
 
+.center[
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pfAnVIHYE4A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+]
 
 ---
-# Modelltypen: Lineare Regression (2)
+# Modelltypen: Lineare Regression - Berechnung
 
 .center[
   $\min_{\beta_0, \beta_1,\ldots,\beta_n} \|y-\hat{y}\|_2 \text{ mit } \hat{y}=\beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$
@@ -733,7 +735,6 @@ Typische Modelle:
 ```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
 
 knitr::include_graphics("./img/lineare_regression.png")
-#  here("img", "lineare_regression.png"))
 ```
 
 ---
@@ -763,7 +764,7 @@ knitr::include_graphics("./img/comp-linear-dtree.png")
 
 
 ---
-# Modelltypen: Logistische Regression (1)
+# Modelltypen: Logistische Regression - Grundlagen
 
 * Trotz des Namens: Klassifikationsmodell
 * Abhängige Variable $y\in{0,1}$ (2 Klassen)
@@ -777,7 +778,7 @@ $\log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$
 ]
 
 ---
-# Modelltypen: Logistische Regression (2)
+# Modelltypen: Logistische Regression - Klassifikation
 
 ```{r img-log-reg, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
 
@@ -789,15 +790,138 @@ knitr::include_graphics("./img/logistic_regression.png")
   * Erst durch diesen Vergleich mit einem (wählbaren) Schwellenwert wird aus der Regression eine Klassfikation.
 
 
+---
+# Modelltypen: Clusterung - Grundlagen
+
+* Unüberwachtes Lernen: Es gibt keine explizite abhängige Variable.
+* Idee: 
+  * Variablen (Merkmale) entsprechen Dimensionen eines mehrdimensionalen Raums
+  * Die Merkmalsausprägungen einer Instanz definieren damit einen Punkt in diesem Raum
+  * Räumlich benachbarte Punkte entsprechen ähnlichen Instanzen
+  * Es werden Gruppen (Cluster) von ähnlichen Instanzen gebildet
+
+```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+
+knitr::include_graphics("./img/cluster.png")
+```
+
+---
+# Modelltypen: Clusterung - $k$-Means
+
+* $k$-Means-Algorithmus
+```{r img-kmeans, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+
+knitr::include_graphics("./img/cluster-algo.png")
+```
+
+* Benötigt wird also ein *Distanzmaß*, eine *Metrik*
+* Die Merksmalsausprägungen müssen demnach mindestens intervallskalierte Zahlen sein
+
+---
+# Modelltypen: Clusterung - Beispiel
+
+```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+
+knitr::include_graphics("./img/cluster-iter.png")
+```
+
+* Die berechneten Clusterschwerpunkte sind berechnete Punkte, keine Instanzen
+* Die optimale Clusteranzahl ist unklar und nicht einfach bestimmbar
+* Das Ergebnis des Verfahrens sind die Cluster, ohne Charakterisierung
 
 
 ---
-# Modelltypen: Clusterung
-* Unüberwachtes Lernen
+# Vorgehen bei der Modellierung: Baseline-Modell
+
+* Um den praktischen Nutzen eines neuen Modells einzuschätzen, überlegt man sich ein simples pragmatisches Konkurrenzmodell
+`r emo::ji("chef")` Dieses Baseline-Modell ist von der Praxis geleitet:
+  * *Das Wetter von morgen ist so wie das heutige*
+  * *Die monatliche Umsatzentwicklung entspricht der des Vorjahres*
+  * *Kunden über 70 nutzen kein Online-Portal*
+  * Ein einfaches lineares Regressionsmodell kann ein Baseline-Modell gg. komplexeren Modellen sein
+  * Durchschnitte oder Mediane können auch gute Baseline-Schätzer sein
+
+* Ein neues analytisches Modell sollte deutlich bessere Ergebnisse bringen, um den investierten Aufwand zu rechtfertigen
 
 ---
-# Vorgehen bei der Modellierung
-* Baseline-Modell
+# Vorgehen bei der Modellierung (1)
+
+* Präzisierung der Fragestellung, so dass die *Art des Modells* klar ist: Regression, Klassifikation, Prognose, Clusterung...
+* Festlegen von *Gütekriterien* in Abhängigkeit von der Modellart:
+
+* **Regression**: 
+  * Minimierung einer *loss function*, bspw. 
+      * Mittlerer Quadratischer Fehler (engl. MSE) $\min \sum_{i=1}^n (y_i - \hat{y}_i)^2$ oder 
+      * Mittlerer Absoluter Fehler (engl. MAE) $\min \sum_{i=1}^n |y_i - \hat{y}_i|$.
+
+---
+# Vorgehen bei der Modellierung (2)
+
+* **Klassifikation**: 
+  * Basis ist die *Konfusionsmatrix* (confusion matrix):
+
+```{r img-conf, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: Steven S. Skiena: The Data Science Design Manual"}
+
+knitr::include_graphics("./img/konfusion.png")
+```
+
+  * Darauf aufbauend werden verschiedene Gütekriterien definiert:
+    
+.center[
+$precision = \frac{TP}{TP + FP}$
+
+$recall = \frac{TP}{TP + FN}$
+
+$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+]
+
+  * Darüberhinaus gibt es noch viele weitere Kriterien, s. Literatur.
+  
+---
+# Vorgehen bei der Modellierung (3)
+
+* Festlegen einer Trainings- und Teststrategie:
+  * Ziel: Das Modell soll *generalisieren*, d.h. gute Ergebnisse bei der Anwendung auf neuen Daten. Vermeiden von *overfitting* .
+    
+```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+
+knitr::include_graphics("./img/model-fitting.png")
+```
+
+---
+# Vorgehen bei der Modellierung (4)
+  
+* Trennung der Daten in einen *Trainingsdatensatz* (größer) und einen *Testdatensatz* (kleiner).
+  * Je nach Strategie und Modellart auch noch *Validierungsdatensatz*
+* Man unterscheidet verschiedene Strategien: *zufällige Aufteilung (Split)*, *Kreuzvalidierung*
+* Auswahl eines *Lernalgorithmus* passend zur Modellart
+* Durchführung des Trainings (*Lernens*, vergleichsweise langwierig):
+  * Der Algorithmus optimiert die Parameter des Modells, so dass die Güte maximal wird
+      * Zunächst wird dies auf dem Trainingsdatensatz durchgeführt (*in sample* Güte) 
+      * und dann auf dem Testdatensatz (*out of sample* Güte). 
+* Das Ergebnis des Trainings wird als Datenstruktur gespeichert 
+      * Bspw. speichert man die Information *Lineares Regressionsmodell* und die Werte für $\beta_i$
+* und zu einem späteren Zeitpunkt wieder geladen und auf neuen Daten angewendet.
+
+---
+# R Lernen
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse mit R, HS Kaiserslautern](https://www.youtube.com/watch?v=eNl7m9iJwSQ)
+
+`r emo::ji("backhand index pointing right")` Cheatsheets und Primer in RStudio Cloud
+
+`r emo::ji("backhand index pointing right")` [YouTube Kanal *Statistik am PC*](https://www.youtube.com/c/StatistikamPC_BjoernWalther/playlists)
+
+`r emo::ji("backhand index pointing right")` [Crashkurs *Programmieren in R*](https://datentaeter.de/crashkurs-programmieren-in-r-fuer-journalismus-rstudio-coden-datenjournalismus-installation-tutorial/) 
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse in R  1](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag1.pdf)
+
+`r emo::ji("backhand index pointing right")` [Datenanalyse in R  2](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag2.pdf)
+
+[Video zu (multipler) linearer Regression](https://youtu.be/ef0efKL1Els)
+
+[Voraussetzungen für lineare Regression](https://youtu.be/MrAPaLLbZQE)
+
 
 ---
 class: exercise, center, middle
@@ -809,6 +933,15 @@ class: exercise, center, middle
 
 Bearbeitungszeit: 2 Stunden
 ]
+
+---
+# Literatur & Quellen
+
+* Sebastian Sauer: Moderne Datenanalyse mit R, Springer Gabler, 2019
+* James Gareth, Daniela Witten, Trevor Hastie, Robert Tibshirani: An Introduction to Statistical Learning with Applications in R, Springer, 2013. Online erhältlich unter [https://www.statlearning.com/](https://www.statlearning.com/).
+* Steven S. Skiena: The Data Science Design Manual, Springer, 2017
+
+* YouTube-Kanal [Statistik am PC](https://www.youtube.com/c/StatistikamPC_BjoernWalther)
 
 
 ---
@@ -847,43 +980,5 @@ Betriebliche Entscheidungen werden zunehmend datenbasiert getroffen
 &rarr; Visualisierungskenntnisse: *Klar, verständlich, richtig*
 
 &rarr; Soft skills: Kritisch sein (auch gg. eigenen Ergebnissen)
-
----
-
-# Datasets
-
-* CAS-Dataset
-```{r, eval = FALSE, message = FALSE}
-install.packages(c("xts", "sp"))
-install.packages("CASdatasets", repos = "http://cas.uqam.ca/pub/R/", type="source")
-library(CASdatasets)
-data("freMTPL2freq")
-
-```
-
-* Presidential data
-```{r, eval = FALSE, message = FALSE}
-install.packages("dataMaid")
-library(dataMaid)
-data("presidentData")
-
-```
-
-
----
-# R Lernen
-
-
-`r emo::ji("backhand index pointing right")` [Crashkurs *Programmieren in R*](https://datentaeter.de/crashkurs-programmieren-in-r-fuer-journalismus-rstudio-coden-datenjournalismus-installation-tutorial/) 
-
-`r emo::ji("backhand index pointing right")` [Datenanalyse in R  1](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag1.pdf)
-
-`r emo::ji("backhand index pointing right")` [Datenanalyse in R  2](http://christopherharms.de/stuff/r-workshop/R-Workshop_UniBonn_Tag2.pdf)
-
-[Video zu (multipler) linearer Regression](https://youtu.be/ef0efKL1Els)
-
-[Voraussetzungen für lineare Regression](https://youtu.be/MrAPaLLbZQE)
-
-
 
 
