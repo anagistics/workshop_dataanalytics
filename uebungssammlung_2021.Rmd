@@ -79,7 +79,7 @@ Versetzen Sie sich in die Rolle eines Süßigkeitenherstellers, der die obigen D
 
 1. Entwickeln Sie drei Hypothesen, die zum Ziel Ihres Auftraggebers passen. Einige Mitarbeiter Ihres Auftraggebers sind bspw. der Meinung, dass teure Produkte auch erfolgreicher sind.
 1. Verwenden Sie `R` und `RStudio` für die Validierung der Daten. Halten Sie das Ergebnis in Ihrer Präsentation fest.
-1. Verwenden Sie das Paket `tidyerse` für die explorative Analyse der Daten und stellen Sie die Ergebnisse Ihrer Analyse graphisch dar. Halten Sie auch diese Ergebnisse in Ihrer Präsentation fest und denken Sie an die Prinzipien für gute Visualisierung. Interessante Fragen könnten z.B. sein:
+1. Verwenden Sie das Paket `tidyverse` für die explorative Analyse der Daten und stellen Sie die Ergebnisse Ihrer Analyse graphisch dar. Halten Sie auch diese Ergebnisse in Ihrer Präsentation fest und denken Sie an die Prinzipien für gute Visualisierung. Interessante Fragen könnten z.B. sein:
   * Welche Zutaten finden sich in den beliebten Produkten?
   * Welche Zutaten finden sich in den preiswerten Produkten?
   * Gibt es Zutaten, die oft bzw. nie gemeinsamen verwendet werden? 
