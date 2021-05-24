@@ -605,10 +605,12 @@ Versionsverwaltungssysteme  (Bildquelle: [datascience.box](https://github.com/rs
 ---
 # Reproduzierbarkeit der Datenanalyse - Versionierung (3)
 
-Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein vereinfachter Arbeitsfluss mit *git* sieht so aus (Bildquelle: [Git Workflow blog post](https://nvie.com/posts/a-successful-git-branching-model/)):
+Ein heute sehr verbreitetes Versionskontrollsystem ist [git](https://www.git-scm.com/). Ein typischer Arbeitsfluss mit *git* in einem Team sieht so aus:
 
-.center[![:scale 35%](./img/main-branches.png)]
-
+.center[
+  ![:scale 80%](./img/git-mainline.png)
+]
+.center[Quelle: [https://martinfowler.com/articles/branching-patterns.html](https://martinfowler.com/articles/branching-patterns.html)]
 
 ---
 # Reproduzierbarkeit der Datenanalyse - Data lineage
