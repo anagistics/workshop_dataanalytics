@@ -1,5 +1,5 @@
 ---
-title: "Workshop Datenanalyse"
+title: "Datenanalyse und Data Science"
 subtitle: <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 author: "Dr.-Ing. Andreas Cardeneo"
 email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
@@ -52,7 +52,7 @@ telco_data <- readr::read_csv("./telco_dataset.csv")
 ```
 
 
-# Plan Tag `r emo::ji("one")`
+# Plan Theorie
 
 .pull-left[
 * Was ist Datenanalyse und 
@@ -64,22 +64,28 @@ telco_data <- readr::read_csv("./telco_dataset.csv")
 ]
 
 .pull-right[
-* Daten verstehen: Struktur, Validierung + `r emo::ji("worker")` 
-* Herangehensweise: Hypothesenbildung + `r emo::ji("worker")` `r emo::ji("worker")`
-* Visualisierung + `r emo::ji("worker")` `r emo::ji("worker")`
+* Daten verstehen: Struktur, Validierung
+* Herangehensweise: Hypothesenbildung
+* Visualisierung
 * Datenanalyse per Code
-* Reproduzierbarkeit der Datenanalyse + `r emo::ji("worker")` `r emo::ji("worker")`
+* Reproduzierbarkeit der Datenanalyse
 * Modellierung
 ]
 
 ---
-# Plan Tag `r emo::ji("two")`
+# Plan Praxis
 
-`r emo::ji("home")` `r emo::ji("one")` $\rightarrow$ `r emo::ji("two")`: Anmeldung `RStudio Cloud` + Video Einführung in `R`
+* Voraussetzungen
+  * Installation von [`OpenRefine`](https://openrefine.org)
+  * Anmeldung `RStudio Cloud`
+  
+* `r emo::ji("worker")` Validierung 
+* `r emo::ji("worker")` `r emo::ji("worker")` Hypothesenbildung
+* `r emo::ji("worker")` `r emo::ji("worker")` Visualisierung
+* `r emo::ji("worker")` `r emo::ji("worker")` Reproduzierbarkeit der Datenanalyse 
 
-* Fragen zum technischen Setup
 * `r emo::ji("worker")` `r emo::ji("worker")` `r emo::ji("microscope")`: Praxis Datenanalyse
-
+* `r emo::ji("worker")` `r emo::ji("worker")` `r emo::ji("microscope")`: Praxis Data Science
 
 
 ---
@@ -520,7 +526,8 @@ diamonds %>% ggplot(aes(x = cut)) + geom_bar(fill = "darkblue")
 ```{r fig.height=5}
 diamonds %>% filter(carat < 0.7) %>% 
   ggplot(aes(x = carat, y = price)) + 
-  geom_jitter(color = "darkblue", alpha = 0.05)
+  #geom_jitter(color = "darkblue", alpha = 0.05)
+  geom_point(color = "darkblue", alpha = 0.05)
 ```
 ]
 
