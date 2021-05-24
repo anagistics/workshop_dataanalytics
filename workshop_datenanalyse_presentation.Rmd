@@ -698,6 +698,81 @@ Typische Modelle:
 * **Regression**:  Quantifizierung des (statistischen) Zusammenhangs zwischen beobachteten Ausprägungen und einer Zielgrösse; Quantitative abhängige Variable
 
 ---
+# Vorgehen bei der Modellierung: Baseline-Modell
+
+* Um den praktischen Nutzen eines neuen Modells einzuschätzen, überlegt man sich ein simples pragmatisches Konkurrenzmodell
+
+`r emo::ji("chef")` Dieses Baseline-Modell ist von der Praxis geleitet:
+  * *Das Wetter von morgen ist so wie das heutige*
+  * *Die monatliche Umsatzentwicklung entspricht der des Vorjahres*
+  * *Kunden über 70 nutzen kein Online-Portal*
+  * Ein einfaches Modell (bspw. ein lineares Regressionsmodell, s. unten) kann ein Baseline-Modell für komplexere Modelle sein
+  * Durchschnitte oder Mediane können auch gute Baseline-Schätzer sein
+
+* Ein neues analytisches Modell sollte deutlich bessere Ergebnisse bringen, um den investierten Aufwand zu rechtfertigen
+
+---
+# Vorgehen bei der Modellierung (1)
+
+* Präzisierung der Fragestellung, so dass die *Art des Modells* klar ist: Regression, Klassifikation, Prognose, Clusterung...
+* Festlegen von *Gütekriterien* in Abhängigkeit von der Modellart:
+
+* **Regression**: 
+  * Minimierung einer *loss function*, bspw. 
+      * Mittlerer Quadratischer Fehler (engl. MSE) $\min \sum_{i=1}^n (y_i - \hat{y}_i)^2$ oder 
+      * Mittlerer Absoluter Fehler (engl. MAE) $\min \sum_{i=1}^n |y_i - \hat{y}_i|$.
+
+---
+# Vorgehen bei der Modellierung (2)
+
+* **Klassifikation**: 
+  * Basis ist die *Konfusionsmatrix* (confusion matrix):
+
+```{r img-conf, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: Steven S. Skiena: The Data Science Design Manual"}
+
+knitr::include_graphics("./img/konfusion.png")
+```
+
+  * Darauf aufbauend werden verschiedene Gütekriterien definiert:
+    
+.center[
+$precision = \frac{TP}{TP + FP}$
+
+$recall = \frac{TP}{TP + FN}$
+
+$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+]
+
+  * Darüberhinaus gibt es noch viele weitere Kriterien, s. Literatur.
+  
+---
+# Vorgehen bei der Modellierung (3)
+
+* Festlegen einer Trainings- und Teststrategie:
+  * Ziel: Das Modell soll *generalisieren*, d.h. gute Ergebnisse bei der Anwendung auf neuen Daten. Vermeiden von *overfitting* .
+    
+```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [2]"}
+
+knitr::include_graphics("./img/model-fitting.png")
+```
+
+---
+# Vorgehen bei der Modellierung (4)
+  
+* Trennung der Daten in einen *Trainingsdatensatz* (größer) und einen *Testdatensatz* (kleiner).
+  * Je nach Strategie und Modellart auch noch *Validierungsdatensatz*
+* Man unterscheidet verschiedene Strategien: *zufällige Aufteilung (Split)*, *Kreuzvalidierung*
+* Auswahl eines *Lernalgorithmus* passend zur Modellart
+* Durchführung des Trainings (*Lernens*, vergleichsweise langwierig):
+  * Der Algorithmus optimiert die Parameter des Modells, so dass die Güte maximal wird
+      * Zunächst wird dies auf dem Trainingsdatensatz durchgeführt (*in sample* Güte) 
+      * und dann auf dem Testdatensatz (*out of sample* Güte). 
+* Das Ergebnis des Trainings wird als Datenstruktur gespeichert 
+      * Bspw. speichert man die Information *Lineares Regressionsmodell* und die Werte für $\beta_i$
+* und zu einem späteren Zeitpunkt wieder geladen und auf neuen Daten angewendet.
+
+
+---
 # Modelltypen: Lineare Regression - Grundlagen
 
 * Regressionsmodell
@@ -841,79 +916,6 @@ knitr::include_graphics("./img/cluster-iter.png")
 * Die optimale Clusteranzahl ist unklar und nicht einfach bestimmbar
 * Das Ergebnis des Verfahrens sind die Cluster, ohne Charakterisierung
 
----
-# Vorgehen bei der Modellierung: Baseline-Modell
-
-* Um den praktischen Nutzen eines neuen Modells einzuschätzen, überlegt man sich ein simples pragmatisches Konkurrenzmodell
-
-`r emo::ji("chef")` Dieses Baseline-Modell ist von der Praxis geleitet:
-  * *Das Wetter von morgen ist so wie das heutige*
-  * *Die monatliche Umsatzentwicklung entspricht der des Vorjahres*
-  * *Kunden über 70 nutzen kein Online-Portal*
-  * Ein einfaches lineares Regressionsmodell kann ein Baseline-Modell gg. komplexeren Modellen sein
-  * Durchschnitte oder Mediane können auch gute Baseline-Schätzer sein
-
-* Ein neues analytisches Modell sollte deutlich bessere Ergebnisse bringen, um den investierten Aufwand zu rechtfertigen
-
----
-# Vorgehen bei der Modellierung (1)
-
-* Präzisierung der Fragestellung, so dass die *Art des Modells* klar ist: Regression, Klassifikation, Prognose, Clusterung...
-* Festlegen von *Gütekriterien* in Abhängigkeit von der Modellart:
-
-* **Regression**: 
-  * Minimierung einer *loss function*, bspw. 
-      * Mittlerer Quadratischer Fehler (engl. MSE) $\min \sum_{i=1}^n (y_i - \hat{y}_i)^2$ oder 
-      * Mittlerer Absoluter Fehler (engl. MAE) $\min \sum_{i=1}^n |y_i - \hat{y}_i|$.
-
----
-# Vorgehen bei der Modellierung (2)
-
-* **Klassifikation**: 
-  * Basis ist die *Konfusionsmatrix* (confusion matrix):
-
-```{r img-conf, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: Steven S. Skiena: The Data Science Design Manual"}
-
-knitr::include_graphics("./img/konfusion.png")
-```
-
-  * Darauf aufbauend werden verschiedene Gütekriterien definiert:
-    
-.center[
-$precision = \frac{TP}{TP + FP}$
-
-$recall = \frac{TP}{TP + FN}$
-
-$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
-]
-
-  * Darüberhinaus gibt es noch viele weitere Kriterien, s. Literatur.
-  
----
-# Vorgehen bei der Modellierung (3)
-
-* Festlegen einer Trainings- und Teststrategie:
-  * Ziel: Das Modell soll *generalisieren*, d.h. gute Ergebnisse bei der Anwendung auf neuen Daten. Vermeiden von *overfitting* .
-    
-```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [2]"}
-
-knitr::include_graphics("./img/model-fitting.png")
-```
-
----
-# Vorgehen bei der Modellierung (4)
-  
-* Trennung der Daten in einen *Trainingsdatensatz* (größer) und einen *Testdatensatz* (kleiner).
-  * Je nach Strategie und Modellart auch noch *Validierungsdatensatz*
-* Man unterscheidet verschiedene Strategien: *zufällige Aufteilung (Split)*, *Kreuzvalidierung*
-* Auswahl eines *Lernalgorithmus* passend zur Modellart
-* Durchführung des Trainings (*Lernens*, vergleichsweise langwierig):
-  * Der Algorithmus optimiert die Parameter des Modells, so dass die Güte maximal wird
-      * Zunächst wird dies auf dem Trainingsdatensatz durchgeführt (*in sample* Güte) 
-      * und dann auf dem Testdatensatz (*out of sample* Güte). 
-* Das Ergebnis des Trainings wird als Datenstruktur gespeichert 
-      * Bspw. speichert man die Information *Lineares Regressionsmodell* und die Werte für $\beta_i$
-* und zu einem späteren Zeitpunkt wieder geladen und auf neuen Daten angewendet.
 
 ---
 # R Lernen
