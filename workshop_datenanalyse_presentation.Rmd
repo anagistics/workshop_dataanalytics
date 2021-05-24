@@ -712,18 +712,20 @@ Typische Modelle:
 * Ein neues analytisches Modell sollte deutlich bessere Ergebnisse bringen, um den investierten Aufwand zu rechtfertigen
 
 ---
-# Vorgehen bei der Modellierung (1)
+# Vorgehen bei der Modellierung: Gütekriterien Regression
 
 * Präzisierung der Fragestellung, so dass die *Art des Modells* klar ist: Regression, Klassifikation, Prognose, Clusterung...
 * Festlegen von *Gütekriterien* in Abhängigkeit von der Modellart:
 
 * **Regression**: 
+  * Tatsächlicher Wert der abhängigen Variable $y$
+  * Durch das Modell geschätzter Wert $\hat{y}$
   * Minimierung einer *loss function*, bspw. 
       * Mittlerer Quadratischer Fehler (engl. MSE) $\min \sum_{i=1}^n (y_i - \hat{y}_i)^2$ oder 
       * Mittlerer Absoluter Fehler (engl. MAE) $\min \sum_{i=1}^n |y_i - \hat{y}_i|$.
 
 ---
-# Vorgehen bei der Modellierung (2)
+# Vorgehen bei der Modellierung: Gütekriterien Klassifikation
 
 * **Klassifikation**: 
   * Basis ist die *Konfusionsmatrix* (confusion matrix):
@@ -736,14 +738,23 @@ knitr::include_graphics("./img/konfusion.png")
   * Darauf aufbauend werden verschiedene Gütekriterien definiert:
     
 .center[
-$precision = \frac{TP}{TP + FP}$
+$Spezifizität = \frac{TN}{TN + FP}$
 
-$recall = \frac{TP}{TP + FN}$
+$Sensitivität = \frac{TP}{TP + FN}$
 
 $accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
 ]
 
-  * Darüberhinaus gibt es noch viele weitere Kriterien, s. Literatur.
+* Darüberhinaus gibt es noch viele weitere Kriterien, s. Literatur oder [Wikipedia](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+
+---
+# Vorgehen bei der Modellierung: Aktuelles Beispiel
+
+.center[
+![:scale 60%](./img/rki-test.png)
+]
+.center[Quelle: RKI]
+]
   
 ---
 # Vorgehen bei der Modellierung (3)
