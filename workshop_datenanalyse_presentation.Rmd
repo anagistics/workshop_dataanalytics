@@ -52,18 +52,13 @@ telco_data <- readr::read_csv("./telco_dataset.csv")
 ```
 
 
-# Plan Theorie
+# Plan
 
 .pull-left[
-* Was ist Datenanalyse und 
-   * was hat das mit Versicherungen zu tun?
 * Der Prozess der Datenanalyse 
-* Datenquellen (in VU)
+* Datenquellen in Unternehmen
 * Datenschutz
 * Datenquellen lesen
-]
-
-.pull-right[
 * Daten verstehen: Struktur, Validierung
 * Herangehensweise: Hypothesenbildung
 * Visualisierung
@@ -72,9 +67,7 @@ telco_data <- readr::read_csv("./telco_dataset.csv")
 * Modellierung
 ]
 
----
-# Plan Praxis
-
+.pull-right[
 * Voraussetzungen
   * Installation von [`OpenRefine`](https://openrefine.org)
   * Anmeldung `RStudio Cloud`
@@ -86,12 +79,12 @@ telco_data <- readr::read_csv("./telco_dataset.csv")
 
 * `r emo::ji("worker")` `r emo::ji("worker")` `r emo::ji("microscope")`: Praxis Datenanalyse
 * `r emo::ji("worker")` `r emo::ji("worker")` `r emo::ji("microscope")`: Praxis Data Science
-
+]
 
 ---
-class: inverse, center, middle
+class: exercise, center, middle
 
-# Datenanalyse in Versicherungsunternehmen?
+# Erfahrung mit Datenanalyse?
 
 Kennen Sie Anwendungsfälle? Haben Sie eigene Erfahrungen?
 
@@ -118,7 +111,7 @@ Der Punkt *Model* in obiger Graphik bezieht sich auf Datenanalyse im Kontext von
 
 
 ---
-# Datenquellen in VU (1)
+# Datenquellen in Unternehmen (1)
 
 * Datenbanken - strukturierte Daten
   * OLTP<sup>1</sup>-Systeme z.B. für die Vertragsverwaltung, Zahlvorgänge, Finanzbuchungen
@@ -135,7 +128,7 @@ Meistens werden *relationale Datenbanken* verwendet, auf die mittels `SQL` zugeg
 ]
 
 ---
-# Datenquellen in VU (2)
+# Datenquellen in Unternehmen (2)
 
 * Verwaltungssysteme für unstrukturierte Daten
   * Dokumentenarchive bspw. für Briefe von/an Kunden, Rechtsanwälte, Gutachter, Vertreter usw.
@@ -148,7 +141,7 @@ Diese Verwaltungssysteme lassen sich üblicherweise nicht in vergleichsweise sta
 ]
 
 ---
-# Datenquellen in VU (3)
+# Datenquellen in Unternehmen (3)
 
 * Anwendungsdaten
     * insbesondere Office
@@ -163,7 +156,7 @@ Diese Verwaltungssysteme lassen sich üblicherweise nicht in vergleichsweise sta
   Die Protokolle werden in ähnlicher oder gleicher Form oftmals auch in Datenbanktabellen geschrieben.
         
 ---
-# Datenquellen in VU (4)
+# Datenquellen in Unternehmen (4)
 
 * APIs<sup>1</sup>
   
@@ -171,9 +164,7 @@ Diese Verwaltungssysteme lassen sich üblicherweise nicht in vergleichsweise sta
 
 **Beispiel:** Anbieter *Quandl* liefert u.a. Finanzdaten: [https://www.quandl.com/api/v3/datasets/FSE/ALV_X.json?api_key=XXXXXX](https://www.quandl.com/api/v3/datasets/FSE/ALV_X.json)
 
-Für alle oben genannten Datenquellen gilt: Die meisten davon werden überall in Unternehmen genutzt und sind nicht spezifisch für die Versicherungsbranche.
-
-**Was könnte für die Versicherungsbranche besonders sein?**
+Für alle oben genannten Datenquellen gilt: Die meisten davon werden überall in Unternehmen genutzt und sind nicht spezifisch für die Finanzbranche.
 
 
 .footnote[
@@ -181,9 +172,9 @@ Für alle oben genannten Datenquellen gilt: Die meisten davon werden überall in
 ]
 
 ---
-# Besonderheiten von Datenquellen in VU
+# Besonderheiten von Datenquellen in Unternehmen der Finanzbranche
 
-Versicherungen sind oftmals sehr langlebige Produkte:
+Banken und Versicherungen vertreiben oftmals sehr langlebige Produkte:
 * Verträge (bspw. für Lebensversicherungen) laufen über mehrere Jahrzehnte
 
     `r emo::ji("question")` Wie haben sich IT-Systeme in der Zeit geändert?
@@ -193,6 +184,7 @@ Versicherungen sind oftmals sehr langlebige Produkte:
   &rarr; Betrifft nicht nur Hardware, sondern auch Software z.B. Umlaute in alten Datenbeständen (7 Bit ASCII, kein UTF).
   
   &rarr; Datenstrukturen (bspw. Tabellenschemata) verändern sich über die Zeit wg. wandelnder Anforderungen.
+* Die gespeicherten Daten sind besonders schützenswert, da Finanz- und/oder Gesundheitsdaten.
 
 ---
 # Datenschutz
