@@ -714,7 +714,7 @@ Typische Modelle:
   $\min_{\beta_0, \beta_1,\ldots,\beta_n} \|y-\hat{y}\|_2 \text{ mit } \hat{y}=\beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$
 ]
 
-```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [2]"}
 
 knitr::include_graphics("./img/lineare_regression.png")
 ```
@@ -730,7 +730,7 @@ knitr::include_graphics("./img/lineare_regression.png")
 ]
 
 .pull-right[
-```{r img-dtree, echo=FALSE, fig.align = 'center', out.width = "100%", fig.cap = "aus: Sebastian Sauer: Moderne Datenanalyse mit R"}
+```{r img-dtree, echo=FALSE, fig.align = 'center', out.width = "100%", fig.cap = "aus: [1]"}
 knitr::include_graphics("./img/dtree_example.png")
 ```  
 ]
@@ -740,37 +740,67 @@ knitr::include_graphics("./img/dtree_example.png")
 
 * Beide Verfahrensfamilien haben ihre spezifischen Stärken und Grenzen
 
-```{r img-comp-lm-dtree, echo=FALSE, fig.align = 'center', out.width = "90%", fig.cap = "aus: Sebastian Sauer: Moderne Datenanalyse mit R"}
+```{r img-comp-lm-dtree, echo=FALSE, fig.align = 'center', out.width = "90%", fig.cap = "aus: [1]"}
 knitr::include_graphics("./img/comp-linear-dtree.png")
 ```  
 
 
 ---
-# Modelltypen: Logistische Regression - Grundlagen
+# Modelltypen: Logistische Regression - Ausgangsproblem
 
-* Trotz des Namens: Klassifikationsmodell
 * Abhängige Variable $y\in{0,1}$ (2 Klassen)
-  * Zunächst Transformation der unabhängigen Variablen mit der *logistischen Funktion* $p(x)$: 
-.center[
+* Was passiert, wenn die Klassen mit *linearer Regression* vorhergesagt werden sollen?
+* **Beispiel**: Vorhersage von Kreditausfallwahrscheinlichkeit (0/1) als Funktion des Kontostands.
+
+.pull-left[
+```{r img-log-reg-motv, echo=FALSE, fig.align = 'center', out.width = "140%", fig.cap = "aus: [2]"}
+
+knitr::include_graphics("./img/log-reg-motiv.png")
+```
+]
+
+.pull-right[
+* Problem: Vorhersage liefert tlw. negative Werte
+]
+
+---
+# Modelltypen: Logistische Regression - Logistische Funktion
+
+
+.pull-left[
+ Zunächst Transformation der unabhängigen Variablen mit der *logistischen Funktion* $p(x)$: 
+
 $p(x) = \frac{e^{\beta_0+\beta_1\cdot x_1+\ldots+\beta_n\cdot x_n}}{1 + e^{\beta_0+\beta_1\cdot x_1+\ldots+\beta_n\cdot x_n}}$
-] 
-  * Dann bildet man die *log odds* und erhält ein lineares Modell: 
-.center[
-$\log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$.
+
+wobei $0 < p(x) < 1$.
+
+Für 1 Variable: 
+
+$p(x) = \frac{e^{\beta_0+\beta_1\cdot x}}{1 + e^{\beta_0+\beta_1\cdot x}}$
+]
+
+.pull-right[
+```{r img-log-reg, echo=FALSE, fig.align = 'center', out.width = "150%", fig.cap = "aus: [2]"}
+
+knitr::include_graphics("./img/logistic_regression.png")
+```
 ]
 
 ---
 # Modelltypen: Logistische Regression - Klassifikation
 
-```{r img-log-reg, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+* Mit Hilfe der logistischen Funktion $p(x)$ erhält man:
+.center[
+$\log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$.
+]
 
-knitr::include_graphics("./img/logistic_regression.png")
-```
+* Der Term $\log\left(\frac{p(x)}{1-p(x)}\right)$ heißt *log odds*. Der Quotient $\frac{p(x)}{1-p(x)}$, die *odds*, gibt eine *Chance* an, wie sie bei Wetten verwendet wird.
+* Die *log odds* lassen sich leicht aus den Daten berechnen und die mathematische Struktur entspricht damit wieder einer linearen Regression: 
+&rarr; optimale $\beta_i$ berechnen
 
-* Wertebereich der logistischen Regression zwischen 0 und 1
-* Entscheidung über Klasse: $p(x) > \theta \Rightarrow \text{Klasse 1}$
-  * Erst durch diesen Vergleich mit einem (wählbaren) Schwellenwert wird aus der Regression eine Klassfikation.
-
+&rarr; **Klassifikation** anhand eines Schwellwerts $\theta$, so dass 
+.center[ $p(x) > \theta \Rightarrow \text{Klasse von x = 1}$
+]
 
 ---
 # Modelltypen: Clusterung - Grundlagen
@@ -782,7 +812,7 @@ knitr::include_graphics("./img/logistic_regression.png")
   * Räumlich benachbarte Punkte entsprechen ähnlichen Instanzen
   * Es werden Gruppen (Cluster) von ähnlichen Instanzen gebildet
 
-```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [²]"}
 
 knitr::include_graphics("./img/cluster.png")
 ```
@@ -791,7 +821,7 @@ knitr::include_graphics("./img/cluster.png")
 # Modelltypen: Clusterung - $k$-Means
 
 * $k$-Means-Algorithmus
-```{r img-kmeans, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-kmeans, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: [2]"}
 
 knitr::include_graphics("./img/cluster-algo.png")
 ```
@@ -802,7 +832,7 @@ knitr::include_graphics("./img/cluster-algo.png")
 ---
 # Modelltypen: Clusterung - Beispiel
 
-```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "50%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "50%", fig.cap = "aus: [2]"}
 
 knitr::include_graphics("./img/cluster-iter.png")
 ```
@@ -865,7 +895,7 @@ $accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
 * Festlegen einer Trainings- und Teststrategie:
   * Ziel: Das Modell soll *generalisieren*, d.h. gute Ergebnisse bei der Anwendung auf neuen Daten. Vermeiden von *overfitting* .
     
-```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: James et al. (2013): An Introduction to Statistical Learning"}
+```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [2]"}
 
 knitr::include_graphics("./img/model-fitting.png")
 ```
@@ -919,11 +949,13 @@ Bearbeitungszeit: 2 Stunden
 ---
 # Literatur & Quellen
 
-* Sebastian Sauer: Moderne Datenanalyse mit R, Springer Gabler, 2019
-* James Gareth, Daniela Witten, Trevor Hastie, Robert Tibshirani: An Introduction to Statistical Learning with Applications in R, Springer, 2013. Online erhältlich unter [https://www.statlearning.com/](https://www.statlearning.com/).
-* Steven S. Skiena: The Data Science Design Manual, Springer, 2017
+**[1]** Sebastian Sauer: Moderne Datenanalyse mit R, Springer Gabler, 2019
 
-* YouTube-Kanal [Statistik am PC](https://www.youtube.com/c/StatistikamPC_BjoernWalther)
+**[2]** Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani: An Introduction to Statistical Learning with Applications in R, Springer, 2013. Online erhältlich unter [https://www.statlearning.com/](https://www.statlearning.com/).
+
+**[3]** Steven S. Skiena: The Data Science Design Manual, Springer, 2017
+
+**[4]** YouTube-Kanal [Statistik am PC](https://www.youtube.com/c/StatistikamPC_BjoernWalther)
 
 
 ---
