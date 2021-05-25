@@ -730,7 +730,7 @@ Typische Modelle:
 * **Klassifikation**: 
   * Basis ist die *Konfusionsmatrix* (confusion matrix):
 
-```{r img-conf, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: Steven S. Skiena: The Data Science Design Manual"}
+```{r img-conf, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "Quelle: [3]"}
 
 knitr::include_graphics("./img/konfusion.png")
 ```
@@ -766,7 +766,7 @@ $\text{Richtigkeit} = \frac{TP + TN}{TP + TN + FP + FN}$
 * Festlegen einer Trainings- und Teststrategie:
   * Ziel: Das Modell soll *generalisieren*, d.h. gute Ergebnisse bei der Anwendung auf neuen Daten. Vermeiden von *overfitting* .
     
-```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [2]"}
+```{r img-mofi, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "Quelle: [2]"}
 
 knitr::include_graphics("./img/model-fitting.png")
 ```
@@ -818,13 +818,13 @@ und $\bar{y}=\frac{1}{N}\sum_{j=1}^N y_j$
 ]
 
 .pull-right[
-![!scale 100%](./img/lineare_regression.png)
-.center[aus: [2]
+![:scale 100%](./img/lineare_regression.png)
+.center[Quelle: [2]
 ]
 ]
 
 ---
-# Modelltypen: Entscheidungsbäume
+# Modelltypen: Entscheidungsbäume (1)
 
 * Klassifikationsmodell (häufigste Anwendung, auch Regression möglich)
 
@@ -834,17 +834,29 @@ und $\bar{y}=\frac{1}{N}\sum_{j=1}^N y_j$
 ]
 
 .pull-right[
-```{r img-dtree, echo=FALSE, fig.align = 'center', out.width = "100%", fig.cap = "aus: [1]"}
-knitr::include_graphics("./img/dtree_example.png")
-```  
+![:scale 100%](./img/dtree_1.png)
+.center[Erste Verzweigung eines Entscheidungsbaums, Quelle: [1]
 ]
+]
+
+---
+# Modelltypen: Entscheidungsbäume (2)
+
+* Weitere Verzweigungen der jeweils aktuellen Blätter des Baums, bis eine Abbruchbedingung erfüllt ist:
+
+.center[
+![:scale 65%](./img/dtree_example.png)
+
+Quelle: [1]
+]
+
 
 ---
 # Vergleich lineare Modelle und Entscheidungsbaum
 
 * Beide Verfahrensfamilien haben ihre spezifischen Stärken und Grenzen
 
-```{r img-comp-lm-dtree, echo=FALSE, fig.align = 'center', out.width = "90%", fig.cap = "aus: [1]"}
+```{r img-comp-lm-dtree, echo=FALSE, fig.align = 'center', out.width = "90%", fig.cap = "Quelle: [1]"}
 knitr::include_graphics("./img/comp-linear-dtree.png")
 ```  
 
@@ -857,7 +869,7 @@ knitr::include_graphics("./img/comp-linear-dtree.png")
 * **Beispiel**: Vorhersage von Kreditausfallwahrscheinlichkeit (0/1) als Funktion des Kontostands.
 
 .pull-left[
-```{r img-log-reg-motv, echo=FALSE, fig.align = 'center', out.width = "140%", fig.cap = "aus: [2]"}
+```{r img-log-reg-motv, echo=FALSE, fig.align = 'center', out.width = "140%", fig.cap = "Quelle: [2]"}
 
 knitr::include_graphics("./img/log-reg-motiv.png")
 ```
@@ -884,7 +896,7 @@ $p(x) = \frac{e^{\beta_0+\beta_1\cdot x}}{1 + e^{\beta_0+\beta_1\cdot x}}$
 ]
 
 .pull-right[
-```{r img-log-reg, echo=FALSE, fig.align = 'center', out.width = "150%", fig.cap = "aus: [2]"}
+```{r img-log-reg, echo=FALSE, fig.align = 'center', out.width = "150%", fig.cap = "Quelle: [2]"}
 
 knitr::include_graphics("./img/logistic_regression.png")
 ```
@@ -916,7 +928,7 @@ $\log\left(\frac{p(x)}{1-p(x)}\right) = \beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$
   * Räumlich benachbarte Punkte entsprechen ähnlichen Instanzen
   * Es werden Gruppen (Cluster) von ähnlichen Instanzen gebildet
 
-```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [²]"}
+```{r img-cluster, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "Quelle: [²]"}
 
 knitr::include_graphics("./img/cluster.png")
 ```
@@ -925,7 +937,7 @@ knitr::include_graphics("./img/cluster.png")
 # Modelltypen: Clusterung - $k$-Means
 
 * $k$-Means-Algorithmus
-```{r img-kmeans, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "aus: [2]"}
+```{r img-kmeans, echo=FALSE, fig.align = 'center', out.width = "80%", fig.cap = "Quelle: [2]"}
 
 knitr::include_graphics("./img/cluster-algo.png")
 ```
@@ -936,7 +948,7 @@ knitr::include_graphics("./img/cluster-algo.png")
 ---
 # Modelltypen: Clusterung - Beispiel
 
-```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "50%", fig.cap = "aus: [2]"}
+```{r img-cluster-iter, echo=FALSE, fig.align = 'center', out.width = "50%", fig.cap = "Quelle: [2]"}
 
 knitr::include_graphics("./img/cluster-iter.png")
 ```
