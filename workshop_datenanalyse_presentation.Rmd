@@ -439,7 +439,7 @@ class: exercise, center, middle
 .center[
 `r emo::ji("point_right")` Übungssammlung, Gruppen-Aufgabe *Hypothesenbildung*
 
-Bearbeitungszeit: 40 Minuten
+Bearbeitungszeit: 30 Minuten
 ]
 
 ---
@@ -515,7 +515,7 @@ diamonds %>% ggplot(aes(x = cut)) + geom_bar(fill = "darkblue")
 * Auch *x/y-Diagramm*. Schneller Einblick in den Zusammenhang zwischen zwei Variablen.
 
 .center[
-```{r fig.height=5}
+```{r fig.height=4}
 diamonds %>% filter(carat < 0.7) %>% 
   ggplot(aes(x = carat, y = price)) + 
   #geom_jitter(color = "darkblue", alpha = 0.05)
@@ -737,18 +737,22 @@ knitr::include_graphics("./img/konfusion.png")
 
   * Darauf aufbauend werden verschiedene Gütekriterien definiert:
     
-.center[
-$Spezifizität = \frac{TN}{TN + FP}$
+.pull-left[
+$\text{Spezifizität} = \frac{TN}{TN + FP}$
 
-$Sensitivität = \frac{TP}{TP + FN}$
+$\text{Sensitivität} = \frac{TP}{TP + FN}$
+]
 
-$accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+.pull-right[
+$\text{Präzision} = \frac{TP}{TP + FP}$
+
+$\text{Richtigkeit} = \frac{TP + TN}{TP + TN + FP + FN}$
 ]
 
 * Darüberhinaus gibt es noch viele weitere Kriterien, s. Literatur oder [Wikipedia](https://en.wikipedia.org/wiki/Sensitivity_and_specificity)
 
 ---
-# Vorgehen bei der Modellierung: Aktuelles Beispiel
+# Vorgehen bei der Modellierung: Beispiel Klassifikationsbewertung
 
 .center[
 ![:scale 60%](./img/rki-test.png)
@@ -772,7 +776,7 @@ knitr::include_graphics("./img/model-fitting.png")
   
 * Trennung der Daten in einen *Trainingsdatensatz* (größer) und einen *Testdatensatz* (kleiner).
   * Je nach Strategie und Modellart auch noch *Validierungsdatensatz*
-* Man unterscheidet verschiedene Strategien: *zufällige Aufteilung (Split)*, *Kreuzvalidierung*
+  * Man unterscheidet verschiedene Strategien: *zufällige Aufteilung (Split)*, *Kreuzvalidierung*
 * Auswahl eines *Lernalgorithmus* passend zur Modellart
 * Durchführung des Trainings (*Lernens*, vergleichsweise langwierig):
   * Der Algorithmus optimiert die Parameter des Modells, so dass die Güte maximal wird
@@ -800,10 +804,24 @@ knitr::include_graphics("./img/model-fitting.png")
   $\min_{\beta_0, \beta_1,\ldots,\beta_n} \|y-\hat{y}\|_2 \text{ mit } \hat{y}=\beta_0 + \sum_{i=1}^n \beta_i\cdot x_i$
 ]
 
-```{r img-lin-reg, echo=FALSE, fig.align = 'center', out.width = "60%", fig.cap = "aus: [2]"}
+.pull-left[
+Die $\beta_i$ lassen sich relativ leicht berechnen.
+Bei nur 1 unabhängigen Variablen, $N$ = Anzahl Beobachtungen:
 
-knitr::include_graphics("./img/lineare_regression.png")
-```
+$\hat{\beta}_1 = \frac{\sum_{j=1}^N(x_j - \bar{x})(y_i-\bar{y})}{\sum_{j=1}^N(x_j - \bar{x})^2}$
+
+$\hat{\beta}_0 = \hat{y}-\hat{\beta}_1 \bar{x}$
+
+mit $\bar{x}=\frac{1}{N}\sum_{j=1}^N x_j$ 
+
+und $\bar{y}=\frac{1}{N}\sum_{j=1}^N y_j$
+]
+
+.pull-right[
+![!scale 100%](./img/lineare_regression.png)
+.center[aus: [2]
+]
+]
 
 ---
 # Modelltypen: Entscheidungsbäume
