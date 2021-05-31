@@ -37,9 +37,52 @@ Aus einem Notebook erzeugt RStudio ein veröffentlichbares Dokument in wählbare
 knitr::include_graphics("./img/rstudio-knit-commands.png")
 ```
 
-Im `Help`-Menü gibt es Hilfe zu den Möglichkeiten von Markdown unter dem Eintrag `Markdown Quick Reference`. Über das Untermenü `Cheatsheets` können weitere PDF-Dateien mit kompakten Befehlsübersichten und -erklärungen heruntergeladen werden.
+## Pakete
+
+Wie andere Sprachen auch, bietet R eine Vielzahl von Funktionen (und Daten) in Paketen (in anderen Sprachen spricht man von Bibliotheken oder Modulen). Diese Pakete müssen zunächst installiert werden und werden dann nach Bedarf über die Funktion `library` geladen und verfügbar gemacht. Die häufigste Quelle von Paketen ist das [`CRAN`](https://cran.r-project.org/) (*Comprehensive R Archive Network*). Diese Quelle ist in RStudio für den Menüpunkt `Tools | Install Packages...` voreingestellt und auch die Funktion `install.packages` sucht Pakete standardmäßig dort. Der folgende Code lädt bspw. das verbreitete Paket `tidyverse`:
+
+```{r}
+library(tidyverse)
+```
+
+Wie man an der Ausgabe sieht, handelt es sich bei `tidyverse` eigentlich um ein Paket von Paketen - die Pakete `ggplot2`, `dplyr`, `purrr` usw. könnten auch einzeln per `library`-Aufruf geladen werden. Aber man benötigt häufig Funktionen aus dieser Paketfamilien und damit ist der obige Aufruf einfacher.
+
+## Hilfe
+
+Sowohl die Basisinstallation von R als auch die Pakete bieten eine Hilfe an, die in RStudio im `Help`-Panel angezeigt wird. Benötigt man für ein Kommando `cmd` eine Hilfe, kann man in der Konsole (`Console`-Panel) über `?cmd` eine Hilfeseite aufrufen. Zugegebenermaßen ist diese Hilfeseite nicht immer ganz einfach zu verstehen, weil sie doch recht kompakt ist und gerade komplexere Kommandos eher kurz abgehandelt werden. Mit `??cmd` kann die Hilfe zu Einträgen zu `cmd` durchsucht werden.
+
+Im `Help`-Menü gibt es weiterhin Hilfe zu den Möglichkeiten von Markdown unter dem Eintrag `Markdown Quick Reference`. Über das Untermenü `Cheatsheets` können weitere PDF-Dateien mit kompakten Befehlsübersichten und -erklärungen heruntergeladen werden.
 
 # Daten laden
+
+R bietet viele Pakete und Funktionen, um Daten aus den verschiedensten Quellen zu laden, bspw.  SQL-Datenbanken, SAS-Dateien, Excel XLSX und XLS-Dateien, CSV, JSON, HDF5, Apache Arrow uvm.
+
+Eine XLSX-Datei mit dem Namen `Telco_customer_churn.xlsx` im Ordner `data` lässt sich mit der Funktion `read_xlsx` aus dem `readxl`-Paket laden:
+
+```{r}
+library(readxl)
+
+churn <- read_xlsx("data/Telco_customer_churn.xlsx")
+```
+
+Im Code oben werden die Daten über den Zuweisungsoperator `<-` der Variable `churn` zugewiesen. Es ist in R nicht nötig, Variablen zu deklarieren und explizit einen Datentyp anzugeben. Über die Funktion `class` erhält man eine Aufzählung der von einer Variablen geerbten Klassen (in dieser Einführung gehe ich nicht auf die verschiedenen Objektsysteme von R ein).
+
+```{r}
+class(churn)
+```
+
+Das Ergebnis listet u.a. `data.frame` auf: Dies ist eine Datenstruktur für Datentabellen, d.h. eine Liste von Spalten mit Werten eines Datentyps. Die Funktion `names` liefert die Namen der Spalten der Datentabelle:
+
+```{r}
+names(churn)
+```
+
+Auf die einzelnen Spalten kann man mit dem `$`-Operator zugreifen. Die Funktion `head` beschränkt die Ausgabe auf die ersten paar Elemente:
+```{r}
+head(churn$CustomerID)
+```
+
+
 
 # Datensätze verbinden
 
