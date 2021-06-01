@@ -17,7 +17,7 @@ Diese kleine Einführung in R orientiert sich am bekannten Ablauf von Datenproje
 knitr::include_graphics("./img/data-science-explore.png")
 ```
 
-Zu jedem der 6 Hauptschritte gibt es ein Kapitel mit Codebeispielen zu typischen Arbeitsschritten. In den eigenen Projekten können diese Beispiele als Vorlage dienen. Grundsätzlich empfehle ich, in einem eigenen Projekt zu arbeiten und dort eine *R Markdown*-Datei anzulegen.
+Zu jedem der 6 Hauptschritte gibt es ein Kapitel mit Codebeispielen zu typischen Arbeitsschritten. In den eigenen Projekten können diese Beispiele als Vorlage dienen. Grundsätzlich empfehle ich, in einem eigenen Projekt zu arbeiten und dort eine *R Markdown*-Datei anzulegen. Ein kurzes 1minütiges Video zu R Markdown findet sich unter [https://vimeo.com/178485416](https://vimeo.com/178485416).
 
 ## Projekt und Notebook anlegen
 
@@ -45,7 +45,7 @@ Wie andere Sprachen auch, bietet R eine Vielzahl von Funktionen (und Daten) in P
 library(tidyverse)
 ```
 
-Wie man an der Ausgabe sieht, handelt es sich bei `tidyverse` eigentlich um ein Paket von Paketen - die Pakete `ggplot2`, `dplyr`, `purrr` usw. könnten auch einzeln per `library`-Aufruf geladen werden. Aber man benötigt häufig Funktionen aus dieser Paketfamilien und damit ist der obige Aufruf einfacher.
+Wie man an der Ausgabe sieht, handelt es sich bei `tidyverse` eigentlich um ein Paket von Paketen - die Pakete `ggplot2`, `dplyr`, `purrr` usw. könnten auch einzeln per `library`-Aufruf geladen werden. Aber man benötigt häufig Funktionen aus dieser Paketfamilie und damit ist der obige Aufruf einfacher.
 
 ## Hilfe
 
@@ -88,7 +88,59 @@ head(churn$CustomerID)
 
 # Daten sichten, sortieren und filtern
 
+Um sich einen ersten Überblick über Daten zu verschaffen kann man die Befehle `summary` und `glimpse` verwenden:
+```{r}
+summary(churn)
+```
+
+`summary` lässt sich auch sinnvoll auf eine einzelne Spalte anwenden, bspw.:
+```{r}
+summary(churn$`Monthly Charges`)
+```
+
+
+```{r}
+glimpse(churn)
+```
+Für das Sichten, Sortieren, Filtern und weitere Operationen gibt es in R verschiedene Möglichkeiten und grundsätzlich sind diese Operationen natürlich auch ohne Zusatzpakete möglich. Allerdings empfehle ich hier aus Gründen der Lesbarkeit und der Kombinierbarkeit mit weiteren Operationen (s. unten) die Funktionen aus dem `dplyr`-Paket bzw. allgemein aus `tidyverse`: Auswahl von Spalten mittels `select` analog zu SQL, Sortieren mittels `arrange` und Filtern mit der Funktion `filter`. Zudem bietet es sich an, den *Pipe*-Operator `%>%` (definiert im Paket `magrittr`) zu verwenden. Dieser Operator ist im Grunde zwar nur *syntactic sugar*, sorgt aber für eine sehr klare Struktur von Datenverarbeitungsschritten.[^1]
+
+[^1]: `%>%` funktioniert folgendermaßen: Anstelle von `meine_funktion(a,b)` schreibt man `a %>% meine_funktion(b)`. Damit erreicht man eine bessere Lesbarkeit: Anstelle von `schritt_2(schritt_1(daten))` schreibt man `daten %>% schritt_1 %>% schritt_2` und dokumentiert quasi automatisch den Ablauf mit der Syntax. Ab R v4.1 gibt es nativ in der Sprache den Pipe-Operator `|>`, der vergleichbar mit dem Pipe-Operator `|` der C++ 20 Ranges ist. 
+
+```{r echo=TRUE}
+selection <- churn %>% 
+  filter(`Payment Method` == "Electronic check") %>% 
+  arrange(`Tenure Months`) %>% 
+  select(City, Gender, `Tenure Months`)
+```
+
+Im obigen Statement wird das Ergebnis der Filterung, Sortierung und Spaltenauswahl der neuen Variablen `selection` zugewiesen. Mit dieser kann dann ggf. weitergearbeitet werden.
+
+Möchte man in absteigender Reihenfolge sortieren, setzt man das entsprechende Argument in `desc(...)` ein:
+```{r}
+churn %>% 
+  arrange(desc(`Total Charges`), `Zip Code`) %>% 
+  select(`Total Charges`, `Zip Code`) %>% 
+  head(10)
+```
+
+Filterkriterien sind logische Ausdrücke und können die bekannten Operatoren `==`, `!=`, `<`, `>`, `<=` und `>=` sowie `%in%` umfassen und mit `&` bzw. `|` und Klammerung kombiniert werden.
+
 # Daten transformieren
+
+Möchte man neue Spalten hinzufügen, ändern oder löschen verwendet man die Funktion `mutate`:
+```{r}
+crp <- churn %>% mutate(REGION = floor(`Zip Code` / 1000), 
+                        Country = NULL,
+                        `Phone Service` = if_else(`Phone Service` == "Yes", 1, 0)) %>% 
+  select(CustomerID, REGION, `Phone Service`) %>% 
+  head(10)
+```
+
+Das obige Statement führt drei Transformationen durch:
+
+1. Eine neue Spalte `REGION` wird angelegt, die grob aus der Postleitzahl eine Region ableitet,
+1. die Spalte `Country` wird gelöscht (weil dort immer derselbe Wert *United States* drin steht),
+1. die Spalte `Phone Service` wird umgewandelt von einer *Yes/No*-Codierung der Kategorie in eine numerische 1/0-Codierung. Damit kann dann später leichter gerechnet werden. Hilfreich ist hierbei die `if_else`-Funktion, die (ähnlich wie in Excel) eine if-else-Verzweigung als Funktion anbietet.
 
 # Daten aggregieren
 
