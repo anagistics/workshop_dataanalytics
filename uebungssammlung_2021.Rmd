@@ -43,6 +43,7 @@ Die folgende Aufgabe ist als Gruppenübung angelegt. Jede Gruppe/jeder Breakout-
   * Erklären Sie bitte die einzelnen Prinzipien anhand einer erklärenden Graphik,
   * finden Sie ein positives Beispiel für die Anwendung des Prinzips (z.B. auf [$\rightarrow$ https://ourworldindata.org/](https://ourworldindata.org/) oder [$\rightarrow$ https://flowingdata.com/](https://flowingdata.com/)),
   * finden Sie ein Beispiel für eine Anwendung, die dieses Prinzip verletzt (z.B. auf [$\rightarrow$  https://viz.wtf/](https://viz.wtf/) )
+  * Führen Sie Ihre Ergebnisse in einer kurzen Präsentation zusammen (Dauer: ca. 8 Minuten)
 
 Im einzelnen sollen die folgenden Prinzipien erklärt werden:
 
