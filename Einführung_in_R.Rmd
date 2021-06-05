@@ -82,9 +82,25 @@ Auf die einzelnen Spalten kann man mit dem `$`-Operator zugreifen. Die Funktion 
 head(churn$CustomerID)
 ```
 
-
-
 # Datensätze verbinden
+
+Sehr häufig steht man vor der Aufgabe, zwei oder mehrere Datensätze anhand eines Schlüsselfelds zu verbinden. Aus SQL kennt man dafür die *join*-Operationen und genau diese Operationen stehen auch über entsprechende Funktionen in `dplyr` zur Verfügung. Im Unterschied zu SQL, kann man in `dplyr` derzeit nur sog. *Equi-Joins* durchführen, d.h. Joins, bei denen die Werte der Schlüsselfelder gleich sind. Man muss sich dann hier mit Hilfsfeldern, s. unten bei *Datensätze transformieren*, behelfen. Im folgenden Beispiel wird zunächst ein weiterer Datensatz geladen und anschließend wird ein *inner join* durchgeführt:
+
+```{r}
+status <- read_xlsx("data/Telco_customer_churn_status.xlsx")
+
+ch <- churn %>% inner_join(status, by = c("CustomerID" = "Customer ID"))
+
+names(ch)
+```
+
+An diesem Beispiel kann man mehrere Dinge sehen:
+
+1. Die Schlüsselfelder heißen in den zwei Datensätzen verschieden: Der Parameter `by` bekommt einen Vektor (konstruiert durch die Funktion `c()`) übergeben, bei dem der Join-Schlüssel des linken Datensatzes der Feldname `CustomerID` ist und der Join-Schlüssel des rechten Datensatzes dessen Wert `Customer ID` entspricht.
+1. Sind in den Datensätzen gleichnamige Felder enthalten, bekommen diese im Ergebnisdatensatz ein Suffix, das standardmäßig `.x` für den linken und `.y` für den rechten Datensatz ist.
+
+Neben `inner_join`, stehen auch `left_join`, `right_join`, `outer_join` und `anti_join` zur Verfühung. Letzteres entfernt Datensätze aus dem linken Datensatz, für die das Joinkriterium zutrifft.
+
 
 # Daten sichten, sortieren und filtern
 
@@ -143,6 +159,30 @@ Das obige Statement führt drei Transformationen durch:
 1. die Spalte `Phone Service` wird umgewandelt von einer *Yes/No*-Codierung der Kategorie in eine numerische 1/0-Codierung. Damit kann dann später leichter gerechnet werden. Hilfreich ist hierbei die `if_else`-Funktion, die (ähnlich wie in Excel) eine if-else-Verzweigung als Funktion anbietet.
 
 # Daten aggregieren
+
+Aus SQL sind Aggregatfunktionen wie `count`, `mean`, `max` usw. bekannt, die entsprechende Kennzahlen (zumeist) auf gruppierten Daten ausrechnen. Ähnlich funktioniert dies mit `dplyr`:
+```{r}
+churn %>% 
+  group_by(City) %>%
+  summarise(N = n(), AVG_CHARGE = mean(`Total Charges`), N_ZIP = n_distinct(`Zip Code`)) %>%
+  arrange(desc(N)) %>% 
+  head(10)
+```
+
+Hier werden die Daten des `churn`-Datensatzes zunächst nach dem Merkmal `City` gruppiert und anschließend werden über die Funktion `summarise` verschiedene Aggregate bestimmt. Die Funktion `n()` bestimmt die Zahl der Datensätze, die Funktion `mean` den Mittelwert des Merkmals `Total Charge` (also einen mittleren Rechnungsbetrag) und mit `n_distinct` wird die Zahl der verschiedenen Postleitzahlen pro Gruppe, d.h. `City`, bestimmt: `n_distinct` zählt also Duplikate nicht mit. Weitere wichtige Funktionen für Datenanalysen sind: `sd` (Standardabweichung), `var` (Varianz), `quantile` (berechnet über ein weiteres Argument verschiedene Quantile), `median` für den Median. 
+
+Was leicht passieren kann: Anstelle von `summarise` (oder auch `summarize`) schreibt man aus Versehen `summary` (wie oben): Syntaktisch nicht falsch, aber das Ergebnis ist nicht wie erwartet.
+
+Man kann auch, wie in SQL, über mehrere Merkmale gruppieren:
+```{r}
+churn %>% 
+  group_by(City, `Zip Code`) %>%
+  summarise(N = n(), AVG_CHARGE = mean(`Total Charges`)) %>%
+  arrange(desc(N)) %>% 
+  head(10)
+
+```
+
 
 # Visualisieren
 
