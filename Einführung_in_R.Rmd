@@ -186,6 +186,44 @@ churn %>%
 
 # Visualisieren
 
+Für einfache Diagramme zur schnellen Prüfung von Zusammenhängen bieten sich die R-Funktionen `plot` für Scatterplots und `hist` für Histogramme an. Einige weitere Pakete bieten auch `plot`-Funktionen an, so dass es sehr oft die Möglichkeit gibt, Daten oder eine Struktur (bspw. ein Entscheidungsbaum) mittels `plot` zu visualisieren. Die konkrete Syntax kann über `?plot` bzw. `?hist` nachgeschlagen werden.
+
+Die Standard-Graphiken erreichen nicht den Anspruch für Veröffentlichungen (Dokumentation, Präsentation). Dafür sollte man auf andere Pakete zurückgreifen, bspw. `ggplot2`, `plotly` oder `highcharter`. Zu `tidyverse` gehört `ggplot2`, wobei das `gg` für *grammar of graphics* steht und auf ein Buch von Leland Wilkinson, *The Grammar of Graphics*, zurückgeht. Die Idee dahinter ist es, Graphiken ähnlich wie Sätze aus einzelnen Elementen nach bestimmten Regeln zusammenstellen und auf diese Weise Daten bzw. Werte visuellen Eigenschaften wie Farbe, Form, Position usw. zuzuweisen.
+
+`ggplot2` ist ein sehr mächtiges Paket und ich kann hier nicht die ganzen Möglichkeiten darstellen: Ein Blick auf das `ggplot2`-Cheatsheet verschafft aber schon einen guten Überblick. Wichtig sind die Funktionen `ggplot` für das Festlegen der hauptsächlichen Datenzuordnung, `aes` für die Zuordnung von Merkmalen zu wesentlichen visuellen Attributen und die verschiedenen `geom_*`-Funktionen für die Chartform. Es gibt daneben noch zahlreiche weitere Funktionen für die Gestaltung von Achsen, Beschriftungen, Legenden usw.
+
+Beispiele für die Erstellung von Graphiken finden sich auch in den Vorlesungsunterlagen. An dieser Stelle daher ein Beispiel, das Datenaufbereitung mit Graphikausgabe verbindet. Die Bedeutung der Zeilen wird durch Kommentare im Code erklärt:
+```{r}
+churn %>% 
+  group_by(City) %>% 
+  summarise(MITTLERE_RECHNUNG = mean(`Total Charges`), 
+            MEDIAN_RECHNUNG = median(`Total Charges`)) %>% 
+  filter(MITTLERE_RECHNUNG > 2000) %>%
+  # nur die bzgl. des Merkmales MITTLERE_RECHNUNG 20 höchsten Datensätze nehmen:
+  top_n(n = 20, wt = MITTLERE_RECHNUNG) %>%  
+  # Start der Graphik und Zuordnung der wesentlichen Attribute: x entspricht der unabh. Variablen
+  # und die unabh. Werte werden umsortiert entsprechend des Merkmales MITTLERE_RECHNUNG:
+  ggplot(aes(x = reorder(City, MITTLERE_RECHNUNG))) + # Zusammensetzen der Graphik mit '+'
+  # Säulendiagramm für die mittlere Rechnungshöhe. Die Füllfarbe ist nicht datenabhängig und wird 
+  # daher außerhalb der aes-Funktion gesetzt:
+  geom_col(aes(y = MITTLERE_RECHNUNG), fill = "darkgreen") + 
+  # Punkt in Form von gelben Rauten für den Medianwert:
+  geom_point(aes(y = MEDIAN_RECHNUNG), shape = "diamond", color = "yellow") +
+  # Ein Texthinweis zur Erklärung der Medianwerte, Koordinaten hart codiert:
+  annotate(geom = "label", x = "Piercy", y = 6500, label = "Median", vjust = 0) +
+  # Vertauschen von x und y-Achse gegenüber der normalen Darstellung:
+  coord_flip() + 
+  # Beschriftungen:
+  labs(title = "Mittlere Rechnungshöhe pro Stadt", subtitle = "für mittlere Rechnungshöhe > 2000",
+       x = "Stadt", y = "mittlere Rechnungshöhe") +
+  # Weitere Formatierungen, hier des Chart-Hintergrunds:
+  theme(panel.background = element_rect(fill = "darkgray"))
+  
+```
+
+
+
+
 # Modellierung
 
 ---
