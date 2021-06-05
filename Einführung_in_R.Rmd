@@ -1,7 +1,9 @@
 ---
 title: "Eine kleine Einführung in die Datenanalyse mit R"
+subtitle: <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 author: "Dr.-Ing. Andreas Cardeneo"
-date: "Mai - Juni 2021"
+email: "andreas.cardeneo@lehre.dhbw-stuttgart.de"
+date: "`r as.Date(fs::file_info(knitr::current_input())$change_time)` (commit ID `r substr(system('git rev-parse HEAD', intern = TRUE), 1, 7)`)"
 output:
   html_document:
     df_print: paged
