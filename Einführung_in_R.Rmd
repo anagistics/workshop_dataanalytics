@@ -10,6 +10,21 @@ output:
   pdf_document: default
 ---
 
+```{css include=FALSE}
+.boxone {
+  padding: 1em;
+  background: lightblue;
+  color: black;
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+
+.center {
+  text-align: center;
+}
+```
+
+
 # Einführung
 
 Diese kleine Einführung in R orientiert sich am bekannten Ablauf von Datenprojekten:
@@ -223,10 +238,82 @@ churn %>%
   
 ```
 
-
-
-
 # Modellierung
+
+In dieser Einführung wird ein Entscheidungsbaum mit Hilfe des Pakets `tree` berechnet. Konkret wird ein Klassifikationsmodell auf dem *churn*-Datensatz berechnet. Die abhängige Variable ist *Churn Value* und als unabhängige Variablen werden *Tenure Months*, *Internet Service*, *Phone Service* und *Monthly Charges* gewählt (das ist nicht unbedingt die beste Wahl, hier geht es aber nur um den Weg). 
+
+Zunächst ändere ich aber die Spaltennamen in Bezeichner, die sich auch ohne Anführungszeichen schreiben lassen und gültigen R Bezeichnern entsprechen:
+
+```{r}
+library(vctrs)
+
+names(churn) <- vec_as_names(names(churn), repair = "universal")
+```
+
+Für das Training des Modells wähle ich hier den einfacheren Einsatz und teile den Datensatz zufällig in einen Trainings- und einen Testdatensatz auf. Zusätzlich ändere ich die Textspalten in kategorielle Variablen (`factor` in R).
+
+```{r}
+mbase <- churn %>%
+  select(Churn.Value, Tenure.Months, Internet.Service, Phone.Service, Monthly.Charges) %>% 
+  mutate(INDICATOR = runif(n = nrow(.)),
+         CHURN = as.factor(Churn.Value),
+         INTERNET = as.factor(Internet.Service),
+         PHONE = as.factor(Phone.Service)) %>% 
+  select(-Internet.Service, -Phone.Service, -Churn.Value)
+
+train <- mbase %>% filter(INDICATOR > 0.2) %>% select(-INDICATOR)
+test <- mbase %>% filter(INDICATOR <= 0.2) %>% select(-INDICATOR)
+```
+
+Es gibt in R durchaus mehrere Pakete, die Frameworks für die Datenaufbereitung und Durchführung der Modellbildung für maschinelles Lernen bieten. Dort finden sich dann auch Funktionen zum direkten Aufteilen der Daten in Trainings- und Testmengen. Der oben gewählte Ansatz ist eine eher rudimentäre Lösung, die zunächst jedem Datensatz per `runif` eine gleichverteilte Zufallszahl zuordnet, um auf dieser dann im zweiten Schritt zu filtern.
+
+Im nächsten Schritt trainieren wir das Modell und rufen dazu geeignete Funktionen aus dem Paket `tree` auf:
+```{r}
+library(tree)
+
+model <- tree(CHURN ~ Tenure.Months + Monthly.Charges + INTERNET + PHONE,
+              data = train)
+```
+
+Eine erste Bewertung des Modells gibt hier die `summary`-Funktion, die u.a. die *Fehlklassifikationsrate* angibt:
+```{r}
+summary(model)
+```
+
+Mehr über den Entscheidungsbaum selbst läßt sich über eine Visualisierung erfahren:
+```{r}
+plot(model)
+text(model, pretty = 0)
+```
+
+Die Ausgabe ist nicht sonderlich hübsch, aber funktional (für *hübsch* gibt es, natürlich, noch andere Wege). Zu lesen ist jeder Entscheidungsknoten so: Die Bedingung steht an der Verzweigung und der linke Ast entspricht `TRUE` und der rechte `FALSE`. Bei *INTERNET: DSL, No* bedeutet also der rechte Ast, dass es um einen DSL-Anschluss geht (nicht *No*). 
+
+Um den Entscheidungsbaum aber richtig bewerten zu können, muss das Model am Testdatensatz beurteilt werden:
+```{r}
+pred <- predict(model, test, type = "class")
+```
+
+Anhand einer Konfusionsmatrix aus den bekannten Werte aus `test` mit den soeben vorhergesagten lässt sich die Güte des Modells und die Fähigkeit zur Generalisierung besser ableiten:
+
+```{r}
+table(test$CHURN, pred, dnn = c("Wahrheit", "Vorhersage"))
+```
+
+Man sieht, die Richtig-Negativ-Rate ist recht ordentlich, die Richtig-Positiv-Rate jedoch schlecht. Aus dieser Tabelle lassen sich jedenfalls die aus der Vorlesung bekannten Gütekriterien ermitteln. 
+
+<span class="center boxone">
+So viel zur Einführung in R mit einem Schwerpunkt auf die Inhalte meiner Veranstaltungen an der DHBW Stuttgart. 
+</span>
+
+---
+
+# Literatur & Quellen
+
+**[1]** Sebastian Sauer: Moderne Datenanalyse mit R, Springer Gabler, 2019
+
+**[2]** Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani: An Introduction to Statistical Learning with Applications in R, Springer, 2013. Online erhältlich unter [https://www.statlearning.com/](https://www.statlearning.com/).
+
+**[3]** Steven S. Skiena: The Data Science Design Manual, Springer, 2017
 
 ---
 # Online R lernen
